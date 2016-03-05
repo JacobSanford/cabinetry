@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.cabinetry_cabinet_project.body
-    - field.field.node.cabinetry_cabinet_project.field_test_add
+    - field.field.node.cabinetry_cabinet_project.field_cabinetry_description
     - node.type.cabinetry_cabinet_project
   module:
     - text
@@ -21,7 +21,12 @@ content:
     weight: 101
     settings: {  }
     third_party_settings: {  }
+  field_cabinetry_description:
+    weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
   links:
     weight: 100
-hidden:
-  field_test_add: true
+hidden: {  }

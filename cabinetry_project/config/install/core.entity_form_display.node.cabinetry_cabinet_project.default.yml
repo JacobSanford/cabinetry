@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.cabinetry_cabinet_project.body
-    - field.field.node.cabinetry_cabinet_project.field_test_add
+    - field.field.node.cabinetry_cabinet_project.field_cabinetry_description
     - node.type.cabinetry_cabinet_project
   module:
     - path
@@ -28,6 +28,13 @@ content:
     weight: 10
     settings: {  }
     third_party_settings: {  }
+  field_cabinetry_description:
+    weight: 32
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
   path:
     type: path
     weight: 30
@@ -60,5 +67,4 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden:
-  field_test_add: true
+hidden: {  }

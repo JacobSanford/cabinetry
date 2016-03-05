@@ -4,7 +4,6 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.cabinetry_cabinet_project.body
-    - field.field.node.cabinetry_cabinet_project.field_test_add
     - node.type.cabinetry_cabinet_project
   module:
     - text
@@ -25,5 +24,4 @@ content:
     third_party_settings: {  }
   links:
     weight: 100
-hidden:
-  field_test_add: true
+hidden: {  }
