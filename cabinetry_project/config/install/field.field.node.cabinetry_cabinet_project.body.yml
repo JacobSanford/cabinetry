@@ -6,6 +6,8 @@ dependencies:
     - node.type.cabinetry_cabinet_project
   module:
     - text
+_core:
+  default_config_hash: ICF9YJ9d-iTvOa0BCc8S7Keg24iMOp2ydJ-DTpNdSls
 id: node.cabinetry_cabinet_project.body
 field_name: body
 entity_type: node

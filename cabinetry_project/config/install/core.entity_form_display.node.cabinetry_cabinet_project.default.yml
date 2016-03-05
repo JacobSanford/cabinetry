@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.cabinetry_cabinet_project.body
-    - field.field.node.cabinetry_cabinet_project.field_cabinetry_description
+    - field.field.node.cabinetry_cabinet_project.field_test_add
     - node.type.cabinetry_cabinet_project
   module:
     - path
@@ -61,4 +61,4 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
-  field_cabinetry_description: true
+  field_test_add: true
