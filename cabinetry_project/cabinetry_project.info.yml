@@ -1,0 +1,8 @@
+name: 'Cabinetry Project'
+description: 'Cabinetry Project'
+type: module
+core: 8.x
+dependencies:
+  - node
+version: 8.x-1.0
+package: Cabinetry

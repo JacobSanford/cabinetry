@@ -1,0 +1,8 @@
+bundle: cabinetry
+required:
+  - core.base_field_override.node.cabinetry_cabinet_project.title
+  - node.type.cabinetry_cabinet_project
+  - core.entity_form_display.node.cabinetry_cabinet_project.default
+  - core.entity_view_display.node.cabinetry_cabinet_project.default
+  - core.entity_view_display.node.cabinetry_cabinet_project.teaser
+  - field.field.node.cabinetry_cabinet_project.body
