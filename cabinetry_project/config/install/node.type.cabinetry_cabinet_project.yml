@@ -8,6 +8,8 @@ third_party_settings:
     available_menus:
       - main
     parent: 'main:'
+_core:
+  default_config_hash: kYHuLz6qGSiP86HBdjRlnmw_krYOmNO2J76DiZ62tDo
 name: 'Cabinetry Cabinet Project'
 type: cabinetry_cabinet_project
 description: 'Cabinet Project'

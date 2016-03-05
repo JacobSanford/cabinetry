@@ -3,6 +3,12 @@ description: 'Cabinetry Project'
 type: module
 core: 8.x
 dependencies:
+  - cabinetry_project
+  - field
+  - menu_ui
   - node
+  - path
+  - text
+  - user
 version: 8.x-1.0
 package: Cabinetry

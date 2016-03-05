@@ -3,10 +3,13 @@ status: true
 dependencies:
   config:
     - field.field.node.cabinetry_cabinet_project.body
+    - field.field.node.cabinetry_cabinet_project.field_cabinetry_description
     - node.type.cabinetry_cabinet_project
   module:
     - text
     - user
+_core:
+  default_config_hash: 6CE9l0ecZtk0sqheakVvm_OocS9iE9LrnL71E0lQNlw
 id: node.cabinetry_cabinet_project.default
 targetEntityType: node
 bundle: cabinetry_cabinet_project
@@ -20,4 +23,5 @@ content:
     third_party_settings: {  }
   links:
     weight: 100
-hidden: {  }
+hidden:
+  field_cabinetry_description: true
