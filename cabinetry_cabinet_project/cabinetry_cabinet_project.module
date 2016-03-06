@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Cabinetry Cabinet Project feature.
+ */
+
+include_once 'cabinetry_cabinet_project.features.inc';
