@@ -3,6 +3,7 @@ description = Cabinet Project
 core = 7.x
 package = Cabinetry
 version = 7.x-1.0
+dependencies[] = cabinetry_core
 dependencies[] = ctools
 dependencies[] = features
 dependencies[] = field_collection
