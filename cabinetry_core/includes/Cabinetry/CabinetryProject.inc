@@ -30,13 +30,6 @@ class CabinetryProject {
   public $hardware = array();
 
   /**
-   * An array of CabinetryEdgeBanding objects comprising this project.
-   *
-   * @var array
-   */
-  public $banding = array();
-
-  /**
    * Constructor.
    */
   public function __construct() {
@@ -45,6 +38,11 @@ class CabinetryProject {
 
   public function addComponent($component) {
     $this->components[] = $component;
+    $this->addPieces($component->pieces);
+  }
+
+  public function addPieces($pieces_array) {
+    $this->pieces = array_merge($this->pieces, $pieces_array);
   }
 
 }
