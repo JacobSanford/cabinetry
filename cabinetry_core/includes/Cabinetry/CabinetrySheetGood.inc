@@ -9,13 +9,6 @@
  */
 class CabinetrySheetGood {
   /**
-   * A numeric id to serve as a UUID within the project.
-   *
-   * @var int
-   */
-  public $id = NULL;
-
-  /**
    * A label describing the piece and its role.
    *
    * @var string
@@ -44,30 +37,13 @@ class CabinetrySheetGood {
   public $height = 0.0;
 
   /**
-   * The material type of the piece.
-   *
-   * @var string
-   */
-  public $material = NULL;
-
-  /**
-   * Any special notes or comments related to this piece.
-   *
-   * @var string
-   */
-  public $notes = NULL;
-
-  /**
    * Constructor.
    */
-  public function __construct($id, $label, $thickness, $width, $height, $material, $notes) {
-    $this->id = $id;
+  public function __construct($label, $thickness, $width, $height) {
     $this->label = $label;
     $this->thickness = $thickness;
     $this->width = $width;
     $this->height = $height;
-    $this->material = $material;
-    $this->notes = $notes;
   }
 
 }

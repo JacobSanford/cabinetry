@@ -43,4 +43,8 @@ class CabinetryProject {
 
   }
 
+  public function addComponent($component) {
+    $this->components[] = $component;
+  }
+
 }

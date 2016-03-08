@@ -4,8 +4,31 @@
  * Code for the Cabinetry Cabinet Project feature.
  */
 
-function _cabinetry_core_boostrap() {
-  foreach (glob("includes/Cabinetry/*.inc") as $filename) {
-    require_once $filename;
+/**
+ * Bootstrap cabinetry_core object classes.
+ */
+function _cabinetry_core_bootstrap() {
+  spl_autoload_register(function ($class_name) {
+    $filename = DRUPAL_ROOT . '/' . drupal_get_path('module', 'cabinetry_core') . "/includes/Cabinetry/$class_name.inc";
+    if (file_exists($filename)) {
+      include "$filename";
+    }
+  });
+}
+
+function _cabinetry_core_load_sheet_good_object($tid) {
+  return new CabinetrySheetGood(
+    _cabinetry_core_get_term_field($tid, 'name'),
+    _cabinetry_core_get_term_field($tid, 'field_cabinetry_thickness'),
+    _cabinetry_core_get_term_field($tid, 'field_cabinetry_width'),
+    _cabinetry_core_get_term_field($tid, 'field_cabinetry_height')
+  );
+}
+
+function _cabinetry_core_get_term_field($tid, $field_name) {
+  $term_wrapper = entity_metadata_wrapper('taxonomy_term', taxonomy_term_load($tid));
+  if (!empty($term_wrapper->$field_name->value())) {
+    return $term_wrapper->$field_name->value();
   }
+  return NULL;
 }

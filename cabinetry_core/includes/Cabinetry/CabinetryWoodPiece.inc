@@ -9,9 +9,9 @@
  */
 class CabinetryWoodPiece {
   /**
-   * A numeric id to serve as a UUID within the project.
+   * An optional ID given to this component.
    *
-   * @var int
+   * @var string
    */
   public $id = NULL;
 

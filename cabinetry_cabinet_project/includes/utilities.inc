@@ -17,7 +17,7 @@
  * @return bool
  *   TRUE if $number is divisible by $value, FALSE if unset.
  */
-function cabinetry_cabinet_project_float_evenly_divisible($number, $value) {
+function _cabinetry_cabinet_project_float_evenly_divisible($number, $value) {
   if (fmod((float) $number, (float) $value) != 0) {
     return FALSE;
   }
