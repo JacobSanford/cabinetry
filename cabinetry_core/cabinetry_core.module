@@ -3,3 +3,9 @@
  * @file
  * Code for the Cabinetry Cabinet Project feature.
  */
+
+function _cabinetry_core_boostrap() {
+  foreach (glob("includes/Cabinetry/*.inc") as $filename) {
+    require_once $filename;
+  }
+}

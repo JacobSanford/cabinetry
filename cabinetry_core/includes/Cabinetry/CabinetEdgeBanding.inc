@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * Provides a object to serve as edge banding type within a cabinet project.
+ * Provides a object to serve as edge banding type within a cabinetry project.
  */
 
 /**
- * A generic object to serve as edge banding type in a cabinet project.
+ * A generic object to serve as edge banding type in a cabinetry project.
  */
-class CabinetEdgeBanding {
+class CabinetryEdgeBanding {
   /**
    * The material of the item.
    *

@@ -5,9 +5,9 @@
  */
 
 /**
- * A generic object to serve as hardware item in a cabinet project.
+ * A generic object to serve as hardware item in a cabinetry project.
  */
-class CabinetHardwareItem {
+class CabinetryHardwareItem {
   /**
    * The name of the item.
    *

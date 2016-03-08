@@ -1,36 +1,36 @@
 <?php
 /**
  * @file
- * Provides a generic object to serve as top element of a cabinet project.
+ * Provides a generic object to serve as top element of a cabinetry project.
  */
 
 /**
- * A generic object to serve as top element of a cabinet project.
+ * A generic object to serve as top element of a cabinetry project.
  */
-class CabinetProject {
+class CabinetryProject {
   /**
-   * An array of CabinetComponent objects comprising this project.
+   * An array of CabinetryComponent objects comprising this project.
    *
    * @var array
    */
   public $components = array();
 
   /**
-   * An array of CabinetWoodPiece objects needed to build this project.
+   * An array of CabinetryWoodPiece objects needed to build this project.
    *
    * @var array
    */
   public $pieces = array();
 
   /**
-   * An array of CabinetHardwareItem objects comprising this project.
+   * An array of CabinetryHardwareItem objects comprising this project.
    *
    * @var array
    */
   public $hardware = array();
 
   /**
-   * An array of CabinetEdgeBanding objects comprising this project.
+   * An array of CabinetryEdgeBanding objects comprising this project.
    *
    * @var array
    */
