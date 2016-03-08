@@ -46,7 +46,7 @@ class CabinetryWoodPiece {
   /**
    * The material type of the piece.
    *
-   * @var string
+   * @var object
    */
   public $material = NULL;
 

@@ -110,7 +110,7 @@ class BasicEuroCabinet extends CabinetryComponent {
         $this->carcassSheetGood->thickness,
         $this->carcassInnerWidth - 6.0,
         $this->depth - 6.0,
-        $this->carcassSheetGood->label,
+        $this->carcassSheetGood,
         ''
       );
       $this->addBanding($this->carcassSheetGood->thickness, $this->carcassInnerWidth - 6.0);
@@ -127,7 +127,7 @@ class BasicEuroCabinet extends CabinetryComponent {
       $this->carcassSheetGood->thickness,
       $this->height,
       $this->depth,
-      $this->carcassSheetGood->label,
+      $this->carcassSheetGood,
       "Cut {$dado_depth}mm Deep Dado {$this->carcassSheetGood->thickness}mm from long side on one side."
     );
     $this->addBanding($this->carcassSheetGood->thickness, $this->height);
@@ -141,7 +141,7 @@ class BasicEuroCabinet extends CabinetryComponent {
       $this->carcassSheetGood->thickness,
       $this->carcassInnerWidth,
       $this->depth,
-      $this->carcassSheetGood->label,
+      $this->carcassSheetGood,
       ''
     );
     $this->addBanding($this->carcassSheetGood->thickness, $this->carcassInnerWidth);
@@ -157,7 +157,7 @@ class BasicEuroCabinet extends CabinetryComponent {
       $this->backSheetGood->thickness,
       $this->height,
       $this->carcassInnerWidth + 2 * $dado_depth,
-      $this->backSheetGood->label,
+      $this->backSheetGood,
       ''
     );
   }
@@ -171,7 +171,7 @@ class BasicEuroCabinet extends CabinetryComponent {
         $this->carcassSheetGood->thickness,
         $this->carcassInnerWidth,
         75,
-        $this->carcassSheetGood->label,
+        $this->carcassSheetGood,
         ''
       );
     }
@@ -186,10 +186,10 @@ class BasicEuroCabinet extends CabinetryComponent {
 
   protected function addBanding($width, $amount) {
     if (!array_key_exists($width, $this->banding)) {
-      $this->banding[$width] = $amount;
+      $this->banding[$this->carcassSheetGood->label] = $amount;
     }
     else {
-      $this->banding[$width] += $amount;
+      $this->banding[$this->carcassSheetGood->label] += $amount;
     }
   }
 
