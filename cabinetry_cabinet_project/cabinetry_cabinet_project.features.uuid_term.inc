@@ -17,13 +17,6 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => '0009dab1-c1a3-41f3-8346-be904463f815',
     'vocabulary_machine_name' => 'cabinetry_sheet_goods',
-    'field_cabinetry_width' => array(
-      'und' => array(
-        0 => array(
-          'value' => 2465,
-        ),
-      ),
-    ),
     'field_cabinetry_height' => array(
       'und' => array(
         0 => array(
@@ -31,13 +24,7 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_cabinetry_thickness' => array(
-      'und' => array(
-        0 => array(
-          'value' => 19.3,
-        ),
-      ),
-    ),
+    'field_cabinetry_item_cost' => array(),
     'field_cabinetry_sheet_core' => array(
       'und' => array(
         0 => array(
@@ -47,7 +34,20 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     ),
     'field_cabinetry_sheet_veneer_one' => array(),
     'field_cabinetry_sheet_veneer_two' => array(),
-    'field_cabinetry_item_cost' => array(),
+    'field_cabinetry_thickness' => array(
+      'und' => array(
+        0 => array(
+          'value' => 19.3,
+        ),
+      ),
+    ),
+    'field_cabinetry_width' => array(
+      'und' => array(
+        0 => array(
+          'value' => 2465,
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Basic European Cabinet',
@@ -98,13 +98,6 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => '73a4786b-cb44-4eb9-a95e-7412c0a89b5f',
     'vocabulary_machine_name' => 'cabinetry_sheet_goods',
-    'field_cabinetry_width' => array(
-      'und' => array(
-        0 => array(
-          'value' => 2465,
-        ),
-      ),
-    ),
     'field_cabinetry_height' => array(
       'und' => array(
         0 => array(
@@ -112,13 +105,7 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_cabinetry_thickness' => array(
-      'und' => array(
-        0 => array(
-          'value' => 16.8,
-        ),
-      ),
-    ),
+    'field_cabinetry_item_cost' => array(),
     'field_cabinetry_sheet_core' => array(
       'und' => array(
         0 => array(
@@ -140,7 +127,20 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_cabinetry_item_cost' => array(),
+    'field_cabinetry_thickness' => array(
+      'und' => array(
+        0 => array(
+          'value' => 16.8,
+        ),
+      ),
+    ),
+    'field_cabinetry_width' => array(
+      'und' => array(
+        0 => array(
+          'value' => 2465,
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'MDF',
@@ -157,13 +157,6 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => 'aef00698-5a82-485d-9519-941b8ed42ff7',
     'vocabulary_machine_name' => 'cabinetry_sheet_goods',
-    'field_cabinetry_width' => array(
-      'und' => array(
-        0 => array(
-          'value' => 2447,
-        ),
-      ),
-    ),
     'field_cabinetry_height' => array(
       'und' => array(
         0 => array(
@@ -171,13 +164,7 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_cabinetry_thickness' => array(
-      'und' => array(
-        0 => array(
-          'value' => 6,
-        ),
-      ),
-    ),
+    'field_cabinetry_item_cost' => array(),
     'field_cabinetry_sheet_core' => array(
       'und' => array(
         0 => array(
@@ -199,7 +186,20 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_cabinetry_item_cost' => array(),
+    'field_cabinetry_thickness' => array(
+      'und' => array(
+        0 => array(
+          'value' => 6,
+        ),
+      ),
+    ),
+    'field_cabinetry_width' => array(
+      'und' => array(
+        0 => array(
+          'value' => 2447,
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'White Birch',
@@ -255,13 +255,6 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => 'f1457487-ea01-4f59-9b73-b45a4e72d6b6',
     'vocabulary_machine_name' => 'cabinetry_sheet_goods',
-    'field_cabinetry_width' => array(
-      'und' => array(
-        0 => array(
-          'value' => 2440,
-        ),
-      ),
-    ),
     'field_cabinetry_height' => array(
       'und' => array(
         0 => array(
@@ -269,13 +262,7 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_cabinetry_thickness' => array(
-      'und' => array(
-        0 => array(
-          'value' => 6,
-        ),
-      ),
-    ),
+    'field_cabinetry_item_cost' => array(),
     'field_cabinetry_sheet_core' => array(
       'und' => array(
         0 => array(
@@ -291,7 +278,20 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
       ),
     ),
     'field_cabinetry_sheet_veneer_two' => array(),
-    'field_cabinetry_item_cost' => array(),
+    'field_cabinetry_thickness' => array(
+      'und' => array(
+        0 => array(
+          'value' => 6,
+        ),
+      ),
+    ),
+    'field_cabinetry_width' => array(
+      'und' => array(
+        0 => array(
+          'value' => 2440,
+        ),
+      ),
+    ),
   );
   return $terms;
 }

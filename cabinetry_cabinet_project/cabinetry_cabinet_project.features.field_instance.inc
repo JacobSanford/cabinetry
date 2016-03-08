@@ -137,7 +137,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 8,
+        'tid' => 11,
       ),
     ),
     'deleted' => 0,
@@ -211,7 +211,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 9,
+        'tid' => 5,
       ),
     ),
     'deleted' => 0,
@@ -247,7 +247,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 1,
+        'tid' => 2,
       ),
     ),
     'deleted' => 0,
@@ -281,7 +281,11 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   // 'field_collection_item-field_cabinetry_project_componen-field_cabinetry_depth'.
   $field_instances['field_collection_item-field_cabinetry_project_componen-field_cabinetry_depth'] = array(
     'bundle' => 'field_cabinetry_project_componen',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 576,
+      ),
+    ),
     'deleted' => 0,
     'description' => 'Enter the depth of the carcass (without doors), in mm.',
     'display' => array(
@@ -448,7 +452,11 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   // 'field_collection_item-field_cabinetry_project_componen-field_cabinetry_door_panel_under'.
   $field_instances['field_collection_item-field_cabinetry_project_componen-field_cabinetry_door_panel_under'] = array(
     'bundle' => 'field_cabinetry_project_componen',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => '2.0',
+      ),
+    ),
     'deleted' => 0,
     'description' => 'Enter the amount (on each side) to undersize the door panels to allow for fitting and expansion, in mm.
 ',
@@ -580,7 +588,11 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   // 'field_collection_item-field_cabinetry_project_componen-field_cabinetry_height'.
   $field_instances['field_collection_item-field_cabinetry_project_componen-field_cabinetry_height'] = array(
     'bundle' => 'field_cabinetry_project_componen',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => '768.0',
+      ),
+    ),
     'deleted' => 0,
     'description' => 'Enter the outer height of the carcass, in mm.',
     'display' => array(
@@ -703,7 +715,11 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   // 'field_collection_item-field_cabinetry_project_componen-field_cabinetry_width'.
   $field_instances['field_collection_item-field_cabinetry_project_componen-field_cabinetry_width'] = array(
     'bundle' => 'field_cabinetry_project_componen',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => '480.0',
+      ),
+    ),
     'deleted' => 0,
     'description' => 'Enter the outer width of the carcass, in mm.',
     'display' => array(
