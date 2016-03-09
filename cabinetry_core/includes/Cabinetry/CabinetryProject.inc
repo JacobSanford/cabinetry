@@ -31,11 +31,11 @@ class CabinetryProject {
   public $hardware = array();
 
   /**
-   * An array of CabinetryWoodPiece objects needed to build this project.
+   * An array of CabinetryWoodPart objects needed to build this project.
    *
    * @var array
    */
-  public $pieces = array();
+  public $parts = array();
 
   /**
    * Constructor.
@@ -77,17 +77,17 @@ class CabinetryProject {
    */
   public function addComponent($component) {
     $this->components[] = $component;
-    $this->addPieces($component->pieces);
+    $this->addParts($component->parts);
   }
 
   /**
-   * Add additional pieces to this project.
+   * Add additional parts to this project.
    *
-   * @param array $pieces_array
-   *   An array of CabinetryWoodPiece objects.
+   * @param array $parts_array
+   *   An array of CabinetryWoodPart objects.
    */
-  protected function addPieces(array $pieces_array) {
-    $this->pieces = array_merge($this->pieces, $pieces_array);
+  protected function addParts(array $parts_array) {
+    $this->parts = array_merge($this->parts, $parts_array);
   }
 
 }

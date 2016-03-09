@@ -62,7 +62,7 @@ class BasicEuroCabinet extends CabinetryComponent {
   }
 
   /**
-   * Build the cabinet and determine pieces required.
+   * Build the cabinet and determine parts required.
    *
    * @param array $cabinet_component
    *   An associative array obtained from iterating over the proprietary values
@@ -83,23 +83,23 @@ class BasicEuroCabinet extends CabinetryComponent {
         $divisions_array[] = (float) $ratio_value['value'];
       }
     }
-    $this->setNumDivisions($divisions_array);
-    $this->generatePieces();
+    $this->setDivisions($divisions_array);
+    $this->generateParts();
   }
 
   /**
-   * Generate pieces required to build this cabinet configuration.
+   * Generate parts required to build this cabinet configuration.
    */
-  protected function generatePieces() {
-    $this->pieces = array();
+  protected function generateParts() {
+    $this->parts = array();
     $this->setInnerWidth();
-    $this->generateShelfPieces();
-    $this->generateSidePiece('Left');
-    $this->generateSidePiece('Right');
-    $this->generateTopBottomPiece('Top');
-    $this->generateTopBottomPiece('Bottom');
-    $this->generateBackPiece();
-    $this->generateDividerPieces();
+    $this->generateShelfParts();
+    $this->generateSidePart('Left');
+    $this->generateSidePart('Right');
+    $this->generateTopBottomPart('Top');
+    $this->generateTopBottomPart('Bottom');
+    $this->generateBackPart();
+    $this->generateDividerParts();
     $this->generateNailers();
   }
 
@@ -179,22 +179,22 @@ class BasicEuroCabinet extends CabinetryComponent {
   /**
    * Generate the vertical dividers for the caracass.
    */
-  protected function generateDividerPieces() {
+  protected function generateDividerParts() {
     for ($divider_id = 0; $divider_id < count($this->divisions) - 1; $divider_id++) {
-      $this->generateTopBottomPiece("Section $divider_id Divider");
+      $this->generateTopBottomPart("Section $divider_id Divider");
     }
   }
 
   /**
    * Generate the back panel for the caracass.
    */
-  protected function generateBackPiece() {
-    $new_piece_id = count($this->pieces);
+  protected function generateBackPart() {
+    $new_part_id = count($this->parts);
     $dado_depth = round($this->carcassSheetGood->thickness / 2, 1);
 
-    $this->pieces[] = new CabinetryWoodPiece(
-      $new_piece_id,
-      "[#$new_piece_id] Cabinet {$this->id} Back Piece",
+    $this->parts[] = new CabinetryWoodPart(
+      $new_part_id,
+      "[#$new_part_id] Cabinet {$this->id} Back Part",
       $this->backSheetGood->thickness,
       $this->height,
       $this->carcassInnerWidth + 2 * $dado_depth,
@@ -208,10 +208,10 @@ class BasicEuroCabinet extends CabinetryComponent {
    */
   protected function generateNailers() {
     for ($nailerid = 0; $nailerid < 2; $nailerid++) {
-      $new_piece_id = count($this->pieces);
-      $this->pieces[] = new CabinetryWoodPiece(
-        $new_piece_id,
-        "[#$new_piece_id] Cabinet {$this->id} Nailer",
+      $new_part_id = count($this->parts);
+      $this->parts[] = new CabinetryWoodPart(
+        $new_part_id,
+        "[#$new_part_id] Cabinet {$this->id} Nailer",
         $this->carcassSheetGood->thickness,
         $this->carcassInnerWidth,
         75,
@@ -222,14 +222,14 @@ class BasicEuroCabinet extends CabinetryComponent {
   }
 
   /**
-   * Generate the CabinetryWoodPiece shelves for this cabinet.
+   * Generate the CabinetryWoodPart shelves for this cabinet.
    */
-  protected function generateShelfPieces() {
+  protected function generateShelfParts() {
     for ($shelfid = 0; $shelfid < $this->numShelves; $shelfid++) {
-      $new_piece_id = count($this->pieces);
-      $this->pieces[] = new CabinetryWoodPiece(
-        $new_piece_id,
-        "[#$new_piece_id] Cabinet {$this->id} Shelf",
+      $new_part_id = count($this->parts);
+      $this->parts[] = new CabinetryWoodPart(
+        $new_part_id,
+        "[#$new_part_id] Cabinet {$this->id} Shelf",
         $this->carcassSheetGood->thickness,
         $this->carcassInnerWidth - 6.0,
         $this->depth - 6.0,
@@ -246,13 +246,13 @@ class BasicEuroCabinet extends CabinetryComponent {
    * @param string $side_label
    *   The label string to identify the side (Left, Right).
    */
-  protected function generateSidePiece($side_label) {
-    $new_piece_id = count($this->pieces);
+  protected function generateSidePart($side_label) {
+    $new_part_id = count($this->parts);
     $dado_depth = round($this->carcassSheetGood->thickness / 2, 1);
 
-    $this->pieces[] = new CabinetryWoodPiece(
-      $new_piece_id,
-      "[#$new_piece_id] Cabinet {$this->id} $side_label Side Piece",
+    $this->parts[] = new CabinetryWoodPart(
+      $new_part_id,
+      "[#$new_part_id] Cabinet {$this->id} $side_label Side Part",
       $this->carcassSheetGood->thickness,
       $this->height,
       $this->depth,
@@ -268,11 +268,11 @@ class BasicEuroCabinet extends CabinetryComponent {
    * @param string $side_label
    *   The label string to identify the side (Top, Bottom).
    */
-  protected function generateTopBottomPiece($side_label) {
-    $new_piece_id = count($this->pieces);
-    $this->pieces[] = new CabinetryWoodPiece(
-      $new_piece_id,
-      "[#$new_piece_id] Cabinet {$this->id} $side_label Piece",
+  protected function generateTopBottomPart($side_label) {
+    $new_part_id = count($this->parts);
+    $this->parts[] = new CabinetryWoodPart(
+      $new_part_id,
+      "[#$new_part_id] Cabinet {$this->id} $side_label Part",
       $this->carcassSheetGood->thickness,
       $this->carcassInnerWidth,
       $this->depth,

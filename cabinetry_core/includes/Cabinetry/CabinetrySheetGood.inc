@@ -16,21 +16,21 @@ class CabinetrySheetGood {
   public $label = NULL;
 
   /**
-   * The thickness (z) of the piece, in millimeters.
+   * The thickness (z) of the sheet good, in millimeters.
    *
    * @var float
    */
   public $thickness = 0.0;
 
   /**
-   * The width (x) of the piece, in millimeters.
+   * The width (x) of the sheet good, in millimeters.
    *
    * @var float
    */
   public $width = 0.0;
 
   /**
-   * The height (y) of the piece, in millimeters.
+   * The height (y) of the sheet good, in millimeters.
    *
    * @var float
    */

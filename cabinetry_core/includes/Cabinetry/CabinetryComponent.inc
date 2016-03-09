@@ -44,11 +44,11 @@ class CabinetryComponent {
   public $hardware = array();
 
   /**
-   * An array of CabinetryWoodPiece objects comprising this component.
+   * An array of CabinetryWoodPart objects comprising this component.
    *
-   * @var object CabinetryWoodPiece
+   * @var object CabinetryWoodPart
    */
-  public $pieces = array();
+  public $parts = array();
 
   /**
    * Constructor.

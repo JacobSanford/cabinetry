@@ -17,7 +17,7 @@ class CabinetryCabinetProject extends CabinetryProject {
    */
   public function addComponent($component) {
     $this->components[] = $component;
-    $this->addPieces($component->pieces);
+    $this->addParts($component->parts);
     $this->addBanding($component->banding);
   }
 
