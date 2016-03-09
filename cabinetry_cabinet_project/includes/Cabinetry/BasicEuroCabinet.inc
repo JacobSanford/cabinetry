@@ -1,11 +1,11 @@
 <?php
 /**
  * @file
- * Provides a generic object to serve as components within a cabinet project.
+ * Provides a generic object to serve as a basic european style cabinet.
  */
 
 /**
- * A generic object to serve as components within a cabinetry project.
+ * A generic object to serve as a basic european style cabinet.
  */
 class BasicEuroCabinet extends CabinetryComponent {
 
