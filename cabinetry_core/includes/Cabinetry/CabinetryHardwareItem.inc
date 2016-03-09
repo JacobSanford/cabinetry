@@ -26,7 +26,7 @@ class CabinetryHardwareItem {
    * Constructor.
    */
   public function __construct() {
-
+    // pass.
   }
 
 }

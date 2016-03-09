@@ -16,14 +16,14 @@ class CabinetryEdgeBanding {
   public $material = '';
 
   /**
-   * The width of the banding, in mm.
+   * The width of the banding, in millimeters.
    *
    * @var float
    */
   public $width = 0.0;
 
   /**
-   * The length of banding, in mm.
+   * The length of banding, in millimeters.
    *
    * @var float
    */
@@ -31,9 +31,26 @@ class CabinetryEdgeBanding {
 
   /**
    * Constructor.
+   *
+   * @param string $material
+   *   The edge banding material.
+   * @param string $width
+   *   The width of the sheet good the banding will be applied to, in
+   *   millimeters.
    */
-  public function __construct() {
+  public function __construct($material, $width) {
+    $this->material = $material;
+    $this->width = $width;
+  }
 
+  /**
+   * Add additional length to this type and width.
+   *
+   * @param float $length
+   *   The amount to add, in millimeters.
+   */
+  public function add($length) {
+    $this->length += $length;
   }
 
 }

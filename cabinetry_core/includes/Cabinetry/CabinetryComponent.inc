@@ -16,21 +16,21 @@ class CabinetryComponent {
   public $id = NULL;
 
   /**
-   * The outer width (x) of the component, in mm.
+   * The outer width (x) of the component, in millimeters.
    *
    * @var float
    */
   public $width = 0.0;
 
   /**
-   * The outer height (y) of the component, in mm.
+   * The outer height (y) of the component, in millimeters.
    *
    * @var float
    */
   public $height = 0.0;
 
   /**
-   * The depth (z) of the component, in mm.
+   * The depth (z) of the component, in millimeters.
    *
    * @var float
    */
@@ -51,14 +51,10 @@ class CabinetryComponent {
   public $pieces = array();
 
   /**
-   * An array of CabinetEdgeBanding objects comprising this component.
-   *
-   * @var array
-   */
-  public $banding = array();
-
-  /**
    * Constructor.
+   *
+   * @param string $id
+   *   An id, typically an integer to assign to this component.
    */
   public function __construct($id) {
     $this->id = $id;
@@ -66,6 +62,9 @@ class CabinetryComponent {
 
   /**
    * Set the component width.
+   *
+   * @param float $width
+   *   The width of this cabinet component, in millimeters.
    */
   public function setWidth($width) {
     $this->width = (float) $width;
@@ -73,6 +72,9 @@ class CabinetryComponent {
 
   /**
    * Set the component height.
+   *
+   * @param float $height
+   *   The height of this cabinet component, in millimeters.
    */
   public function setHeight($height) {
     $this->height = (float) $height;
@@ -80,6 +82,9 @@ class CabinetryComponent {
 
   /**
    * Set the component depth.
+   *
+   * @param float $depth
+   *   The depth of this cabinet component, in millimeters.
    */
   public function setDepth($depth) {
     $this->depth = (float) $depth;

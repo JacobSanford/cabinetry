@@ -9,7 +9,7 @@
  */
 class CabinetryWoodPiece {
   /**
-   * An optional ID given to this component.
+   * An ID given to this component.
    *
    * @var string
    */
@@ -23,21 +23,21 @@ class CabinetryWoodPiece {
   public $label = NULL;
 
   /**
-   * The thickness (z) of the piece, in mm.
+   * The thickness (z) of the piece, in millimeters.
    *
    * @var float
    */
   public $thickness = 0.0;
 
   /**
-   * The width (x) of the piece, in mm.
+   * The width (x) of the piece, in millimeters.
    *
    * @var float
    */
   public $width = 0.0;
 
   /**
-   * The height (y) of the piece, in mm.
+   * The height (y) of the piece, in millimeters.
    *
    * @var float
    */
@@ -59,6 +59,26 @@ class CabinetryWoodPiece {
 
   /**
    * Constructor.
+   *
+   * @param string $id
+   *   An id, typically an integer to assign to this component.
+   * @param string $label
+   *   A label to later be printed for this piece. Typically this describes the
+   *   component the piece makes up, as well as the role of the piece in the
+   *   component.
+   * @param float $thickness
+   *   The thickness of this piece, in millimeters.
+   * @param float $width
+   *   The width of this piece, in millimeters.
+   * @param float $height
+   *   The height of this piece, in millimeters.
+   * @param object $material
+   *   The material this piece is made out of. Typically this is type
+   *   CabinetrySheetGood or CabinetrySolidWood.
+   * @param string $notes
+   *   Any special notes or comments related to this piece, including cut
+   *   instructions or handling directives. This will also be printed on
+   *   the label.
    */
   public function __construct($id, $label, $thickness, $width, $height, $material, $notes) {
     $this->id = $id;

@@ -16,6 +16,15 @@ function _cabinetry_core_bootstrap() {
   });
 }
 
+/**
+ * Instantiate a CabinetrySheetGood from a cabinetry_sheet_goods tid.
+ *
+ * @param int $tid
+ *   The tid to query.
+ *
+ * @return object
+ *   Returns a CabinetrySheetGood object populated from $tid.
+ */
 function _cabinetry_core_load_sheet_good_object($tid) {
   return new CabinetrySheetGood(
     _cabinetry_core_get_term_field($tid, 'name'),
@@ -25,6 +34,17 @@ function _cabinetry_core_load_sheet_good_object($tid) {
   );
 }
 
+/**
+ * Obtain a field value from a taxonomy term.
+ *
+ * @param int $tid
+ *   The tid to query.
+ * @param string $field_name
+ *   The field name to return the value from.
+ *
+ * @return string
+ *   Returns the value of $field_name, or NULL if empty/unset.
+ */
 function _cabinetry_core_get_term_field($tid, $field_name) {
   $term_wrapper = entity_metadata_wrapper('taxonomy_term', taxonomy_term_load($tid));
   if (!empty($term_wrapper->$field_name->value())) {
