@@ -9,16 +9,5 @@
  */
 class CabinetryCabinetProject extends CabinetryProject {
 
-  /**
-   * Add a component to this project.
-   *
-   * @param object $component
-   *   A CabinetryComponent object.
-   */
-  public function addComponent($component) {
-    $this->components[] = $component;
-    $this->addParts($component->parts);
-    $this->addBanding($component->banding);
-  }
 
 }

@@ -151,7 +151,7 @@ function cabinetry_cabinet_project_generate_cut_list(&$form, &$form_state) {
   foreach ($form_state['values']['field_cabinetry_project_componen'][LANGUAGE_NONE] as $component_index => $cabinet_component) {
     if (is_numeric($component_index)) {
       $component_id = count($project->components);
-      $component = new BasicEuroCabinet($component_id);
+      $component = new CabinetryBasicEuroCabinet($component_id);
       $component->build($cabinet_component);
       $project->addComponent($component);
       dpm($project);

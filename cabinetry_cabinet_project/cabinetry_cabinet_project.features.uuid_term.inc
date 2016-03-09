@@ -59,9 +59,9 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     'field_cabinetry_php_library_clas' => array(
       'und' => array(
         0 => array(
-          'value' => 'BasicEuroCabinet',
+          'value' => 'CabinetryBasicEuroCabinet',
           'format' => NULL,
-          'safe_value' => 'BasicEuroCabinet',
+          'safe_value' => 'CabinetryBasicEuroCabinet',
         ),
       ),
     ),

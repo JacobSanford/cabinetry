@@ -7,7 +7,7 @@
 /**
  * A generic object to serve as a basic european style cabinet.
  */
-class BasicEuroCabinet extends CabinetryComponent {
+class CabinetryBasicEuroCabinet extends CabinetryComponent {
 
   /**
    * The back sheet good.
