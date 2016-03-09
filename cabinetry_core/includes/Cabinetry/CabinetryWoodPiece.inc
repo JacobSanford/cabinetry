@@ -37,6 +37,7 @@ class CabinetryWoodPiece {
    */
   public $height = 0.0;
 
+
   /**
    * Constructor.
    */

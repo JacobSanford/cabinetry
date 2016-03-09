@@ -9,6 +9,7 @@
  * A generic object to serve as a basic cabinet door.
  */
 class CabinetryCabinetDoor extends CabinetryComponent {
+
   /**
    * The door frame material.
    *
@@ -36,6 +37,7 @@ class CabinetryCabinetDoor extends CabinetryComponent {
    * @var float
    */
   public $doorPanelUndersize = 0.0;
+
 
   /**
    * Constructor.
@@ -68,11 +70,11 @@ class CabinetryCabinetDoor extends CabinetryComponent {
    */
   public function generateParts() {
     $this->parts = array();
-    $this->generateStile('Left');
-    $this->generateStile('Right');
-    $this->generateRail('Top');
-    $this->generateRail('Bottom');
-    $this->generatePanel();
+    $this->generateStilePart('Left');
+    $this->generateStilePart('Right');
+    $this->generateRailPart('Top');
+    $this->generateRailPart('Bottom');
+    $this->generatePanelPart();
   }
 
   /**
@@ -81,7 +83,7 @@ class CabinetryCabinetDoor extends CabinetryComponent {
    * @param string $label
    *   A label to identify the side (Left, Right).
    */
-  protected function generateStile($label) {
+  protected function generateStilePart($label) {
     $this->parts[] = new CabinetryWoodPart(
       "$label Stile",
       $this->doorFrameMaterial->thickness,
@@ -98,7 +100,7 @@ class CabinetryCabinetDoor extends CabinetryComponent {
    * @param string $label
    *    A label to identify the side (Top, Bottom).
    */
-  protected function generateRail($label) {
+  protected function generateRailPart($label) {
     $this->parts[] = new CabinetryWoodPart(
       "$label Rail",
       $this->doorFrameMaterial->thickness,
@@ -112,7 +114,7 @@ class CabinetryCabinetDoor extends CabinetryComponent {
   /**
    * Generate the panel component for this door.
    */
-  protected function generatePanel() {
+  protected function generatePanelPart() {
     $this->parts[] = new CabinetryWoodPart(
       "Panel",
       $this->doorPanelMaterial->thickness,

@@ -37,6 +37,7 @@ class CabinetryProject {
    */
   public $parts = array();
 
+
   /**
    * Constructor.
    */

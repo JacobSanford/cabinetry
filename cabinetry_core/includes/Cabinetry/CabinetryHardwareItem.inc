@@ -8,6 +8,7 @@
  * A generic object to serve as hardware item in a cabinetry project.
  */
 class CabinetryHardwareItem {
+
   /**
    * The name of the item.
    *
@@ -21,6 +22,7 @@ class CabinetryHardwareItem {
    * @var integer
    */
   public $amount = 0;
+
 
   /**
    * Constructor.

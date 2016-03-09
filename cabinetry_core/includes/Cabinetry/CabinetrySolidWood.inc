@@ -16,6 +16,7 @@ class CabinetrySolidWood extends CabinetryWoodPiece {
    */
   public $length = 0.0;
 
+
   /**
    * Constructor.
    *

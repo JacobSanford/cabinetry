@@ -8,6 +8,7 @@
  * A generic object to serve as edge banding type in a cabinetry project.
  */
 class CabinetryEdgeBanding {
+
   /**
    * The material of the item.
    *
@@ -28,6 +29,7 @@ class CabinetryEdgeBanding {
    * @var float
    */
   public $length = 0.0;
+
 
   /**
    * Constructor.

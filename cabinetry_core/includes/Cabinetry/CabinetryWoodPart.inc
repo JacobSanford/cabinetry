@@ -8,6 +8,7 @@
  * A generic object to serve as a solid wood part in a cabinetry project.
  */
 class CabinetryWoodPart {
+
   /**
    * A label describing the part and its role.
    *
@@ -49,6 +50,7 @@ class CabinetryWoodPart {
    * @var string
    */
   public $notes = NULL;
+
 
   /**
    * Constructor.

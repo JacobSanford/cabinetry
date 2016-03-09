@@ -30,6 +30,7 @@ class CabinetryToolItem {
    */
   public $cutWidth = 0.0;
 
+
   /**
    * Constructor.
    *

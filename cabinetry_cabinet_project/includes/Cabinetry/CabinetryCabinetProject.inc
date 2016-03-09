@@ -16,6 +16,7 @@ class CabinetryCabinetProject extends CabinetryProject {
    */
   public $frameRouterBit = NULL;
 
+
   /**
    * Collate a list of parts from all components of the project.
    */
