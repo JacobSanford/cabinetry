@@ -9,13 +9,6 @@
  */
 class CabinetryWoodPart {
   /**
-   * An ID given to this component.
-   *
-   * @var string
-   */
-  public $id = NULL;
-
-  /**
    * A label describing the part and its role.
    *
    * @var string
@@ -60,8 +53,6 @@ class CabinetryWoodPart {
   /**
    * Constructor.
    *
-   * @param string $id
-   *   An id, typically an integer to assign to this component.
    * @param string $label
    *   A label to later be printed for this part. Typically this describes the
    *   component the part makes up, as well as the role of the part in the
@@ -80,8 +71,7 @@ class CabinetryWoodPart {
    *   instructions or handling directives. This will also be printed on
    *   the label.
    */
-  public function __construct($id, $label, $thickness, $width, $height, $material, $notes) {
-    $this->id = $id;
+  public function __construct($label, $thickness, $width, $height, $material, $notes) {
     $this->label = $label;
     $this->thickness = $thickness;
     $this->width = $width;

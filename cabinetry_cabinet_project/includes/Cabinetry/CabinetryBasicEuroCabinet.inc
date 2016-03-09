@@ -17,7 +17,7 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
   public $backSheetGood = NULL;
 
   /**
-   * An array of CabinetEdgeBanding objects comprising this component.
+   * An array of CabinetryEdgeBanding objects comprising this component.
    *
    * @var array
    */
@@ -38,11 +38,62 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
   public $carcassSheetGood = NULL;
 
   /**
-   * The division ratios.
+   * An array of float values equal to or less than 1.0.
+   *
+   * The sum of the array values should total 1.0.
    *
    * @var integer
    */
   public $divisions = array();
+
+  /**
+   * An array of CabinetryCabinetDoor objects comprising this component.
+   *
+   * @var integer
+   */
+  public $doors = array();
+
+  /**
+   * The number of doors spanning the carcass opening.
+   *
+   * @var integer
+   */
+  public $doorsAcrossGap = 0;
+
+  /**
+   * The door reveal, in millimeters.
+   *
+   * @var float
+   */
+  public $doorReveal = 0.0;
+
+  /**
+   * The door panel undersize for expansion, each side, in millimeters.
+   *
+   * @var float
+   */
+  public $doorPanelUndersize = 0.0;
+
+  /**
+   * The door frame material.
+   *
+   * @var object
+   */
+  public $doorFrameMaterial = NULL;
+
+  /**
+   * The door frame rail/stile bit.
+   *
+   * @var object
+   */
+  public $doorFrameRouterBit = NULL;
+
+  /**
+   * The door panel material.
+   *
+   * @var object
+   */
+  public $doorPanelMaterial = NULL;
 
   /**
    * The number of shelves.
@@ -51,15 +102,6 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
    */
   public $numShelves = 0;
 
-  /**
-   * Constructor.
-   *
-   * @param string $id
-   *   An id, typically an integer to assign to this cabinet.
-   */
-  public function __construct($id) {
-    parent::__construct($id);
-  }
 
   /**
    * Build the cabinet and determine parts required.
@@ -70,20 +112,35 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
    *   cabinetry_cabinet_project_node_form drupal module form submit.
    */
   public function build($cabinet_component) {
-    $this->setHeight($cabinet_component['field_cabinetry_height'][LANGUAGE_NONE][0]['value']);
-    $this->setWidth($cabinet_component['field_cabinetry_width'][LANGUAGE_NONE][0]['value']);
-    $this->setDepth($cabinet_component['field_cabinetry_depth'][LANGUAGE_NONE][0]['value']);
-    $this->setCarcassSheetGood(_cabinetry_core_load_sheet_good_object($cabinet_component['field_cabinetry_carcass_sheet_mt'][LANGUAGE_NONE][0]['tid']));
-    $this->setBackSheetGood(_cabinetry_core_load_sheet_good_object($cabinet_component['field_cabinetry_carcass_back_mat'][LANGUAGE_NONE][0]['tid']));
-    $this->setNumShelves($cabinet_component['field_cabinetry_number_of_shelve'][LANGUAGE_NONE][0]['value']);
+    $this->height = (float) $cabinet_component['field_cabinetry_height'][LANGUAGE_NONE][0]['value'];
+    $this->width = (float) $cabinet_component['field_cabinetry_width'][LANGUAGE_NONE][0]['value'];
+    $this->depth = (float) $cabinet_component['field_cabinetry_depth'][LANGUAGE_NONE][0]['value'];
+    $this->carcassSheetGood = _cabinetry_core_load_sheet_good_object($cabinet_component['field_cabinetry_carcass_sheet_mt'][LANGUAGE_NONE][0]['tid']);
+    $this->backSheetGood = _cabinetry_core_load_sheet_good_object($cabinet_component['field_cabinetry_carcass_back_mat'][LANGUAGE_NONE][0]['tid']);
+    $this->numShelves = (int) $cabinet_component['field_cabinetry_number_of_shelve'][LANGUAGE_NONE][0]['value'];
 
+    // Door properties.
+    $this->doorFrameMaterial = new CabinetrySolidWood(
+      'Frame Stock',
+      (float) $cabinet_component['field_cabinetry_door_frame_thick'][LANGUAGE_NONE][0]['value'],
+      (float) $cabinet_component['field_cabinetry_door_frame_width'][LANGUAGE_NONE][0]['value'],
+      0.0
+    );
+    $this->doorPanelMaterial = _cabinetry_core_load_sheet_good_object($cabinet_component['field_cabinetry_door_panel_mater'][LANGUAGE_NONE][0]['tid']);
+    $this->doorReveal = (float) $cabinet_component['field_cabinetry_door_reveal'][LANGUAGE_NONE][0]['value'];
+    $this->doorPanelUndersize = (float) $cabinet_component['field_cabinetry_door_panel_under'][LANGUAGE_NONE][0]['value'];
+    $this->doorsAcrossGap = (int) $cabinet_component['field_cabinetry_doors_span_gap'][LANGUAGE_NONE][0]['value'];
+
+    // Determine vertical division ratio array.
     $divisions_array = array();
     foreach ($cabinet_component['field_cabinetry_carcass_division'][LANGUAGE_NONE][0]['field_cabinetry_division_ratio'][LANGUAGE_NONE] as $ratio_value) {
       if (!empty($ratio_value['value'])) {
         $divisions_array[] = (float) $ratio_value['value'];
       }
     }
-    $this->setDivisions($divisions_array);
+    $this->divisions = $divisions_array;
+
+    // Generate parts for cabinet.
     $this->generateParts();
   }
 
@@ -98,9 +155,10 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
     $this->generateSidePart('Right');
     $this->generateTopBottomPart('Top');
     $this->generateTopBottomPart('Bottom');
-    $this->generateBackPart();
-    $this->generateDividerParts();
-    $this->generateNailers();
+    $this->generateBackPanelPart();
+    $this->generateDividerPanelParts();
+    $this->generateNailerParts();
+    $this->generateDoorParts();
   }
 
   /**
@@ -129,26 +187,6 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
   }
 
   /**
-   * Set the back side sheet good of this cabinet.
-   *
-   * @param object $sheet_good
-   *   A CabinetrySheetGood object.
-   */
-  protected function setBackSheetGood($sheet_good) {
-    $this->backSheetGood = $sheet_good;
-  }
-
-  /**
-   * Set the carcass sheet good of this cabinet.
-   *
-   * @param object $sheet_good
-   *   A CabinetrySheetGood object.
-   */
-  protected function setCarcassSheetGood($sheet_good) {
-    $this->carcassSheetGood = $sheet_good;
-  }
-
-  /**
    * Set inner width of this cabinet.
    */
   protected function setInnerWidth() {
@@ -156,45 +194,13 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
   }
 
   /**
-   * Set the vertical division ratios of this cabinet.
-   *
-   * @param array $divisions_array
-   *   An array of float values equal to or less than 1.0. The sum of the array
-   *   values should total 1.0.
+   * Generate the back panel parts for the cabinet caracass.
    */
-  protected function setDivisions(array $divisions_array) {
-    $this->divisions = $divisions_array;
-  }
-
-  /**
-   * Set the number of shelves of this cabinet.
-   *
-   * @param int $num_shelves
-   *   The number of shelves this cabinet should have.
-   */
-  protected function setNumShelves($num_shelves) {
-    $this->numShelves = $num_shelves;
-  }
-
-  /**
-   * Generate the vertical dividers for the caracass.
-   */
-  protected function generateDividerParts() {
-    for ($divider_id = 0; $divider_id < count($this->divisions) - 1; $divider_id++) {
-      $this->generateTopBottomPart("Section $divider_id Divider");
-    }
-  }
-
-  /**
-   * Generate the back panel for the caracass.
-   */
-  protected function generateBackPart() {
-    $new_part_id = count($this->parts);
+  protected function generateBackPanelPart() {
     $dado_depth = round($this->carcassSheetGood->thickness / 2, 1);
 
     $this->parts[] = new CabinetryWoodPart(
-      $new_part_id,
-      "[#$new_part_id] Cabinet {$this->id} Back Part",
+      'Back Panel',
       $this->backSheetGood->thickness,
       $this->height,
       $this->carcassInnerWidth + 2 * $dado_depth,
@@ -204,14 +210,50 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
   }
 
   /**
-   * Generate the nailer strips for this cabinet.
+   * Generate the divider panel parts for the cabinet caracass.
    */
-  protected function generateNailers() {
+  protected function generateDividerPanelParts() {
+    for ($divider_id = 0; $divider_id < count($this->divisions) - 1; $divider_id++) {
+      $this->generateTopBottomPart("Section $divider_id Divider");
+    }
+  }
+
+  /**
+   * Generate the doors parts for the cabinet.
+   */
+  protected function generateDoorParts() {
+    $this->generateDoors();
+    foreach ($this->doors as $door) {
+      $door->generateParts();
+    }
+  }
+
+  /**
+   * Generate the doors for the cabinet.
+   */
+  protected function generateDoors() {
+    $this->doors = array();
+    foreach ($this->divisions as $division_ratio) {
+      for ($door_counter = 0; $door_counter < $this->doorsAcrossGap; $door_counter++) {
+        $this->doors[] = new CabinetryCabinetDoor(
+          ($this->width / $this->doorsAcrossGap) - 2 * $this->doorReveal,
+          ($this->height * $division_ratio) - 2 * $this->doorReveal,
+          $this->doorFrameMaterial,
+          $this->doorFrameRouterBit,
+          $this->doorPanelMaterial,
+          $this->doorPanelUndersize
+        );
+      }
+    }
+  }
+
+  /**
+   * Generate the nailer strips panel parts for the cabinet carcass.
+   */
+  protected function generateNailerParts() {
     for ($nailerid = 0; $nailerid < 2; $nailerid++) {
-      $new_part_id = count($this->parts);
       $this->parts[] = new CabinetryWoodPart(
-        $new_part_id,
-        "[#$new_part_id] Cabinet {$this->id} Nailer",
+        "Nailer $nailerid",
         $this->carcassSheetGood->thickness,
         $this->carcassInnerWidth,
         75,
@@ -226,60 +268,54 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
    */
   protected function generateShelfParts() {
     for ($shelfid = 0; $shelfid < $this->numShelves; $shelfid++) {
-      $new_part_id = count($this->parts);
       $this->parts[] = new CabinetryWoodPart(
-        $new_part_id,
-        "[#$new_part_id] Cabinet {$this->id} Shelf",
+        "Shelf $shelfid",
         $this->carcassSheetGood->thickness,
         $this->carcassInnerWidth - 6.0,
         $this->depth - 6.0,
         $this->carcassSheetGood,
         ''
       );
-      $this->addBanding($this->carcassSheetGood->label, $this->carcassSheetGood->thickness, $this->carcassInnerWidth - 6.0);
+      $this->addBanding($this->carcassSheetGood->material, $this->carcassSheetGood->thickness, $this->carcassInnerWidth - 6.0);
     }
   }
 
   /**
    * Generate a side panel for the caracass.
    *
-   * @param string $side_label
-   *   The label string to identify the side (Left, Right).
+   * @param string $label
+   *   A label to identify the side (Left, Right).
    */
-  protected function generateSidePart($side_label) {
-    $new_part_id = count($this->parts);
+  protected function generateSidePart($label) {
     $dado_depth = round($this->carcassSheetGood->thickness / 2, 1);
 
     $this->parts[] = new CabinetryWoodPart(
-      $new_part_id,
-      "[#$new_part_id] Cabinet {$this->id} $side_label Side Part",
+      "$label Panel",
       $this->carcassSheetGood->thickness,
       $this->height,
       $this->depth,
       $this->carcassSheetGood,
       "Cut {$dado_depth}mm Deep Dado {$this->carcassSheetGood->thickness}mm from long side on one side."
     );
-    $this->addBanding($this->carcassSheetGood->label, $this->carcassSheetGood->thickness, $this->height);
+    $this->addBanding($this->carcassSheetGood->material, $this->carcassSheetGood->thickness, $this->height);
   }
 
   /**
    * Generate a top or bottom panel for the caracass.
    *
-   * @param string $side_label
-   *   The label string to identify the side (Top, Bottom).
+   * @param string $label
+   *   A label to identify the side (Top, Bottom).
    */
-  protected function generateTopBottomPart($side_label) {
-    $new_part_id = count($this->parts);
+  protected function generateTopBottomPart($label) {
     $this->parts[] = new CabinetryWoodPart(
-      $new_part_id,
-      "[#$new_part_id] Cabinet {$this->id} $side_label Part",
+      "$label Panel",
       $this->carcassSheetGood->thickness,
       $this->carcassInnerWidth,
       $this->depth,
       $this->carcassSheetGood,
       ''
     );
-    $this->addBanding($this->carcassSheetGood->label, $this->carcassSheetGood->thickness, $this->carcassInnerWidth);
+    $this->addBanding($this->carcassSheetGood->material, $this->carcassSheetGood->thickness, $this->carcassInnerWidth);
   }
 
 }

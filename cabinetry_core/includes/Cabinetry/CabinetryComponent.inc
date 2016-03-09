@@ -8,12 +8,6 @@
  * A generic object to serve as components within a cabinetry project.
  */
 class CabinetryComponent {
-  /**
-   * An optional ID given to this component.
-   *
-   * @var string
-   */
-  public $id = NULL;
 
   /**
    * The outer width (x) of the component, in millimeters.
@@ -50,44 +44,12 @@ class CabinetryComponent {
    */
   public $parts = array();
 
+
   /**
    * Constructor.
-   *
-   * @param string $id
-   *   An id, typically an integer to assign to this component.
    */
-  public function __construct($id) {
-    $this->id = $id;
-  }
-
-  /**
-   * Set the component width.
-   *
-   * @param float $width
-   *   The width of this cabinet component, in millimeters.
-   */
-  public function setWidth($width) {
-    $this->width = (float) $width;
-  }
-
-  /**
-   * Set the component height.
-   *
-   * @param float $height
-   *   The height of this cabinet component, in millimeters.
-   */
-  public function setHeight($height) {
-    $this->height = (float) $height;
-  }
-
-  /**
-   * Set the component depth.
-   *
-   * @param float $depth
-   *   The depth of this cabinet component, in millimeters.
-   */
-  public function setDepth($depth) {
-    $this->depth = (float) $depth;
+  public function __construct() {
+    // Pass.
   }
 
 }

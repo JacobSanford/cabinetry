@@ -147,16 +147,17 @@ function cabinetry_cabinet_project_generate_cut_list(&$form, &$form_state) {
   _cabinetry_core_bootstrap();
   _cabinetry_cabinet_project_bootstrap();
   $project = new CabinetryCabinetProject();
+  $project->frameRouterBit = _cabinetry_cabinet_project_load_router_bit_object($form_state['values']['field_cabinetry_frame_router_bit'][LANGUAGE_NONE][0]['tid']);
 
   foreach ($form_state['values']['field_cabinetry_project_componen'][LANGUAGE_NONE] as $component_index => $cabinet_component) {
     if (is_numeric($component_index)) {
-      $component_id = count($project->components);
-      $component = new CabinetryBasicEuroCabinet($component_id);
+      $component = new CabinetryBasicEuroCabinet();
+      $component->doorFrameRouterBit = $project->frameRouterBit;
       $component->build($cabinet_component);
       $project->addComponent($component);
-      dpm($project);
     }
   }
+  $project->collateParts();
 }
 
 /**
@@ -169,4 +170,21 @@ function _cabinetry_cabinet_project_bootstrap() {
       include "$filename";
     }
   });
+}
+
+/**
+ * Instantiate a CabinetryToolItem from a cabinetry_rail_stile_router_bits tid.
+ *
+ * @param int $tid
+ *   The tid to query.
+ *
+ * @return object
+ *   Returns a CabinetryToolItem object populated from $tid.
+ */
+function _cabinetry_cabinet_project_load_router_bit_object($tid) {
+  return new CabinetryToolItem(
+    _cabinetry_core_get_term_field($tid, 'name'),
+    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_rail_cut_depth'),
+    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_rail_cut_thickne')
+  );
 }

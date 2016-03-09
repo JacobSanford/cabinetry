@@ -44,7 +44,7 @@ class CabinetryEdgeBanding {
   }
 
   /**
-   * Add additional length to this type and width.
+   * Add additional length to this object.
    *
    * @param float $length
    *   The amount to add, in millimeters.

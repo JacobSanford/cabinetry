@@ -77,8 +77,6 @@ class CabinetryProject {
    */
   public function addComponent($component) {
     $this->components[] = $component;
-    $this->addParts($component->parts);
-    $this->addBanding($component->banding);
   }
 
   /**

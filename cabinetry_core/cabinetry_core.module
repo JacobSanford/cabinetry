@@ -28,9 +28,9 @@ function _cabinetry_core_bootstrap() {
 function _cabinetry_core_load_sheet_good_object($tid) {
   return new CabinetrySheetGood(
     _cabinetry_core_get_term_field($tid, 'name'),
-    _cabinetry_core_get_term_field($tid, 'field_cabinetry_thickness'),
-    _cabinetry_core_get_term_field($tid, 'field_cabinetry_width'),
-    _cabinetry_core_get_term_field($tid, 'field_cabinetry_height')
+    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_thickness'),
+    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_width'),
+    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_height')
   );
 }
 
