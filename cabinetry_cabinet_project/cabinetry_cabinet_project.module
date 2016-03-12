@@ -151,10 +151,14 @@ function cabinetry_cabinet_project_generate_cut_list(&$form, &$form_state) {
 
   foreach ($form_state['values']['field_cabinetry_project_componen'][LANGUAGE_NONE] as $component_index => $cabinet_component) {
     if (is_numeric($component_index)) {
-      $component = new CabinetryBasicEuroCabinet();
-      $component->doorFrameRouterBit = $project->frameRouterBit;
-      $component->build($cabinet_component);
-      $project->addComponent($component);
+      foreach($cabinet_component['field_cabinetry_name'][LANGUAGE_NONE] as $name_index => $name_value) {
+        if(!empty($name_value['value'])) {
+          $component = new CabinetryBasicEuroCabinet();
+          $component->doorFrameRouterBit = $project->frameRouterBit;
+          $component->build($cabinet_component);
+          $project->addComponent($component);
+        }
+      }
     }
   }
   $project->collateParts();

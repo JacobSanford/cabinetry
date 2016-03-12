@@ -54,6 +54,7 @@ class CabinetryCabinetProject extends CabinetryProject {
    */
   public function sortPart($part, $label) {
 
+    // Sheet goods.
     if ($part->source instanceof CabinetrySheetGood) {
       if (!isset($this->parts['CabinetrySheetGood'][$part->source->material])) {
         $this->parts['CabinetrySheetGood'][$part->source->material] = array(
@@ -66,17 +67,21 @@ class CabinetryCabinetProject extends CabinetryProject {
 
       $found_part = FALSE;
       foreach ($this->parts['CabinetrySheetGood'][$part->source->material]['parts'] as $part_index => $cur_part) {
-        if ($cur_part->width == $part->width && $cur_part->height == $part->height) {
+        if ($cur_part['width'] == $part->width && $cur_part['height'] == $part->height) {
           $found_part = TRUE;
           $this->parts['CabinetrySheetGood'][$part->source->material]['parts'][$part_index]['items'][] = array(
-            $label => $part->notes,
+            'label' => $label,
+            'notes' => $part->notes,
           );
         }
       }
       if ($found_part == FALSE) {
         $this->parts['CabinetrySheetGood'][$part->source->material]['parts'][] = array(
           'items' => array(
-            $label => $part->notes,
+            array(
+              'label' => $label,
+              'notes' => $part->notes,
+            ),
           ),
           'width' => $part->width,
           'height' => $part->height,
@@ -93,12 +98,29 @@ class CabinetryCabinetProject extends CabinetryProject {
           'parts' => array(),
         );
       }
-      $this->parts['CabinetrySolidWood'][$part->source->material]['parts'][] = array(
-        'label' => $label,
-        'width' => $part->width,
-        'height' => $part->height,
-        'notes' => $part->notes,
-      );
+
+      $found_part = FALSE;
+      foreach ($this->parts['CabinetrySolidWood'][$part->source->material]['parts'] as $part_index => $cur_part) {
+        if ($cur_part['length'] == $part->width) {
+          $found_part = TRUE;
+          $this->parts['CabinetrySolidWood'][$part->source->material]['parts'][$part_index]['items'][] = array(
+            'label' => $label,
+            'notes' => $part->notes,
+          );
+        }
+      }
+      if ($found_part == FALSE) {
+        $this->parts['CabinetrySolidWood'][$part->source->material]['parts'][] = array(
+          'items' => array(
+            array(
+              'label' => $label,
+              'notes' => $part->notes,
+            ),
+          ),
+          'length' => $part->width,
+        );
+      }
+
       $this->parts['CabinetrySolidWood'][$part->source->material]['length'] += $part->width;
     }
 
