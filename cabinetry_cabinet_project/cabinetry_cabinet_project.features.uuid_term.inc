@@ -24,7 +24,13 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_cabinetry_item_cost' => array(),
+    'field_cabinetry_item_cost' => array(
+      'und' => array(
+        0 => array(
+          'value' => '44.00',
+        ),
+      ),
+    ),
     'field_cabinetry_sheet_core' => array(
       'und' => array(
         0 => array(
@@ -90,6 +96,13 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_cabinetry_item_cost' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1.42,
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => '5/8" (16.8mm) Full Sheet White MOP Melamine',
@@ -105,7 +118,13 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_cabinetry_item_cost' => array(),
+    'field_cabinetry_item_cost' => array(
+      'und' => array(
+        0 => array(
+          'value' => '34.00',
+        ),
+      ),
+    ),
     'field_cabinetry_sheet_core' => array(
       'und' => array(
         0 => array(
@@ -143,6 +162,43 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Blum Full Overlay Hinge',
+    'description' => 'Blum Full Overlay Hinge',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '805c575b-e97b-48e9-b0a5-b3a1697f6f3b',
+    'vocabulary_machine_name' => 'cabinetry_hinges',
+    'field_cabinetry_item_cost' => array(
+      'und' => array(
+        0 => array(
+          'value' => 3.35,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Soft Maple 57.15mm (2.25"), 20.6mm (0.8125") Thick',
+    'description' => 'Soft Maple 57.15mm (2.25"), 20.6mm (0.8125") Thick',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '94ae2104-4264-47b1-a28b-489840a3954d',
+    'vocabulary_machine_name' => 'cabinetry_solid_wood',
+    'field_cabinetry_height' => array(
+      'und' => array(
+        0 => array(
+          'value' => 57.15,
+        ),
+      ),
+    ),
+    'field_cabinetry_thickness' => array(
+      'und' => array(
+        0 => array(
+          'value' => 20.6,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'MDF',
     'description' => '',
     'format' => 'filtered_html',
@@ -164,7 +220,13 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_cabinetry_item_cost' => array(),
+    'field_cabinetry_item_cost' => array(
+      'und' => array(
+        0 => array(
+          'value' => '64.00',
+        ),
+      ),
+    ),
     'field_cabinetry_sheet_core' => array(
       'und' => array(
         0 => array(
@@ -217,6 +279,7 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_cabinetry_item_cost' => array(),
   );
   $terms[] = array(
     'name' => 'OSB',
@@ -225,6 +288,21 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => 'cf12db6f-ed1b-4609-aab3-5bbd479eaf71',
     'vocabulary_machine_name' => 'cabinetry_sheet_good_cores',
+  );
+  $terms[] = array(
+    'name' => 'Blum Mounting Plate',
+    'description' => 'Blum Mounting Plate',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd83c4f42-ce23-4a96-80e3-533a3d2642ef',
+    'vocabulary_machine_name' => 'cabinetry_hinge_plates',
+    'field_cabinetry_item_cost' => array(
+      'und' => array(
+        0 => array(
+          'value' => '0.90',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Shaker Door Bit from Rockler',
@@ -262,7 +340,13 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_cabinetry_item_cost' => array(),
+    'field_cabinetry_item_cost' => array(
+      'und' => array(
+        0 => array(
+          'value' => '27.00',
+        ),
+      ),
+    ),
     'field_cabinetry_sheet_core' => array(
       'und' => array(
         0 => array(

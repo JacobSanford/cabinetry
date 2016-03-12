@@ -184,38 +184,82 @@ function cabinetry_cabinet_project_field_default_field_bases() {
     'type' => 'number_float',
   );
 
-  // Exported field_base: 'field_cabinetry_door_frame_thick'.
-  $field_bases['field_cabinetry_door_frame_thick'] = array(
+  // Exported field_base: 'field_cabinetry_door_frame_mater'.
+  $field_bases['field_cabinetry_door_frame_mater'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_cabinetry_door_frame_thick',
-    'indexes' => array(),
+    'field_name' => 'field_cabinetry_door_frame_mater',
+    'indexes' => array(
+      'tid' => array(
+        0 => 'tid',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'number',
+    'module' => 'taxonomy',
     'settings' => array(
-      'decimal_separator' => '.',
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'cabinetry_solid_wood',
+          'parent' => 0,
+        ),
+      ),
     ),
     'translatable' => 0,
-    'type' => 'number_float',
+    'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_cabinetry_door_frame_width'.
-  $field_bases['field_cabinetry_door_frame_width'] = array(
+  // Exported field_base: 'field_cabinetry_door_hinge'.
+  $field_bases['field_cabinetry_door_hinge'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_cabinetry_door_frame_width',
-    'indexes' => array(),
+    'field_name' => 'field_cabinetry_door_hinge',
+    'indexes' => array(
+      'tid' => array(
+        0 => 'tid',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'number',
+    'module' => 'taxonomy',
     'settings' => array(
-      'decimal_separator' => '.',
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'cabinetry_hinges',
+          'parent' => 0,
+        ),
+      ),
     ),
     'translatable' => 0,
-    'type' => 'number_float',
+    'type' => 'taxonomy_term_reference',
+  );
+
+  // Exported field_base: 'field_cabinetry_door_hinge_plate'.
+  $field_bases['field_cabinetry_door_hinge_plate'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_door_hinge_plate',
+    'indexes' => array(
+      'tid' => array(
+        0 => 'tid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'taxonomy',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'cabinetry_hinge_plates',
+          'parent' => 0,
+        ),
+      ),
+    ),
+    'translatable' => 0,
+    'type' => 'taxonomy_term_reference',
   );
 
   // Exported field_base: 'field_cabinetry_door_panel_mater'.
