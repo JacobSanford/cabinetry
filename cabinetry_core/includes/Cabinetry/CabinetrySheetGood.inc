@@ -22,11 +22,12 @@ class CabinetrySheetGood extends CabinetryWoodPiece {
    * @param float $height
    *   The height of this sheet good, in millimeters.
    */
-  public function __construct($material, $thickness, $width, $height) {
+  public function __construct($material, $thickness, $width, $height, $price) {
     $this->material = $material;
     $this->thickness = $thickness;
     $this->width = $width;
     $this->height = $height;
+    $this->price = $price;
   }
 
 }

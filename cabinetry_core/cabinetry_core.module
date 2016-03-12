@@ -30,7 +30,26 @@ function _cabinetry_core_load_sheet_good_object($tid) {
     _cabinetry_core_get_term_field($tid, 'name'),
     (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_thickness'),
     (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_width'),
-    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_height')
+    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_height'),
+    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_item_cost')
+  );
+}
+
+/**
+ * Instantiate a CabinetrySolidWood from a cabinetry_solid_wood tid.
+ *
+ * @param int $tid
+ *   The tid to query.
+ *
+ * @return object
+ *   Returns a CabinetrySheetGood object populated from $tid.
+ */
+function _cabinetry_core_load_solid_wood_object($tid) {
+  return new CabinetrySolidWood(
+    _cabinetry_core_get_term_field($tid, 'name'),
+    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_thickness'),
+    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_height'),
+    0.0
   );
 }
 
@@ -51,4 +70,20 @@ function _cabinetry_core_get_term_field($tid, $field_name) {
     return $term_wrapper->$field_name->value();
   }
   return NULL;
+}
+
+/**
+ * Instantiate CabinetryHardwareItem from cabinetry_hinges/cabinetry_hinge_plates.
+ *
+ * @param int $tid
+ *   The tid to query.
+ *
+ * @return object
+ *   Returns a CabinetrySheetGood object populated from $tid.
+ */
+function _cabinetry_core_load_hardware_object($tid) {
+  return new CabinetryHardwareItem(
+    _cabinetry_core_get_term_field($tid, 'name'),
+    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_item_cost')
+  );
 }

@@ -25,15 +25,15 @@ class CabinetrySolidWood extends CabinetryWoodPiece {
    *   the material, thickness and veneers.
    * @param float $thickness
    *   The thickness of this species, in millimeters.
-   * @param float $width
-   *   The width of this species, in millimeters.
+   * @param float $height
+   *   The height of this species, in millimeters.
    * @param float $length
    *   The length required, in millimeters.
    */
-  public function __construct($material, $thickness, $width, $length) {
+  public function __construct($material, $thickness, $height, $length) {
     $this->material = $material;
     $this->thickness = $thickness;
-    $this->width = $width;
+    $this->height = $height;
     $this->length = $length;
   }
 

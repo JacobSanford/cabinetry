@@ -38,11 +38,11 @@ class CabinetryWoodPart {
   public $height = 0.0;
 
   /**
-   * The material type of the part.
+   * The source type of the part.
    *
    * @var object
    */
-  public $material = NULL;
+  public $source = NULL;
 
   /**
    * Any special notes or comments related to this part.
@@ -65,20 +65,20 @@ class CabinetryWoodPart {
    *   The width of this part, in millimeters.
    * @param float $height
    *   The height of this part, in millimeters.
-   * @param object $material
-   *   The material this part is made out of. Typically this is type
+   * @param object $source
+   *   The source material this part is made out of. Typically this is type
    *   CabinetrySheetGood or CabinetrySolidWood.
    * @param string $notes
    *   Any special notes or comments related to this part, including cut
    *   instructions or handling directives. This will also be printed on
    *   the label.
    */
-  public function __construct($label, $thickness, $width, $height, $material, $notes) {
+  public function __construct($label, $thickness, $width, $height, $source, $notes) {
     $this->label = $label;
     $this->thickness = $thickness;
     $this->width = $width;
     $this->height = $height;
-    $this->material = $material;
+    $this->source = $source;
     $this->notes = $notes;
   }
 

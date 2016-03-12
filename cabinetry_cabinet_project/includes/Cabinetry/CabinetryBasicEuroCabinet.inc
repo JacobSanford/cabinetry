@@ -96,6 +96,20 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
   public $doorPanelMaterial = NULL;
 
   /**
+   * The door hinge.
+   *
+   * @var object
+   */
+  public $doorHinge = NULL;
+
+  /**
+   * The door hinge.
+   *
+   * @var object
+   */
+  public $doorHingePlate = NULL;
+
+  /**
    * The number of shelves.
    *
    * @var integer
@@ -120,16 +134,13 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
     $this->numShelves = (int) $cabinet_component['field_cabinetry_number_of_shelve'][LANGUAGE_NONE][0]['value'];
 
     // Door properties.
-    $this->doorFrameMaterial = new CabinetrySolidWood(
-      'Frame Stock',
-      (float) $cabinet_component['field_cabinetry_door_frame_thick'][LANGUAGE_NONE][0]['value'],
-      (float) $cabinet_component['field_cabinetry_door_frame_width'][LANGUAGE_NONE][0]['value'],
-      0.0
-    );
+    $this->doorFrameMaterial = _cabinetry_core_load_solid_wood_object($cabinet_component['field_cabinetry_door_frame_mater'][LANGUAGE_NONE][0]['tid']);
     $this->doorPanelMaterial = _cabinetry_core_load_sheet_good_object($cabinet_component['field_cabinetry_door_panel_mater'][LANGUAGE_NONE][0]['tid']);
     $this->doorReveal = (float) $cabinet_component['field_cabinetry_door_reveal'][LANGUAGE_NONE][0]['value'];
     $this->doorPanelUndersize = (float) $cabinet_component['field_cabinetry_door_panel_under'][LANGUAGE_NONE][0]['value'];
     $this->doorsAcrossGap = (int) $cabinet_component['field_cabinetry_doors_span_gap'][LANGUAGE_NONE][0]['value'];
+    $this->doorHinge = _cabinetry_core_load_hardware_object($cabinet_component['field_cabinetry_door_hinge'][LANGUAGE_NONE][0]['tid']);
+    $this->doorHingePlate = _cabinetry_core_load_hardware_object($cabinet_component['field_cabinetry_door_hinge_plate'][LANGUAGE_NONE][0]['tid']);
 
     // Determine vertical division ratio array.
     $divisions_array = array();
@@ -243,6 +254,10 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
           $this->doorPanelMaterial,
           $this->doorPanelUndersize
         );
+        $this->hardware[] = $this->doorHinge;
+        $this->hardware[] = $this->doorHinge;
+        $this->hardware[] = $this->doorHingePlate;
+        $this->hardware[] = $this->doorHingePlate;
       }
     }
   }

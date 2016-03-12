@@ -14,21 +14,21 @@ class CabinetryHardwareItem {
    *
    * @var string
    */
-  public $name = 0.0;
+  public $name = NULL;
 
   /**
-   * The number of this item required.
+   * The approximate price of the hardware item, in dollars.
    *
-   * @var integer
+   * @var float
    */
-  public $amount = 0;
-
+  public $price = 0.00;
 
   /**
    * Constructor.
    */
-  public function __construct() {
-    // pass.
+  public function __construct($name, $price) {
+    $this->name = $name;
+    $this->price = $price;
   }
 
 }

@@ -88,7 +88,7 @@ class CabinetryCabinetDoor extends CabinetryComponent {
       "$label Stile",
       $this->doorFrameMaterial->thickness,
       $this->height,
-      $this->doorFrameMaterial->width,
+      $this->doorFrameMaterial->height,
       $this->doorFrameMaterial,
       ''
     );
@@ -104,8 +104,8 @@ class CabinetryCabinetDoor extends CabinetryComponent {
     $this->parts[] = new CabinetryWoodPart(
       "$label Rail",
       $this->doorFrameMaterial->thickness,
-      $this->width - 2 * $this->doorFrameMaterial->width + 2 * $this->doorFrameRouterBit->cutDepth,
-      $this->doorFrameMaterial->width,
+      $this->width - 2 * $this->doorFrameMaterial->height + 2 * $this->doorFrameRouterBit->cutDepth,
+      $this->doorFrameMaterial->height,
       $this->doorFrameMaterial,
       ''
     );
@@ -118,8 +118,8 @@ class CabinetryCabinetDoor extends CabinetryComponent {
     $this->parts[] = new CabinetryWoodPart(
       "Panel",
       $this->doorPanelMaterial->thickness,
-      $this->height - 2 * $this->doorFrameMaterial->width + 2 * $this->doorFrameRouterBit->cutDepth - 2 * $this->doorPanelUndersize,
-      $this->width - 2 * $this->doorFrameMaterial->width + 2 * $this->doorFrameRouterBit->cutDepth - 2 * $this->doorPanelUndersize,
+      $this->height - 2 * $this->doorFrameMaterial->height + 2 * $this->doorFrameRouterBit->cutDepth - 2 * $this->doorPanelUndersize,
+      $this->width - 2 * $this->doorFrameMaterial->height + 2 * $this->doorFrameRouterBit->cutDepth - 2 * $this->doorPanelUndersize,
       $this->doorPanelMaterial,
       ''
     );

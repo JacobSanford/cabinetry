@@ -37,6 +37,12 @@ class CabinetryWoodPiece {
    */
   public $height = 0.0;
 
+  /**
+   * The approximate price of the sheet good, in dollars.
+   *
+   * @var float
+   */
+  public $price = 0.00;
 
   /**
    * Constructor.
