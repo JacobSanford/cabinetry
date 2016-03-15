@@ -424,6 +424,28 @@ function cabinetry_cabinet_project_field_default_field_bases() {
     'type' => 'number_decimal',
   );
 
+  // Exported field_base: 'field_cabinetry_materials_sheet'.
+  $field_bases['field_cabinetry_materials_sheet'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_materials_sheet',
+    'indexes' => array(
+      'revision_id' => array(
+        0 => 'revision_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'field_collection',
+    'settings' => array(
+      'hide_blank_items' => 1,
+      'path' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'field_collection',
+  );
+
   // Exported field_base: 'field_cabinetry_measurement_axis'.
   $field_bases['field_cabinetry_measurement_axis'] = array(
     'active' => 1,
@@ -508,7 +530,7 @@ function cabinetry_cabinet_project_field_default_field_bases() {
   // Exported field_base: 'field_cabinetry_name'.
   $field_bases['field_cabinetry_name'] = array(
     'active' => 1,
-    'cardinality' => -1,
+    'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_cabinetry_name',
@@ -797,6 +819,28 @@ function cabinetry_cabinet_project_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'number_float',
+  );
+
+  // Exported field_base: 'field_image'.
+  $field_bases['field_image'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_image',
+    'indexes' => array(
+      'fid' => array(
+        0 => 'fid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'image',
+    'settings' => array(
+      'default_image' => 0,
+      'uri_scheme' => 'public',
+    ),
+    'translatable' => 0,
+    'type' => 'image',
   );
 
   return $field_bases;

@@ -56,6 +56,127 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_materials_sheet-field_cabinetry_item_cost'.
+  $field_instances['field_collection_item-field_cabinetry_materials_sheet-field_cabinetry_item_cost'] = array(
+    'bundle' => 'field_cabinetry_materials_sheet',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_item_cost',
+    'label' => 'Cost Per Sheet',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_materials_sheet-field_cabinetry_name'.
+  $field_instances['field_collection_item-field_cabinetry_materials_sheet-field_cabinetry_name'] = array(
+    'bundle' => 'field_cabinetry_materials_sheet',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_name',
+    'label' => 'Sheet Type Name',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_materials_sheet-field_image'.
+  $field_instances['field_collection_item-field_cabinetry_materials_sheet-field_image'] = array(
+    'bundle' => 'field_cabinetry_materials_sheet',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_image',
+    'label' => 'Sheet Layouts',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'large',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance:
   // 'field_collection_item-field_cabinetry_measurement_valu-field_cabinetry_measurement_axis'.
   $field_instances['field_collection_item-field_cabinetry_measurement_valu-field_cabinetry_measurement_axis'] = array(
     'bundle' => 'field_cabinetry_measurement_valu',
@@ -137,7 +258,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 11,
+        'tid' => 14,
       ),
     ),
     'deleted' => 0,
@@ -328,7 +449,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 14,
+        'tid' => 7,
       ),
     ),
     'deleted' => 0,
@@ -364,7 +485,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 12,
+        'tid' => 6,
       ),
     ),
     'deleted' => 0,
@@ -400,7 +521,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 13,
+        'tid' => 12,
       ),
     ),
     'deleted' => 0,
@@ -436,7 +557,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 7,
+        'tid' => 9,
       ),
     ),
     'deleted' => 0,
@@ -971,6 +1092,50 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'settings' => array(),
       'type' => 'options_select',
       'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-cabinetry_cabinet_project-field_cabinetry_materials_sheet'.
+  $field_instances['node-cabinetry_cabinet_project-field_cabinetry_materials_sheet'] = array(
+    'bundle' => 'cabinetry_cabinet_project',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 6,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cabinetry_materials_sheet',
+    'label' => 'Materials Sheet Goods',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 6,
     ),
   );
 
@@ -1824,6 +1989,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Core Material');
   t('Cost Per Board Foot');
   t('Cost Per Meter');
+  t('Cost Per Sheet');
   t('Description');
   t('Direction');
   t('Does this sheet good have grain that should be preserved?');
@@ -1860,6 +2026,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Item');
   t('Item Cost');
   t('Length');
+  t('Materials Sheet Goods');
   t('Measurement Values');
   t('Measurements');
   t('Number of Shelves');
@@ -1877,8 +2044,10 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Select the veneer on the first side of the sheet. If the sides differ, side one is typically chosen to be the side of the sheet with the superior, or outward facing veneer.');
   t('Select the veneer on the second side of the sheet. If the sides differ, side two is typically chosen to be the side of the sheet with the inferior, or hidden facing veneer.');
   t('Sheet Height');
+  t('Sheet Layouts');
   t('Sheet Packing Algorithim');
   t('Sheet Thickness');
+  t('Sheet Type Name');
   t('Sheet Veneer Side 1');
   t('Sheet Veneer Side 2');
   t('Sheet Width');

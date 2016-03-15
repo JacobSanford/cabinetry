@@ -31,6 +31,7 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_cabinetry_preserve_grain' => array(),
     'field_cabinetry_sheet_core' => array(
       'und' => array(
         0 => array(
@@ -54,7 +55,6 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_cabinetry_preserve_grain' => array(),
   );
   $terms[] = array(
     'name' => 'Basic European Cabinet',
@@ -126,6 +126,7 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_cabinetry_preserve_grain' => array(),
     'field_cabinetry_sheet_core' => array(
       'und' => array(
         0 => array(
@@ -161,7 +162,6 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_cabinetry_preserve_grain' => array(),
   );
   $terms[] = array(
     'name' => 'Blum Full Overlay Hinge',
@@ -192,6 +192,7 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_cabinetry_item_cost' => array(),
     'field_cabinetry_thickness' => array(
       'und' => array(
         0 => array(
@@ -199,7 +200,6 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_cabinetry_item_cost' => array(),
   );
   $terms[] = array(
     'name' => 'MDF',
@@ -227,6 +227,13 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
       'und' => array(
         0 => array(
           'value' => '64.00',
+        ),
+      ),
+    ),
+    'field_cabinetry_preserve_grain' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
         ),
       ),
     ),
@@ -262,13 +269,6 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
       'und' => array(
         0 => array(
           'value' => 2447,
-        ),
-      ),
-    ),
-    'field_cabinetry_preserve_grain' => array(
-      'und' => array(
-        0 => array(
-          'value' => 1,
         ),
       ),
     ),
@@ -357,6 +357,7 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_cabinetry_preserve_grain' => array(),
     'field_cabinetry_sheet_core' => array(
       'und' => array(
         0 => array(
@@ -386,7 +387,6 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_cabinetry_preserve_grain' => array(),
   );
   return $terms;
 }
