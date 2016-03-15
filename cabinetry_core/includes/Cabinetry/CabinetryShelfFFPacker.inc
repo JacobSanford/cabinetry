@@ -7,7 +7,7 @@
 /**
  * A generic object for packing a sheet good from a piece list.
  */
-class CabinetryShelfFF extends CabinetrySheetGoodPacker {
+class CabinetryShelfFFPacker extends CabinetrySheetGoodPacker {
 
   /**
    * An array of CabinetryShelfFFShelf objects.
@@ -23,17 +23,14 @@ class CabinetryShelfFF extends CabinetrySheetGoodPacker {
    *   The width of this sheet good, in millimeters.
    * @param float $height
    *   The height of this sheet good, in millimeters.
-   * @param boolean $grain
-   *   Should the piece orientations (grain parallel to width) be preserved?
    * @param array $pieces
    *   An associative array of pieces to fit into the sheet space. Each item
    *   must have 'width', 'height' and 'label' elements.
+   * @param bool $grain
+   *   Should the piece orientations (grain parallel to width) be preserved?
    */
   public function __construct($width, $height, $pieces, $grain) {
-    $this->width = $width;
-    $this->height = $height;
-    $this->grain = $grain;
-    $this->pieces = $pieces;
+    parent::__construct($width, $height, $pieces, $grain);
 
     // TODO : This is key here. Tell why later.
     $this->sortPiecesByHeightAndWidth();
@@ -59,16 +56,33 @@ class CabinetryShelfFF extends CabinetrySheetGoodPacker {
           )
         );
       }
-
     }
-    dpm($sheet_set);
+    $this->shelves = $sheet_set->shelves;
+    $this->packSheets();
   }
 
   /**
-   * Returns the sheet array.
+   * Pack the sheet array.
    */
-  public function getSheets() {
-    return array();
+  public function packSheets() {
+    foreach ($this->shelves as $shelf) {
+      $sheet_found = FALSE;
+      foreach ($this->sheets as $sheet_index => $sheet) {
+        if ($sheet->shelfFits($shelf)) {
+          $sheet_found = TRUE;
+          $sheet->addShelf($shelf);
+          break;
+        }
+      }
+      if ($sheet_found == FALSE) {
+        $this->sheets[] = new CabinetryShelfFFSheet(
+          $this->height,
+          $this->width,
+          4.0
+        );
+        $this->sheets[count($this->sheets) - 1]->addShelf($shelf);
+      }
+    }
   }
 
   /**
@@ -76,7 +90,7 @@ class CabinetryShelfFF extends CabinetrySheetGoodPacker {
    */
   protected function sortPiecesByHeightAndWidth() {
     $sort = array();
-    foreach($this->pieces as $k=>$v) {
+    foreach ($this->pieces as $k => $v) {
       $sort['height'][$k] = $v['height'];
       $sort['width'][$k] = $v['width'];
     }
@@ -128,21 +142,27 @@ class CabinetryShelfFFShelfSet {
     $this->cutWidth = $cut_width;
   }
 
+  /**
+   * Add a piece to the set of shelves.
+   */
   public function addPiece($piece) {
     $shelf_found = FALSE;
     foreach ($this->shelves as $shelf_index => $shelf) {
-      if ($shelf->pieceFits($piece) != FALSE) {
-        $shelf->addPiece($piece);
+      $piece_fits = $shelf->pieceFits($piece);
+      if ($piece_fits != FALSE) {
+        $shelf->addPiece($piece, $piece_fits['rotated']);
         $shelf_found = TRUE;
         break;
       }
     }
-
     if ($shelf_found == FALSE) {
       $this->addShelf($piece);
     }
   }
 
+  /**
+   * Add a shelf to the set of shelves.
+   */
   public function addShelf($piece) {
     $this->shelves[] = new CabinetryShelfFFShelf(
       $piece['height'],
@@ -150,11 +170,10 @@ class CabinetryShelfFFShelfSet {
       $this->canRotate,
       $this->cutWidth
     );
-    $this->shelves[count($this->shelves)-1]->addPiece($piece);
+    $this->shelves[count($this->shelves) - 1]->addPiece($piece);
   }
 
 }
-
 
 
 class CabinetryShelfFFShelf {
@@ -225,20 +244,39 @@ class CabinetryShelfFFShelf {
     $this->canRotate = $can_rotate;
   }
 
-  public function addPiece($piece) {
+  /**
+   * Add a piece to the shelf.
+   */
+  public function addPiece($piece, $rotated = FALSE) {
+    if ($rotated == TRUE) {
+      $width_placeholder = $piece['width'];
+      $piece['width'] = $piece['height'];
+      $piece['height'] = $width_placeholder;
+    }
+
+    if ($piece['width'] > $this->width) {
+      die('Piece exceeds shelf length');
+    }
+
     $this->pieces[] = $piece;
     $this->setRemainder();
   }
 
+  /**
+   * Set the remainder and used properties.
+   */
   public function setRemainder() {
     $sum = 0.0;
     foreach ($this->pieces as $piece) {
       $sum += $piece['width'];
     }
-    $this->used = $sum + (count($this->pieces) - 1 * $this->cutWidth);
+    $this->used = $sum + (count($this->pieces) - 1) * $this->cutWidth;
     $this->remain = $this->width - $this->used;
   }
 
+  /**
+   * Check if the piece fits in this shelf.
+   */
   public function pieceFits($piece) {
     if ($piece['height'] > $this->height) {
       return FALSE;
@@ -272,6 +310,104 @@ class CabinetryShelfFFShelf {
     }
 
     return FALSE;
+  }
+
+}
+
+
+class CabinetryShelfFFSheet {
+
+  /**
+   * The width (x) of the sheet good, in millimeters.
+   *
+   * @var float
+   */
+  public $width = 0.0;
+
+  /**
+   * The height (y) of the sheet good, in millimeters.
+   *
+   * @var float
+   */
+  public $height = 0.0;
+
+  /**
+   * The used height of sheet good by shelves, in millimeters.
+   *
+   * @var float
+   */
+  public $used = 0.0;
+
+  /**
+   * The remaining height of sheet good, in millimeters.
+   *
+   * @var float
+   */
+  public $remain = 0.0;
+
+  /**
+   * Shelves this sheet contains.
+   *
+   * @var array
+   */
+  public $shelves = array();
+
+  /**
+   * The cut width to allow for, in millimeters.
+   *
+   * @var float
+   */
+  public $cutWidth = 0.0;
+
+
+  /**
+   * Constructor.
+   *
+   * @param float $height
+   *   The height of this sheet, in millimeters.
+   * @param float $width
+   *   The width of the shelf, in millimeters.
+   */
+  public function __construct($height, $width, $cut_width) {
+    $this->height = $height;
+    $this->width = $width;
+    $this->remain = $height;
+    $this->cutWidth = $cut_width;
+  }
+
+  /**
+   * Add a piece to the shelf.
+   */
+  public function addShelf($shelf) {
+    $this->shelves[] = $shelf;
+    $this->setRemainder();
+  }
+
+  /**
+   * Set the remainder and used properties.
+   */
+  public function setRemainder() {
+    $sum = 0.0;
+    foreach ($this->shelves as $shelf) {
+      $sum += $shelf->height;
+    }
+    $this->used = $sum + (count($this->shelves) - 1) * $this->cutWidth;
+    $this->remain = $this->height - $this->used;
+  }
+
+  /**
+   * Check if the shelf fits in this sheet.
+   */
+  public function shelfFits($shelf) {
+    if ($shelf->height > $this->height) {
+      return FALSE;
+    }
+
+    if ($shelf->height > $this->remain) {
+      return FALSE;
+    }
+
+    return TRUE;
   }
 
 }

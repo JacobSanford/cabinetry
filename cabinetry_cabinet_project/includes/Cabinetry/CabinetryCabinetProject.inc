@@ -43,7 +43,6 @@ class CabinetryCabinetProject extends CabinetryProject {
 
       // Add banding.
       $this->addBanding($component->banding);
-      // $this->hardware = array_merge($this->hardware, $component->hardware);
 
       // Add hardware.
       foreach ($component->hardware as $hardware_id => $hardware_item) {
@@ -53,7 +52,6 @@ class CabinetryCabinetProject extends CabinetryProject {
         );
       }
     }
-    dpm($this);
   }
 
   /**
@@ -170,7 +168,7 @@ class CabinetryCabinetProject extends CabinetryProject {
    * Pack sheet good parts into sheets.
    */
   public function packSheets($algorithm) {
-    foreach($this->parts['CabinetrySheetGood'] as $sheet_type_index => $sheet_type) {
+    foreach ($this->parts['CabinetrySheetGood'] as $sheet_type_index => $sheet_type) {
       $packer = new $algorithm(
         $sheet_type['width'],
         $sheet_type['height'],
@@ -178,7 +176,20 @@ class CabinetryCabinetProject extends CabinetryProject {
         $sheet_type['preserve_grain']
       );
       $packer->pack();
-      $this->parts['CabinetrySheetGood'][$sheet_type_index]['sheets'] = $packer->getSheets();
+      $this->parts['CabinetrySheetGood'][$sheet_type_index]['sheets'] = $packer->sheets;
+    }
+  }
+
+  /**
+   * Plot sheets.
+   */
+  public function plotSheets() {
+    foreach ($this->parts['CabinetrySheetGood'] as $sheet_type_index => $sheet_type) {
+      foreach ($sheet_type['sheets'] as $sheet_index => $sheet) {
+        $sheet_plotter = new CabinetrySheetGoodPlotter($sheet);
+        $file_path = $sheet_plotter->plotSheet();
+        $this->parts['CabinetrySheetGood'][$sheet_type_index]['plots'][$sheet_index] = $file_path;
+      }
     }
   }
 

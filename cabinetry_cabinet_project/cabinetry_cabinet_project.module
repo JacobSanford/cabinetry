@@ -13,7 +13,7 @@ define('CABINETRY_CABINET_PROJECT_THIRTY_TWO_UNIT_SIZE', 32.0);
  */
 function cabinetry_cabinet_project_form_cabinetry_cabinet_project_node_form_alter(&$form, &$form_state, $form_id) {
   $cabinet_sheet_packing_algos = array(
-    'CabinetryShelfFF' => 'ShelfFF from RectangleBinPack',
+    'CabinetryShelfFFPacker' => 'ShelfFF from RectangleBinPack',
   );
   drupal_alter('cabinetry_sheet_packing', $cabinet_sheet_packing_algos);
   $form['field_cabinetry_sheet_packing_al'][LANGUAGE_NONE]['#options'] = $cabinet_sheet_packing_algos;
@@ -169,6 +169,42 @@ function cabinetry_cabinet_project_generate_cut_list(&$form, &$form_state) {
   }
   $project->collateParts();
   $project->packSheets($form_state['values']['field_cabinetry_sheet_packing_al'][LANGUAGE_NONE][0]['value']);
+  $project->plotSheets();
+
+  ctools_include('object-cache');
+  ctools_object_cache_set('cabinetry_cabinet_project', 'presave_object', $project);
+}
+
+/**
+ * Implements hook_node_presave().
+ */
+function cabinetry_cabinet_project_node_presave($node) {
+  if ($node->type == 'cabinetry_cabinet_project') {
+    ctools_include('object-cache');
+    $project = ctools_object_cache_get('cabinetry_cabinet_project', 'presave_object');
+    ctools_object_cache_clear('cabinetry_cabinet_project', 'presave_object');
+    dpm($project);
+
+    $directory = 'public://cabinetry/sheets';
+    file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
+
+    /*
+    $sheet_type_index = 0;
+    foreach ($project->parts['CabinetrySheetGood'] as $sheet_type => $sheets) {
+      dpm($form_state['values']['field_cabinetry_materials_sheet'][LANGUAGE_NONE]);
+      // form_set_value($form['field_cabinetry_materials_sheet'][LANGUAGE_NONE][$sheet_type_index]['field_cabinetry_name'][LANGUAGE_NONE][0]['value'], $sheet_type, $form_state);
+      $form_value_array[LANGUAGE_NONE][$sheet_type_index]['field_cabinetry_name'][LANGUAGE_NONE][0]['value'] = $sheet_type;
+      /*
+      $image = file_get_contents($_FILES['image']['tmp_name']);
+      $file = file_save_data($image, 'public://my-image-folder/'.$_FILES['image']['name'], FILE_EXISTS_RENAME);
+      $file->status = FILE_STATUS_PERMANENT;
+      file_save($file);
+
+      $sheet_type_index++;
+    }
+    // form_set_value($form['field_cabinetry_materials_sheet'], $materials_value_array, $form_state);
+    */
+  }
 }
 
 /**

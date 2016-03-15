@@ -37,6 +37,12 @@ class CabinetrySheetGoodPacker {
    */
   public $has_grain = TRUE;
 
+  /**
+   * Does this sheet have grain that should be vertical?
+   *
+   * @var boolean
+   */
+  public $sheets = array();
 
   /**
    * Constructor.
