@@ -3,6 +3,7 @@
  * @file
  * Code for the Cabinetry Cabinet Project feature.
  */
+define('CABINETRY_CORE_MM3_TO_BOARDFEET', 4.23776e-7);
 
 /**
  * Bootstrap cabinetry_core object classes.
@@ -31,7 +32,8 @@ function _cabinetry_core_load_sheet_good_object($tid) {
     (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_thickness'),
     (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_width'),
     (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_height'),
-    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_item_cost')
+    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_item_cost'),
+    (bool) _cabinetry_core_get_term_field($tid, 'field_cabinetry_preserve_grain')
   );
 }
 
@@ -49,7 +51,8 @@ function _cabinetry_core_load_solid_wood_object($tid) {
     _cabinetry_core_get_term_field($tid, 'name'),
     (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_thickness'),
     (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_height'),
-    0.0
+    0.0,
+    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_item_cost')
   );
 }
 

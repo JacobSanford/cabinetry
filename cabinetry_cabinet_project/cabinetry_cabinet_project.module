@@ -12,6 +12,12 @@ define('CABINETRY_CABINET_PROJECT_THIRTY_TWO_UNIT_SIZE', 32.0);
  * Implements hook_form_FORM_ID_alter().
  */
 function cabinetry_cabinet_project_form_cabinetry_cabinet_project_node_form_alter(&$form, &$form_state, $form_id) {
+  $cabinet_sheet_packing_algos = array(
+    'CabinetryShelfFF' => 'ShelfFF from RectangleBinPack',
+  );
+  drupal_alter('cabinetry_sheet_packing', $cabinet_sheet_packing_algos);
+  $form['field_cabinetry_sheet_packing_al'][LANGUAGE_NONE]['#options'] = $cabinet_sheet_packing_algos;
+
   $form['#validate'][] = 'cabinetry_cabinet_project_validate_cabinet_dimensions';
   $form['#validate'][] = 'cabinetry_cabinet_project_validate_thirty_two_system';
   $form['#validate'][] = 'cabinetry_cabinet_project_validate_division_ratio';
@@ -151,8 +157,8 @@ function cabinetry_cabinet_project_generate_cut_list(&$form, &$form_state) {
 
   foreach ($form_state['values']['field_cabinetry_project_componen'][LANGUAGE_NONE] as $component_index => $cabinet_component) {
     if (is_numeric($component_index)) {
-      foreach($cabinet_component['field_cabinetry_name'][LANGUAGE_NONE] as $name_index => $name_value) {
-        if(!empty($name_value['value'])) {
+      foreach ($cabinet_component['field_cabinetry_name'][LANGUAGE_NONE] as $name_index => $name_value) {
+        if (!empty($name_value['value'])) {
           $component = new CabinetryBasicEuroCabinet();
           $component->doorFrameRouterBit = $project->frameRouterBit;
           $component->build($cabinet_component);
@@ -162,6 +168,7 @@ function cabinetry_cabinet_project_generate_cut_list(&$form, &$form_state) {
     }
   }
   $project->collateParts();
+  $project->packSheets($form_state['values']['field_cabinetry_sheet_packing_al'][LANGUAGE_NONE][0]['value']);
 }
 
 /**
