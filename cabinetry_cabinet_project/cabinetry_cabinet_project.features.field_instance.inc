@@ -1063,6 +1063,44 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'node-cabinetry_cabinet_project-field_cabinetry_sheet_packing_al'.
+  $field_instances['node-cabinetry_cabinet_project-field_cabinetry_sheet_packing_al'] = array(
+    'bundle' => 'cabinetry_cabinet_project',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Sheet Packing Algorithim',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 5,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cabinetry_sheet_packing_al',
+    'label' => 'Sheet Packing Algorithim',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance:
   // 'taxonomy_term-cabinetry_hinge_plates-field_cabinetry_item_cost'.
   $field_instances['taxonomy_term-cabinetry_hinge_plates-field_cabinetry_item_cost'] = array(
     'bundle' => 'cabinetry_hinge_plates',
@@ -1344,6 +1382,44 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'taxonomy_term-cabinetry_sheet_goods-field_cabinetry_preserve_grain'.
+  $field_instances['taxonomy_term-cabinetry_sheet_goods-field_cabinetry_preserve_grain'] = array(
+    'bundle' => 'cabinetry_sheet_goods',
+    'default_value' => array(
+      0 => array(
+        'value' => 1,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Does this sheet good have grain that should be preserved?',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 7,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_cabinetry_preserve_grain',
+    'label' => 'Preserve Grain',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 8,
+    ),
+  );
+
+  // Exported field_instance:
   // 'taxonomy_term-cabinetry_sheet_goods-field_cabinetry_sheet_core'.
   $field_instances['taxonomy_term-cabinetry_sheet_goods-field_cabinetry_sheet_core'] = array(
     'bundle' => 'cabinetry_sheet_goods',
@@ -1567,6 +1643,47 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'taxonomy_term-cabinetry_solid_wood-field_cabinetry_item_cost'.
+  $field_instances['taxonomy_term-cabinetry_solid_wood-field_cabinetry_item_cost'] = array(
+    'bundle' => 'cabinetry_solid_wood',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Cost Per Board Foot',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_cabinetry_item_cost',
+    'label' => 'Cost Per Board Foot',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '0.00',
+      'prefix' => '',
+      'suffix' => '$',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance:
   // 'taxonomy_term-cabinetry_solid_wood-field_cabinetry_thickness'.
   $field_instances['taxonomy_term-cabinetry_solid_wood-field_cabinetry_thickness'] = array(
     'bundle' => 'cabinetry_solid_wood',
@@ -1705,9 +1822,11 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Component Type');
   t('Components');
   t('Core Material');
+  t('Cost Per Board Foot');
   t('Cost Per Meter');
   t('Description');
   t('Direction');
+  t('Does this sheet good have grain that should be preserved?');
   t('Door Frame Material');
   t('Door Hinge Plates');
   t('Door Hinges');
@@ -1744,6 +1863,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Measurement Values');
   t('Measurements');
   t('Number of Shelves');
+  t('Preserve Grain');
   t('Rail Cut Depth');
   t('Rail Slot Thickness');
   t('Rail/Stile Router Bit');
@@ -1757,6 +1877,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Select the veneer on the first side of the sheet. If the sides differ, side one is typically chosen to be the side of the sheet with the superior, or outward facing veneer.');
   t('Select the veneer on the second side of the sheet. If the sides differ, side two is typically chosen to be the side of the sheet with the inferior, or hidden facing veneer.');
   t('Sheet Height');
+  t('Sheet Packing Algorithim');
   t('Sheet Thickness');
   t('Sheet Veneer Side 1');
   t('Sheet Veneer Side 2');

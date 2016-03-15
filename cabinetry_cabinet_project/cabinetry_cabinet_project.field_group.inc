@@ -147,8 +147,8 @@ function cabinetry_cabinet_project_field_group_info() {
     'weight' => '0',
     'children' => array(
       0 => 'field_cabinetry_description',
-      1 => 'field_cabinetry_project_measurem',
-      2 => 'field_cabinetry_enforce_32mm',
+      1 => 'field_cabinetry_enforce_32mm',
+      2 => 'field_cabinetry_project_measurem',
       3 => 'title',
     ),
     'format_type' => 'fieldset',
@@ -179,6 +179,7 @@ function cabinetry_cabinet_project_field_group_info() {
     'weight' => '4',
     'children' => array(
       0 => 'field_cabinetry_frame_router_bit',
+      1 => 'field_cabinetry_sheet_packing_al',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

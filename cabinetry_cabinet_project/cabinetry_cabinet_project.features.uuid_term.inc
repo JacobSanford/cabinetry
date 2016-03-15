@@ -14,7 +14,7 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     'name' => '3/4"(19.3mm) Ranger Board MDF',
     'description' => '',
     'format' => 'filtered_html',
-    'weight' => 0,
+    'weight' => 1,
     'uuid' => '0009dab1-c1a3-41f3-8346-be904463f815',
     'vocabulary_machine_name' => 'cabinetry_sheet_goods',
     'field_cabinetry_height' => array(
@@ -54,6 +54,7 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_cabinetry_preserve_grain' => array(),
   );
   $terms[] = array(
     'name' => 'Basic European Cabinet',
@@ -108,7 +109,7 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     'name' => '5/8" (16.8mm) Full Sheet White MOP Melamine',
     'description' => '',
     'format' => 'filtered_html',
-    'weight' => 0,
+    'weight' => 2,
     'uuid' => '73a4786b-cb44-4eb9-a95e-7412c0a89b5f',
     'vocabulary_machine_name' => 'cabinetry_sheet_goods',
     'field_cabinetry_height' => array(
@@ -160,6 +161,7 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_cabinetry_preserve_grain' => array(),
   );
   $terms[] = array(
     'name' => 'Blum Full Overlay Hinge',
@@ -197,6 +199,7 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_cabinetry_item_cost' => array(),
   );
   $terms[] = array(
     'name' => 'MDF',
@@ -210,7 +213,7 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     'name' => '1/4" (6mm) Birch OSB Core G2S',
     'description' => '',
     'format' => 'filtered_html',
-    'weight' => 0,
+    'weight' => 3,
     'uuid' => 'aef00698-5a82-485d-9519-941b8ed42ff7',
     'vocabulary_machine_name' => 'cabinetry_sheet_goods',
     'field_cabinetry_height' => array(
@@ -259,6 +262,13 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
       'und' => array(
         0 => array(
           'value' => 2447,
+        ),
+      ),
+    ),
+    'field_cabinetry_preserve_grain' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
         ),
       ),
     ),
@@ -376,6 +386,7 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_cabinetry_preserve_grain' => array(),
   );
   return $terms;
 }

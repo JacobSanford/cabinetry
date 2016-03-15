@@ -562,6 +562,31 @@ function cabinetry_cabinet_project_field_default_field_bases() {
     'type' => 'text',
   );
 
+  // Exported field_base: 'field_cabinetry_preserve_grain'.
+  $field_bases['field_cabinetry_preserve_grain'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_preserve_grain',
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => '',
+        1 => '',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_boolean',
+  );
+
   // Exported field_base: 'field_cabinetry_project_componen'.
   $field_bases['field_cabinetry_project_componen'] = array(
     'active' => 1,
@@ -664,6 +689,28 @@ function cabinetry_cabinet_project_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'taxonomy_term_reference',
+  );
+
+  // Exported field_base: 'field_cabinetry_sheet_packing_al'.
+  $field_bases['field_cabinetry_sheet_packing_al'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_sheet_packing_al',
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
   );
 
   // Exported field_base: 'field_cabinetry_sheet_veneer_one'.
