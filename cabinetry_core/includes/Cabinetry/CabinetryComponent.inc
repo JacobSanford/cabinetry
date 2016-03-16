@@ -44,6 +44,12 @@ class CabinetryComponent {
    */
   public $parts = array();
 
+  /**
+   * A label for this part.
+   *
+   * @var string
+   */
+  public $label = NULL;
 
   /**
    * Constructor.

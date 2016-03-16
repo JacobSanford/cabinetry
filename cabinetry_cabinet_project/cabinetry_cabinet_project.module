@@ -160,6 +160,7 @@ function cabinetry_cabinet_project_generate_cut_list(&$form, &$form_state) {
       foreach ($cabinet_component['field_cabinetry_name'][LANGUAGE_NONE] as $name_index => $name_value) {
         if (!empty($name_value['value'])) {
           $component = new CabinetryBasicEuroCabinet();
+          $component->label = $name_value['value'];
           $component->doorFrameRouterBit = $project->frameRouterBit;
           $component->build($cabinet_component);
           $project->addComponent($component);
@@ -167,6 +168,7 @@ function cabinetry_cabinet_project_generate_cut_list(&$form, &$form_state) {
       }
     }
   }
+
   $project->collateParts();
   $project->packSheets($form_state['values']['field_cabinetry_sheet_packing_al'][LANGUAGE_NONE][0]['value']);
   $project->plotSheets();
@@ -180,32 +182,221 @@ function cabinetry_cabinet_project_generate_cut_list(&$form, &$form_state) {
  */
 function cabinetry_cabinet_project_node_presave($node) {
   if ($node->type == 'cabinetry_cabinet_project') {
-    ctools_include('object-cache');
-    $project = ctools_object_cache_get('cabinetry_cabinet_project', 'presave_object');
-    ctools_object_cache_clear('cabinetry_cabinet_project', 'presave_object');
-    dpm($project);
-
-    $directory = 'public://cabinetry/sheets';
-    file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
-
-    /*
-    $sheet_type_index = 0;
-    foreach ($project->parts['CabinetrySheetGood'] as $sheet_type => $sheets) {
-      dpm($form_state['values']['field_cabinetry_materials_sheet'][LANGUAGE_NONE]);
-      // form_set_value($form['field_cabinetry_materials_sheet'][LANGUAGE_NONE][$sheet_type_index]['field_cabinetry_name'][LANGUAGE_NONE][0]['value'], $sheet_type, $form_state);
-      $form_value_array[LANGUAGE_NONE][$sheet_type_index]['field_cabinetry_name'][LANGUAGE_NONE][0]['value'] = $sheet_type;
-      /*
-      $image = file_get_contents($_FILES['image']['tmp_name']);
-      $file = file_save_data($image, 'public://my-image-folder/'.$_FILES['image']['name'], FILE_EXISTS_RENAME);
-      $file->status = FILE_STATUS_PERMANENT;
-      file_save($file);
-
-      $sheet_type_index++;
+    static $hook_running = FALSE;
+    if ($hook_running) {
+      return;
     }
-    // form_set_value($form['field_cabinetry_materials_sheet'], $materials_value_array, $form_state);
-    */
+    else {
+      $hook_running = TRUE;
+    }
+
+    ctools_include('object-cache');
+
+    $project = ctools_object_cache_get('cabinetry_cabinet_project', 'presave_object');
+
+    _cabinetry_cabinet_project_remove_sheet_materials($node);
+    _cabinetry_cabinet_project_add_sheet_materials($node, $project);
+
+    _cabinetry_cabinet_project_remove_solid_materials($node);
+    _cabinetry_cabinet_project_add_solid_materials($node, $project);
+
+    _cabinetry_cabinet_project_remove_hardware_materials($node);
+    _cabinetry_cabinet_project_add_hardware_materials($node, $project);
+
+    ctools_object_cache_clear('cabinetry_cabinet_project', 'presave_object');
+
+    $hook_running = FALSE;
   }
 }
+
+function _cabinetry_cabinet_project_remove_hardware_materials($node) {
+  foreach ($node->field_cabinetry_materials_hardwa[LANGUAGE_NONE] as $hardware_index => $hardware_type) {
+    // Delete field collection entities.
+    if (isset($hardware_type['entity']) && method_exists($hardware_type['entity'], 'delete')) {
+      $hardware_type['entity']->delete();
+    }
+
+    // Remove values from node object.
+    unset($node->field_cabinetry_materials_hardwa[LANGUAGE_NONE][$hardware_index]);
+  }
+}
+
+function _cabinetry_cabinet_project_add_hardware_materials($node, $project) {
+
+  foreach ($project->hardware as $hardware_type => $hardware_item) {
+
+    $field_collection_object = entity_create(
+      'field_collection_item',
+      array('field_name' => 'field_cabinetry_materials_hardwa')
+    );
+
+    $field_collection_object->field_cabinetry_hardware_name[LANGUAGE_NONE][0]['value'] = $hardware_item['name'];
+    $field_collection_object->field_cabinetry_number_of_shelve[LANGUAGE_NONE][0]['value'] = $hardware_item['count'];
+    $field_collection_object->field_cabinetry_item_cost[LANGUAGE_NONE][0]['value'] = $hardware_item['price'];
+
+    $sheet_type_array = array(
+      'field_cabinetry_hardware_name' => _cabinetry_cabinet_project_stuff_field($hardware_item['name']),
+      'field_cabinetry_number_of_shelve' => _cabinetry_cabinet_project_stuff_field($hardware_item['count']),
+      'field_cabinetry_item_cost' => _cabinetry_cabinet_project_stuff_field($hardware_item['price']),
+      'remove_button' => 'Remove',
+      'entity' => $field_collection_object,
+    );
+    $node->field_cabinetry_materials_hardwa[LANGUAGE_NONE][] = $sheet_type_array;
+  }
+}
+
+function _cabinetry_cabinet_project_remove_solid_materials($node) {
+  foreach ($node->field_cabinetry_materials_solid[LANGUAGE_NONE] as $solid_index => $solid_type) {
+    // Delete field collection entities.
+    foreach ($solid_type['field_cabinetry_solid_part_list'][LANGUAGE_NONE] as $part_list_index => $part_list) {
+      if (isset($part_list['entity']) && method_exists($part_list['entity'], 'delete')) {
+        $part_list['entity']->delete();
+      }
+      unset($node->field_cabinetry_materials_solid[LANGUAGE_NONE][$solid_index]['field_cabinetry_solid_part_list'][LANGUAGE_NONE][$part_list_index]);
+    }
+
+    if (isset($solid_type['entity']) && method_exists($solid_type['entity'], 'delete')) {
+      $solid_type['entity']->delete();
+    }
+
+    // Remove values from node object.
+    unset($node->field_cabinetry_materials_solid[LANGUAGE_NONE][$solid_index]);
+  }
+}
+
+function _cabinetry_cabinet_project_add_solid_materials($node, $project) {
+  foreach ($project->parts['CabinetrySolidWood'] as $solid_type => $solid) {
+    $parts_list = array();
+
+    foreach ($solid['parts'] as $part_index => $part) {
+      $length = $part['length'];
+
+      $part_names = array();
+      foreach ($part['items'] as $part_name) {
+        $part_names[] = array(
+          'value' => $part_name['label'],
+          '_weight' => 0,
+        );
+      }
+
+      $parts_list_field_collection_object = entity_create(
+        'field_collection_item',
+        array('field_name' => 'field_cabinetry_solid_part_list')
+      );
+
+      $parts_list_field_collection_object->field_cabinetry_solid_thickness[LANGUAGE_NONE][0]['value'] = $solid['thickness'];
+      $parts_list_field_collection_object->field_cabinetry_solid_width[LANGUAGE_NONE][0]['value'] = $solid['height'];
+      $parts_list_field_collection_object->field_cabinetry_solid_length[LANGUAGE_NONE][0]['value'] = $length;
+      $parts_list_field_collection_object->field_cabinetry_part_names[LANGUAGE_NONE] = $part_names;
+
+      $parts_list[] = array(
+        'field_cabinetry_solid_thickness' => _cabinetry_cabinet_project_stuff_field($solid['thickness']),
+        'field_cabinetry_solid_width' => _cabinetry_cabinet_project_stuff_field($solid['height']),
+        'field_cabinetry_solid_length' => _cabinetry_cabinet_project_stuff_field($length),
+        'field_cabinetry_part_names' => array(
+          LANGUAGE_NONE => $part_names,
+        ),
+        'remove_button' => 'Remove',
+        'entity' => $parts_list_field_collection_object,
+      );
+    }
+
+    $solid_materials_field_collection_object = entity_create(
+      'field_collection_item',
+      array('field_name' => 'field_cabinetry_materials_solid')
+    );
+
+    $solid_materials_field_collection_object->field_cabinetry_solid_name[LANGUAGE_NONE][0]['value'] = $solid_type;
+    $solid_materials_field_collection_object->field_cabinetry_item_cost[LANGUAGE_NONE][0]['value'] = $solid['price'];
+    $solid_materials_field_collection_object->field_cabinetry_board_feet[LANGUAGE_NONE][0]['value'] = $solid['board_feet'];
+    $solid_materials_field_collection_object->field_cabinetry_solid_part_list[LANGUAGE_NONE] = $parts_list;
+
+    $solid_type_array = array(
+      'field_cabinetry_solid_name' => _cabinetry_cabinet_project_stuff_field($solid_type),
+      'field_cabinetry_item_cost' => _cabinetry_cabinet_project_stuff_field($solid['price']),
+      'field_cabinetry_board_feet' => _cabinetry_cabinet_project_stuff_field($solid['board_feet']),
+      'field_cabinetry_solid_part_list' => array(
+        LANGUAGE_NONE => $parts_list,
+      ),
+      'remove_button' => 'Remove',
+      'entity' => $solid_materials_field_collection_object,
+    );
+
+    $node->field_cabinetry_materials_solid[LANGUAGE_NONE][] = $solid_type_array;
+  }
+}
+
+function _cabinetry_cabinet_project_remove_sheet_materials($node) {
+  foreach ($node->field_cabinetry_materials_sheet[LANGUAGE_NONE] as $sheet_index => $sheet_type) {
+
+    // Delete old files.
+    if (!empty($sheet_type['field_image'][LANGUAGE_NONE])) {
+      foreach ($sheet_type['field_image'][LANGUAGE_NONE] as $old_file) {
+        if (!empty($old_file['fid']) && $old_file['fid'] != 0 && $old_file['fid'] != '') {
+          $file_object = file_load($old_file['fid']);
+          file_delete($file_object, TRUE);
+        }
+      }
+    }
+
+    // Delete field collection entities.
+    if (isset($sheet_type['entity']) && method_exists($sheet_type['entity'], 'delete')) {
+      $sheet_type['entity']->delete();
+    }
+
+    // Remove values from node object.
+    unset($node->field_cabinetry_materials_sheet[LANGUAGE_NONE][$sheet_index]);
+  }
+}
+
+function _cabinetry_cabinet_project_add_sheet_materials($node, $project) {
+  $directory = 'public://cabinetry/sheets';
+  file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
+
+  foreach ($project->parts['CabinetrySheetGood'] as $sheet_type => $sheet) {
+    // Files.
+    $plot_files = array();
+    foreach ($sheet['plots'] as $plot_index => $plot_file) {
+      $sheet_plot = file_get_contents($plot_file);
+      $file_name = basename($plot_file);
+      $file = file_save_data($sheet_plot, "public://cabinetry/sheets/$file_name.png", FILE_EXISTS_REPLACE);
+      $file->status = FILE_STATUS_PERMANENT;
+      file_save($file);
+      $plot_files[] = (array) $file;
+    }
+
+    $field_collection_object = entity_create(
+      'field_collection_item',
+      array('field_name' => 'field_cabinetry_materials_sheet')
+    );
+
+    $field_collection_object->field_cabinetry_item_cost[LANGUAGE_NONE][0]['value'] = $sheet['price'];
+    $field_collection_object->field_cabinetry_sheet_name[LANGUAGE_NONE][0]['value'] = $sheet_type;
+    $field_collection_object->field_image[LANGUAGE_NONE] = $plot_files;
+
+    $sheet_type_array = array(
+      'field_cabinetry_item_cost' => _cabinetry_cabinet_project_stuff_field($sheet['price']),
+      'field_cabinetry_sheet_name' => _cabinetry_cabinet_project_stuff_field($sheet_type),
+      'remove_button' => 'Remove',
+      'field_image' => array(
+        LANGUAGE_NONE => $plot_files,
+      ),
+      'entity' => $field_collection_object,
+    );
+    $node->field_cabinetry_materials_sheet[LANGUAGE_NONE][] = $sheet_type_array;
+  }
+}
+
+function _cabinetry_cabinet_project_stuff_field($value) {
+  return array(
+    LANGUAGE_NONE => array(
+      0 => array(
+        'value' => $value,
+      ),
+    ),
+  );
+}
+
 
 /**
  * Bootstrap cabinetry_cabinet_project object classes.

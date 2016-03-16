@@ -27,7 +27,7 @@ class CabinetryCabinetProject extends CabinetryProject {
       foreach ($component->parts as $part_id => $part) {
         $this->sortPart(
           $part,
-          "Cabinet $component_id $part->label"
+          "$component->label[$component_id] $part->label"
         );
       }
 
@@ -36,7 +36,7 @@ class CabinetryCabinetProject extends CabinetryProject {
         foreach ($door->parts as $door_part_id => $door_part) {
           $this->sortPart(
             $door_part,
-            "Cabinet $component_id Door $door_id $door_part->label"
+            "$component->label[$component_id] Door $door_id $door_part->label"
           );
         }
       }
@@ -48,7 +48,7 @@ class CabinetryCabinetProject extends CabinetryProject {
       foreach ($component->hardware as $hardware_id => $hardware_item) {
         $this->sortPart(
           $hardware_item,
-          "Cabinet $component_id $hardware_item->name"
+          "$component->label[$component_id] $hardware_item->name"
         );
       }
     }
@@ -97,7 +97,6 @@ class CabinetryCabinetProject extends CabinetryProject {
           'width' => $part->width,
           'height' => $part->height,
         );
-        $this->parts['CabinetrySheetGood'][$part->source->material]['board_feet'] = 0.0;
       }
     }
 
@@ -106,7 +105,6 @@ class CabinetryCabinetProject extends CabinetryProject {
 
       if (!isset($this->parts['CabinetrySolidWood'])) {
         $this->parts['CabinetrySolidWood'] = array();
-        $this->parts['CabinetrySolidWood']['board_feet'] = 0;
       }
 
       if (!isset($this->parts['CabinetrySolidWood'][$part->source->material])) {
@@ -145,7 +143,6 @@ class CabinetryCabinetProject extends CabinetryProject {
       $this->parts['CabinetrySolidWood'][$part->source->material]['length'] += $part->width;
       $part_boardfeet = $part->width * $this->parts['CabinetrySolidWood'][$part->source->material]['thickness'] * $this->parts['CabinetrySolidWood'][$part->source->material]['height'] * CABINETRY_CORE_MM3_TO_BOARDFEET;
       $this->parts['CabinetrySolidWood'][$part->source->material]['board_feet'] += $part_boardfeet;
-      $this->parts['CabinetrySolidWood']['board_feet'] += $part_boardfeet;
     }
 
     // Hardware.

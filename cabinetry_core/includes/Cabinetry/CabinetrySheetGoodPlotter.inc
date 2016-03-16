@@ -91,6 +91,13 @@ class CabinetrySheetGoodPlotter {
    *
    * @var int
    */
+  public $pieceColor = NULL;
+
+  /**
+   * Canvas Color
+   *
+   * @var int
+   */
   public $canvasColor = NULL;
 
   /**
@@ -122,6 +129,7 @@ class CabinetrySheetGoodPlotter {
     $this->labelColor = imagecolorallocate($this->canvas, 0, 0, 0);
     $this->shelfColor = imagecolorallocate($this->canvas, 255, 0, 0);
     $this->cutColor = imagecolorallocate($this->canvas, 0, 0, 0);
+    $this->pieceColor = imagecolorallocate($this->canvas, 240, 240, 240);
     $this->canvasColor = imagecolorallocate($this->canvas, 255, 255, 255);
   }
 
@@ -166,6 +174,14 @@ class CabinetrySheetGoodPlotter {
       $upper_left_y = $bottom_right_y - $piece['height'];
 
       // Plot piece.
+      imagefilledrectangle(
+        $this->canvas,
+        $upper_left_x,
+        $upper_left_y,
+        $bottom_right_x,
+        $bottom_right_y,
+        $this->pieceColor
+      );
       imagerectangle(
         $this->canvas,
         $upper_left_x,
@@ -181,7 +197,8 @@ class CabinetrySheetGoodPlotter {
         $upper_left_x,
         $upper_left_y,
         $bottom_right_x,
-        $bottom_right_y
+        $bottom_right_y,
+        $piece['rotated']
       );
       $cur_x += $piece['width'];
     }
@@ -195,6 +212,7 @@ class CabinetrySheetGoodPlotter {
       $shelf_top_boundary,
       $this->shelfColor
     );
+
     imagestring(
       $this->canvas,
       $this->fontSize,
@@ -212,12 +230,21 @@ class CabinetrySheetGoodPlotter {
     );
   }
 
-  public function centerStringInShape($string, $upper_left_x, $upper_left_y, $bottom_right_x, $bottom_right_y) {
+  public function centerStringInShape($string, $upper_left_x, $upper_left_y, $bottom_right_x, $bottom_right_y, $rotated) {
     $string_dimensions = $this->getStringSize($string);
-    $x_dim = $upper_left_x + (($bottom_right_x - $upper_left_x) / 2) - $string_dimensions['width'] / 2;
-    $y_dim = $upper_left_y + (($bottom_right_y - $upper_left_y) / 2) - $string_dimensions['height'] / 2;
 
-    imagestring(
+    if ($rotated) {
+      $x_dim = $upper_left_x + (($bottom_right_x - $upper_left_x) / 2) - $string_dimensions['height'] / 2;
+      $y_dim = $upper_left_y + (($bottom_right_y - $upper_left_y) / 2) + $string_dimensions['width'] / 2;
+      $plot_function = 'imagestringup';
+    }
+    else {
+      $x_dim = $upper_left_x + (($bottom_right_x - $upper_left_x) / 2) - $string_dimensions['width'] / 2;
+      $y_dim = $upper_left_y + (($bottom_right_y - $upper_left_y) / 2) - $string_dimensions['height'] / 2;
+      $plot_function = 'imagestring';
+    }
+
+    $plot_function(
       $this->canvas,
       $this->fontSize,
       $x_dim,

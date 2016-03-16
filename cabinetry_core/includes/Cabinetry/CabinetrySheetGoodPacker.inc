@@ -35,7 +35,7 @@ class CabinetrySheetGoodPacker {
    *
    * @var boolean
    */
-  public $has_grain = TRUE;
+  public $hasGrain = TRUE;
 
   /**
    * Does this sheet have grain that should be vertical?
@@ -51,16 +51,16 @@ class CabinetrySheetGoodPacker {
    *   The width of this sheet good, in millimeters.
    * @param float $height
    *   The height of this sheet good, in millimeters.
-   * @param boolean $grain
-   *   Should the piece orientations (grain parallel to width) be preserved?
    * @param array $pieces
    *   An associative array of pieces to fit into the sheet space. Each item
    *   must have 'width', 'height' and 'label' elements.
+   * @param bool $has_grain
+   *   Should the piece orientations (grain parallel to width) be preserved?
    */
-  public function __construct($width, $height, $pieces, $grain) {
+  public function __construct($width, $height, $pieces, $has_grain) {
     $this->width = $width;
     $this->height = $height;
-    $this->grain = $grain;
+    $this->hasGrain = $has_grain;
     $this->pieces = $pieces;
   }
 

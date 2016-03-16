@@ -26,11 +26,11 @@ class CabinetryShelfFFPacker extends CabinetrySheetGoodPacker {
    * @param array $pieces
    *   An associative array of pieces to fit into the sheet space. Each item
    *   must have 'width', 'height' and 'label' elements.
-   * @param bool $grain
+   * @param bool $has_grain
    *   Should the piece orientations (grain parallel to width) be preserved?
    */
-  public function __construct($width, $height, $pieces, $grain) {
-    parent::__construct($width, $height, $pieces, $grain);
+  public function __construct($width, $height, $pieces, $has_grain) {
+    parent::__construct($width, $height, $pieces, $has_grain);
 
     // TODO : This is key here. Tell why later.
     $this->sortPiecesByHeightAndWidth();
@@ -42,7 +42,7 @@ class CabinetryShelfFFPacker extends CabinetrySheetGoodPacker {
   public function pack() {
     $sheet_set = new CabinetryShelfFFShelfSet(
       $this->width,
-      $this->grain,
+      $this->hasGrain,
       4.0
     );
     foreach ($this->pieces as $piece_index => $piece) {
@@ -236,12 +236,12 @@ class CabinetryShelfFFShelf {
    * @param float $width
    *   The width of the shelf, in millimeters.
    */
-  public function __construct($height, $width, $can_rotate, $cut_width) {
+  public function __construct($height, $width, $preserve_grain, $cut_width) {
     $this->height = $height;
     $this->width = $width;
     $this->remain = $width;
     $this->cutWidth = $cut_width;
-    $this->canRotate = $can_rotate;
+    $this->canRotate = !$preserve_grain;
   }
 
   /**
@@ -252,6 +252,10 @@ class CabinetryShelfFFShelf {
       $width_placeholder = $piece['width'];
       $piece['width'] = $piece['height'];
       $piece['height'] = $width_placeholder;
+      $piece['rotated'] = TRUE;
+    }
+    else {
+      $piece['rotated'] = FALSE;
     }
 
     if ($piece['width'] > $this->width) {
@@ -287,13 +291,13 @@ class CabinetryShelfFFShelf {
     }
 
     // If applicable, check if the piece was rotated fits.
-    if ($piece['width'] > $this->remain && $this->canRotate == TRUE && $piece['height'] <= $this->remain) {
-      $rotated_balance = $this->remain - $piece['height'];
+    if ($this->canRotate == TRUE && $piece['height'] <= $this->remain && $piece['width'] <= $this->height) {
+      $rotated_balance = $this->height - $piece['width'];
     }
 
     // Check if non-rotated fits better than rotated.
     if ($piece['width'] <= $this->remain) {
-      if (!isset($rotated_balance) || $this->remain - $piece['width'] <= $rotated_balance) {
+      if (!isset($rotated_balance) || $this->height - $piece['height'] <= $rotated_balance) {
         return array(
           'balance' => $this->remain - $piece['width'],
           'rotated' => FALSE,
