@@ -13,21 +13,21 @@ class CabinetryCabinetDoor extends CabinetryComponent {
   /**
    * The door frame material.
    *
-   * @var object
+   * @var object CabinetryWoodPiece
    */
   public $doorFrameMaterial = NULL;
 
   /**
    * The door frame rail/stile bit.
    *
-   * @var object
+   * @var object CabinetryToolItem
    */
   public $doorFrameRouterBit = NULL;
 
   /**
    * The door panel material.
    *
-   * @var object
+   * @var object CabinetrySheetGood
    */
   public $doorPanelMaterial = NULL;
 

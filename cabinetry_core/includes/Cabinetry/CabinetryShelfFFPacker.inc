@@ -5,7 +5,7 @@
  */
 
 /**
- * A generic object for packing a sheet good from a piece list.
+ * A generic object for packing a 2D sheet good from a piece list.
  */
 class CabinetryShelfFFPacker extends CabinetrySheetGoodPacker {
 
@@ -31,8 +31,6 @@ class CabinetryShelfFFPacker extends CabinetrySheetGoodPacker {
    */
   public function __construct($width, $height, $pieces, $has_grain) {
     parent::__construct($width, $height, $pieces, $has_grain);
-
-    // TODO : This is key here. Tell why later.
     $this->sortPiecesByHeightAndWidth();
   }
 

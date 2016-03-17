@@ -432,7 +432,20 @@ function _cabinetry_cabinet_project_load_router_bit_object($tid) {
  */
 function cabinetry_cabinet_project_preprocess_node(&$variables) {
   if (in_array('node__cabinetry_cabinet_project', $variables['theme_hook_suggestions'])) {
-    $node_entity_wrapper = entity_metadata_wrapper('node', $variables['node']);
+    module_load_include('inc', 'cabinetry_cabinet_project', 'includes/theme');
+    $node_entity_wrapper = _cabinetry_cabinet_project_get_metadata_wrapper($variables);
+    $variables['title'] = $node_entity_wrapper->title->value();
+
+    $variables['components_title'] = t('Cabinet Components');
+    $variables['components_table'] = _cabinetry_cabinet_project_get_components_table($node_entity_wrapper);
+
+    $variables['solid_title'] = t('Solid Pieces');
+    $variables['solid_table'] = _cabinetry_cabinet_project_get_solid_table($node_entity_wrapper, $variables['node']);
+
+    $variables['sheet_title'] = t('Sheet Goods');
+    $variables['sheet_table'] = _cabinetry_cabinet_project_get_sheet_table($node_entity_wrapper, $variables['node']);
+    $canvas = imagecreate(100, 100);
+    dpm(imagecolorallocate($canvas, 248, 50, 0));
   }
 }
 

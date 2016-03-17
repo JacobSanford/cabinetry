@@ -12,7 +12,7 @@ class CabinetryCabinetProject extends CabinetryProject {
   /**
    * The router bit to use for rail/stile frames.
    *
-   * @var object
+   * @var object CabinetryToolItem
    */
   public $frameRouterBit = NULL;
 
@@ -56,6 +56,11 @@ class CabinetryCabinetProject extends CabinetryProject {
 
   /**
    * Collate a list of parts from all components of the project.
+   *
+   * @param object $part
+   *    A CabinetryWoodPart object to sort.
+   * @param string $label
+   *    A label to identify the part.
    */
   public function sortPart($part, $label) {
 
@@ -163,6 +168,9 @@ class CabinetryCabinetProject extends CabinetryProject {
 
   /**
    * Pack sheet good parts into sheets.
+   *
+   * @param string $algorithm
+   *    The algorithm to use to sort the parts.
    */
   public function packSheets($algorithm) {
     foreach ($this->parts['CabinetrySheetGood'] as $sheet_type_index => $sheet_type) {
@@ -178,7 +186,7 @@ class CabinetryCabinetProject extends CabinetryProject {
   }
 
   /**
-   * Plot sheets.
+   * Generate the plots for the cut and shelves for the sheets goods.
    */
   public function plotSheets() {
     foreach ($this->parts['CabinetrySheetGood'] as $sheet_type_index => $sheet_type) {

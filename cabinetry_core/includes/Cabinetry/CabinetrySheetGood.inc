@@ -12,7 +12,7 @@ class CabinetrySheetGood extends CabinetryWoodPiece {
   /**
    * Should the grain orientation of this item be preserved.
    *
-   * @var boolean
+   * @var bool
    */
   public $preserveGrain = TRUE;
 
@@ -30,7 +30,7 @@ class CabinetrySheetGood extends CabinetryWoodPiece {
    *   The height of this sheet good, in millimeters.
    * @param float $price
    *   This sheet good's cost.
-   * @param boolean $preserve_grain
+   * @param bool $preserve_grain
    *   Should the grain orientation of this item be preserved?
    */
   public function __construct($material, $thickness, $width, $height, $price, $preserve_grain) {

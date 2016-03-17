@@ -25,6 +25,11 @@ class CabinetryHardwareItem {
 
   /**
    * Constructor.
+   *
+   * @param string $name
+   *   The name of this hardware item.
+   * @param float $price
+   *   The price of one of these items.
    */
   public function __construct($name, $price) {
     $this->name = $name;

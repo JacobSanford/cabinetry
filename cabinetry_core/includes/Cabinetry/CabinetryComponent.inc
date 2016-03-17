@@ -40,7 +40,7 @@ class CabinetryComponent {
   /**
    * An array of CabinetryWoodPart objects comprising this component.
    *
-   * @var object CabinetryWoodPart
+   * @var array
    */
   public $parts = array();
 

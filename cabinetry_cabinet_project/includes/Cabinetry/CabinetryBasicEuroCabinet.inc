@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Provides a generic object to serve as a basic european style cabinet.
@@ -10,7 +11,7 @@
 class CabinetryBasicEuroCabinet extends CabinetryComponent {
 
   /**
-   * The back sheet good.
+   * The back panel sheet good.
    *
    * @var object CabinetrySheetGood
    */
@@ -42,14 +43,14 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
    *
    * The sum of the array values should total 1.0.
    *
-   * @var integer
+   * @var array
    */
   public $divisions = array();
 
   /**
    * An array of CabinetryCabinetDoor objects comprising this component.
    *
-   * @var integer
+   * @var array
    */
   public $doors = array();
 
@@ -77,35 +78,35 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
   /**
    * The door frame material.
    *
-   * @var object
+   * @var object CabinetryWoodPiece
    */
   public $doorFrameMaterial = NULL;
 
   /**
    * The door frame rail/stile bit.
    *
-   * @var object
+   * @var object CabinetryToolItem
    */
   public $doorFrameRouterBit = NULL;
 
   /**
    * The door panel material.
    *
-   * @var object
+   * @var object CabinetrySheetGood
    */
   public $doorPanelMaterial = NULL;
 
   /**
    * The door hinge.
    *
-   * @var object
+   * @var object CabinetryHardwareItem
    */
   public $doorHinge = NULL;
 
   /**
    * The door hinge.
    *
-   * @var object
+   * @var object CabinetryHardwareItem
    */
   public $doorHingePlate = NULL;
 
@@ -175,6 +176,8 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
   /**
    * Add a length of edge banding to the cabinet materials list.
    *
+   * @param object $material
+   *   The CabinetrySheetGood object to edge band.
    * @param float $width
    *   The width of the banding, in millimeters.
    * @param float $length
@@ -299,7 +302,7 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
    * Generate a side panel for the caracass.
    *
    * @param string $label
-   *   A label to identify the side (Left, Right).
+   *   A label to identify the panel (Left, Right).
    */
   protected function generateSidePart($label) {
     $dado_depth = round($this->carcassSheetGood->thickness / 2, 1);
@@ -319,7 +322,7 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
    * Generate a top or bottom panel for the caracass.
    *
    * @param string $label
-   *   A label to identify the side (Top, Bottom).
+   *   A label to identify the panel (Top, Bottom).
    */
   protected function generateTopBottomPart($label) {
     $this->parts[] = new CabinetryWoodPart(

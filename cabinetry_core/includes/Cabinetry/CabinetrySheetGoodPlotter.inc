@@ -24,84 +24,87 @@ class CabinetrySheetGoodPlotter {
   public $height = 0.0;
 
   /**
-   * Does this sheet have grain that should be vertical?
+   * The sheet good to plot.
    *
-   * @var array
+   * @var object CabinetrySheetGood
    */
   public $sheet = array();
 
   /**
-   * Does this sheet have grain that should be vertical?
+   * The canvas used to plot the sheet details.
    *
    * @var resource
    */
   public $canvas = NULL;
 
   /**
-   * Does this sheet have grain that should be vertical?
+   * A running total of the shelf offset used as the sheet is filled.
    *
    * @var float
    */
   public $shelfOffset = 0.0;
 
   /**
-   * Does this sheet have grain that should be vertical?
+   * The amount of pixels to offset the plot for shelf labels in the sheet plot.
    *
    * @var int
    */
   public $labelOffset = 256;
 
   /**
-   * Does this sheet have grain that should be vertical?
+   * The amount of pixels to pad the plot image on all sides.
    *
    * @var int
    */
   public $padding = 64;
 
   /**
-   * The Font Size
+   * The font size used to plot the labels.
    *
    * @var int
    */
   public $fontSize = 5;
 
   /**
-   * Label Color
+   * The imagecolorallocate color identifier used to plot the labels.
    *
    * @var int
    */
-  public $labelColor = NULL;
+  public $labelColor = 0;
 
   /**
-   * Shelf Color
+   * The imagecolorallocate color identifier used to plot the shelf line.
    *
    * @var int
    */
-  public $shelfColor = NULL;
+  public $shelfColor = 0;
 
   /**
-   * Cut Color
+   * The imagecolorallocate color identifier used to plot the cut lines.
    *
    * @var int
    */
-  public $cutColor = NULL;
+  public $cutColor = 0;
 
   /**
-   * Canvas Color
+   * The imagecolorallocate color identifier used to shade the pieces.
    *
    * @var int
    */
-  public $pieceColor = NULL;
+  public $pieceColor = 0;
 
   /**
-   * Canvas Color
+   * The imagecolorallocate color identifier used as canvas background.
    *
    * @var int
    */
-  public $canvasColor = NULL;
+  public $canvasColor = 0;
 
   /**
    * Constructor.
+   *
+   * @param object $sheet
+   *   The CabinetrySheetGood object to plot.
    */
   public function __construct($sheet) {
     $this->sheet = $sheet;
@@ -113,7 +116,7 @@ class CabinetrySheetGoodPlotter {
   }
 
   /**
-   * Set up canvas.
+   * Set up the canvas used to plot the sheet.
    */
   public function setupCanvas() {
     $this->canvas = imagecreatetruecolor(
@@ -123,7 +126,7 @@ class CabinetrySheetGoodPlotter {
   }
 
   /**
-   * Set up colors.
+   * Set up colors used in the plot.
    */
   public function setupColors() {
     $this->labelColor = imagecolorallocate($this->canvas, 0, 0, 0);
@@ -160,7 +163,10 @@ class CabinetrySheetGoodPlotter {
   }
 
   /**
-   * Plot the shelf to the canvas.
+   * Plot a shelf to the canvas.
+   *
+   * @param object $shelf
+   *   The CabinetryShelfFFShelf object to plot.
    */
   public function plotShelf($shelf) {
     $shelf_top_boundary = $this->padding + $this->height - $shelf->height - $this->shelfOffset;
@@ -223,6 +229,16 @@ class CabinetrySheetGoodPlotter {
     );
   }
 
+  /**
+   * Get the dimensions, in pixels of rendered text.
+   *
+   * @param string $string
+   *   The string to return the rendered dimensions of.
+   *
+   * @return array
+   *   An associative array containing width and height elements describing the
+   *   dimensions of the string.
+   */
   public function getStringSize($string) {
     return array(
       'width' => (int) imagefontwidth($this->fontSize) * strlen($string),
@@ -230,6 +246,22 @@ class CabinetrySheetGoodPlotter {
     );
   }
 
+  /**
+   * Plot a string centered inside a bounding box.
+   *
+   * @param string $string
+   *   The string to plot.
+   * @param int $upper_left_x
+   *   The upper left x coordinate of the bounding box.
+   * @param int $upper_left_y
+   *   The upper left y coordinate of the bounding box.
+   * @param int $bottom_right_x
+   *   The bottom right x coordinate of the bounding box.
+   * @param int $bottom_right_y
+   *   The bottom right y coordinate of the bounding box.
+   * @param bool $rotated
+   *   Should the text be vertical, not horizontal?.
+   */
   public function centerStringInShape($string, $upper_left_x, $upper_left_y, $bottom_right_x, $bottom_right_y, $rotated) {
     $string_dimensions = $this->getStringSize($string);
 

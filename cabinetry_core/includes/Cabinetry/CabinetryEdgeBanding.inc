@@ -10,11 +10,11 @@
 class CabinetryEdgeBanding {
 
   /**
-   * The material of the item.
+   * The material of edging to generate.
    *
-   * @var string
+   * @var object CabinetrySheetGood
    */
-  public $material = '';
+  public $material = NULL;
 
   /**
    * The width of the banding, in millimeters.
@@ -34,9 +34,9 @@ class CabinetryEdgeBanding {
   /**
    * Constructor.
    *
-   * @param string $material
+   * @param object $material
    *   The edge banding material.
-   * @param string $width
+   * @param float $width
    *   The width of the sheet good the banding will be applied to, in
    *   millimeters.
    */

@@ -17,21 +17,21 @@ class CabinetryProject {
   public $banding = array();
 
   /**
-   * An array of CabinetryComponent objects comprising this project.
+   * An array of CabinetryComponent objects.
    *
    * @var array
    */
   public $components = array();
 
   /**
-   * An array of CabinetryHardwareItem objects comprising this project.
+   * An array of CabinetryHardwareItem objects.
    *
    * @var array
    */
   public $hardware = array();
 
   /**
-   * An array of CabinetryWoodPart objects needed to build this project.
+   * An array of CabinetryWoodPart objects.
    *
    * @var array
    */
