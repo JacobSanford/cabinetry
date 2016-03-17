@@ -84,13 +84,13 @@ function cabinetry_cabinet_project_field_group_info() {
     'label' => 'Door Details',
     'weight' => '5',
     'children' => array(
-      0 => 'field_cabinetry_door_frame_mater',
-      1 => 'field_cabinetry_door_hinge',
-      2 => 'field_cabinetry_door_hinge_plate',
-      3 => 'field_cabinetry_door_panel_mater',
-      4 => 'field_cabinetry_door_panel_under',
-      5 => 'field_cabinetry_door_reveal',
-      6 => 'field_cabinetry_doors_span_gap',
+      0 => 'field_cabinetry_door_panel_mater',
+      1 => 'field_cabinetry_door_panel_under',
+      2 => 'field_cabinetry_door_reveal',
+      3 => 'field_cabinetry_doors_span_gap',
+      4 => 'field_cabinetry_door_hinge',
+      5 => 'field_cabinetry_door_hinge_plate',
+      6 => 'field_cabinetry_door_frame_mater',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -180,8 +180,6 @@ function cabinetry_cabinet_project_field_group_info() {
     'weight' => '8',
     'children' => array(
       0 => 'field_cabinetry_materials_sheet',
-      1 => 'field_cabinetry_materials_solid',
-      2 => 'field_cabinetry_materials_hardwa',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
