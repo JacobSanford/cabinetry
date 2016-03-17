@@ -192,7 +192,13 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_cabinetry_item_cost' => array(),
+    'field_cabinetry_item_cost' => array(
+      'und' => array(
+        0 => array(
+          'value' => '2.00',
+        ),
+      ),
+    ),
     'field_cabinetry_thickness' => array(
       'und' => array(
         0 => array(
