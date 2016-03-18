@@ -10,7 +10,7 @@
 class CabinetrySolidWood extends CabinetryWoodPiece {
 
   /**
-   * The length required, in millimeters.
+   * The length of this species, in millimeters.
    *
    * @var float
    */
@@ -36,6 +36,8 @@ class CabinetrySolidWood extends CabinetryWoodPiece {
    *   The height of this species, in millimeters.
    * @param float $length
    *   The length required, in millimeters.
+   * @param float $price
+   *   The price of a boardfoot of this species, in dollars.
    */
   public function __construct($material, $thickness, $height, $length, $price) {
     $this->material = $material;

@@ -1,11 +1,28 @@
 <?php
 /**
  * @file
- * Provides a generic object for packing a sheet good from a piece list.
+ * Provides an object for packing a sheet good from a piece list.
  */
 
 /**
- * A generic object for packing a 2D sheet good from a piece list.
+ * A rudimentary object for packing a 2D sheet good from a list of pieces.
+ *
+ * The sheet layout is calculated with a modified 2D bin packing algorithm,
+ * based upon https://github.com/juj/RectangleBinPack as an example. The base
+ * algorithm used is the SHELF-FF, with a modification that considers cabinet
+ * doors look best with a vertical grain orientation.
+ *
+ * The algorithm isn't 100% efficient with intent of producing layouts that
+ * ease the burden of cutting the sheets with a track (circular) saw. A 'shelf'
+ * layout provides straight lines that are easy to break down quickly, while
+ * minimizing human error. This is implemented by pre-sorting the pieces from
+ * largest to smallest before packing the shelves.
+ *
+ * Those planning to adapt this to set up a cut list (and toolpath) for a CNC
+ * machine: CNC changes the above layout consideration significantly. Guillotine
+ * based algorithms are significantly more efficient and should be considered,
+ * since there is limited human involvement. If you do adapt this, please let
+ * me know / contribute!
  */
 class CabinetryShelfFFPacker extends CabinetrySheetGoodPacker {
 
@@ -26,41 +43,48 @@ class CabinetryShelfFFPacker extends CabinetrySheetGoodPacker {
    * @param array $pieces
    *   An associative array of pieces to fit into the sheet space. Each item
    *   must have 'width', 'height' and 'label' elements.
+   * @param float $cut_width
+   *   The blade cut width to allow for when packing the sheet.
    * @param bool $has_grain
    *   Should the piece orientations (grain parallel to width) be preserved?
    */
-  public function __construct($width, $height, $pieces, $has_grain) {
-    parent::__construct($width, $height, $pieces, $has_grain);
+  public function __construct($width, $height, $pieces, $cut_width, $has_grain) {
+    parent::__construct($width, $height, $pieces, $cut_width, $has_grain);
     $this->sortPiecesByHeightAndWidth();
   }
 
   /**
-   * Pack the Sheets.
+   * Pack the pieces into shelves, then shelves into sheets.
    */
   public function pack() {
-    $sheet_set = new CabinetryShelfFFShelfSet(
-      $this->width,
-      $this->hasGrain,
-      4.0
-    );
-    foreach ($this->pieces as $piece_index => $piece) {
-      foreach ($piece['items'] as $item) {
-        $sheet_set->addPiece(
-          array(
-            'label' => $item['label'],
-            'notes' => $item['notes'],
-            'width' => $piece['width'],
-            'height' => $piece['height'],
-          )
-        );
-      }
-    }
-    $this->shelves = $sheet_set->shelves;
+    $this->packShelves();
     $this->packSheets();
   }
 
   /**
-   * Pack the sheet array.
+   * Pack the pieces into shelves.
+   */
+  public function packShelves() {
+    $sheet_set = new CabinetryShelfFFShelfSet(
+      $this->width,
+      $this->cutWidth,
+      !$this->hasGrain
+    );
+    foreach ($this->pieces as $piece_index => $piece) {
+      $sheet_set->addPiece(
+        array(
+          'label' => $piece['label'],
+          'notes' => $piece['notes'],
+          'width' => $piece['width'],
+          'height' => $piece['height'],
+        )
+      );
+    }
+    $this->shelves = $sheet_set->shelves;
+  }
+
+  /**
+   * Pack the shelves into sheets.
    */
   public function packSheets() {
     foreach ($this->shelves as $shelf) {
@@ -76,7 +100,7 @@ class CabinetryShelfFFPacker extends CabinetrySheetGoodPacker {
         $this->sheets[] = new CabinetryShelfFFSheet(
           $this->height,
           $this->width,
-          4.0
+          $this->cutWidth
         );
         $this->sheets[count($this->sheets) - 1]->addShelf($shelf);
       }
@@ -84,7 +108,7 @@ class CabinetryShelfFFPacker extends CabinetrySheetGoodPacker {
   }
 
   /**
-   * Sort pieces array by height first, then width.
+   * Sort pieces array by height DESC, then width DESC.
    */
   protected function sortPiecesByHeightAndWidth() {
     $sort = array();
@@ -92,23 +116,31 @@ class CabinetryShelfFFPacker extends CabinetrySheetGoodPacker {
       $sort['height'][$k] = $v['height'];
       $sort['width'][$k] = $v['width'];
     }
-    array_multisort($sort['height'], SORT_DESC, $sort['width'], SORT_DESC, $this->pieces);
+    array_multisort(
+      $sort['height'],
+      SORT_DESC,
+      $sort['width'],
+      SORT_DESC,
+      $this->pieces
+    );
   }
 
 }
 
-
+/**
+ * An object providing a set of CabinetryShelfFFShelf shelves.
+ */
 class CabinetryShelfFFShelfSet {
 
   /**
-   * The shelves in the set.
+   * An array of CabinetryShelfFFShelf objects.
    *
-   * @var float
+   * @var array
    */
   public $shelves = array();
 
   /**
-   * The width (x) of the sheet set, in millimeters.
+   * The width (x) of the shelf set, in millimeters.
    *
    * @var float
    */
@@ -122,19 +154,23 @@ class CabinetryShelfFFShelfSet {
   public $canRotate = FALSE;
 
   /**
-   * The cut width to allow for, in millimeters.
+   * The blade cut width to consider, in millimeters.
    *
-   * @var boolean
+   * @var float
    */
-  public $cutWidth = FALSE;
+  public $cutWidth = 0.0;
 
   /**
    * Constructor.
    *
    * @param float $width
    *   The width of the shelf, in millimeters.
+   * @param float $cut_width
+   *   The blade cut width to allow for when packing the sheet.
+   * @param bool $can_rotate
+   *   Should the piece orientations (grain parallel to width) be disregarded?
    */
-  public function __construct($width, $can_rotate, $cut_width) {
+  public function __construct($width, $cut_width, $can_rotate) {
     $this->width = $width;
     $this->canRotate = $can_rotate;
     $this->cutWidth = $cut_width;
@@ -159,46 +195,48 @@ class CabinetryShelfFFShelfSet {
   }
 
   /**
-   * Add a shelf to the set of shelves.
+   * Add a new shelf to the set of shelves.
    */
   public function addShelf($piece) {
     $this->shelves[] = new CabinetryShelfFFShelf(
       $piece['height'],
       $this->width,
-      $this->canRotate,
-      $this->cutWidth
+      $this->cutWidth,
+      $this->canRotate
     );
     $this->shelves[count($this->shelves) - 1]->addPiece($piece);
   }
 
 }
 
-
+/**
+ * An object providing a sheet packing 'shelf'.
+ */
 class CabinetryShelfFFShelf {
 
   /**
-   * The width (x) of the sheet good, in millimeters.
+   * The width (x) of the shelf, in millimeters.
    *
    * @var float
    */
   public $width = 0.0;
 
   /**
-   * The height (y) of the sheet good, in millimeters.
+   * The height (y) of the shelf, in millimeters.
    *
    * @var float
    */
   public $height = 0.0;
 
   /**
-   * The height (y) of the sheet good, in millimeters.
+   * The amount of the shelf width in use, in millimeters.
    *
    * @var float
    */
   public $used = 0.0;
 
   /**
-   * The height (y) of the sheet good, in millimeters.
+   * The available width of the shelf, in millimeters.
    *
    * @var float
    */
@@ -212,14 +250,14 @@ class CabinetryShelfFFShelf {
   public $canRotate = FALSE;
 
   /**
-   * Pieces this shelf contains.
+   * An array of pieces stored in the shelf.
    *
    * @var array
    */
   public $pieces = array();
 
   /**
-   * The cut width to allow for, in millimeters.
+   * The blade cut width to consider, in millimeters.
    *
    * @var float
    */
@@ -233,13 +271,17 @@ class CabinetryShelfFFShelf {
    *   The height of this shelf, in millimeters.
    * @param float $width
    *   The width of the shelf, in millimeters.
+   * @param float $cut_width
+   *   The blade cut width to allow for when packing the sheet.
+   * @param bool $can_rotate
+   *   Should the piece orientations (grain parallel to width) be disregarded?
    */
-  public function __construct($height, $width, $preserve_grain, $cut_width) {
+  public function __construct($height, $width, $cut_width, $can_rotate) {
     $this->height = $height;
     $this->width = $width;
     $this->remain = $width;
     $this->cutWidth = $cut_width;
-    $this->canRotate = !$preserve_grain;
+    $this->canRotate = $can_rotate;
   }
 
   /**
@@ -278,6 +320,9 @@ class CabinetryShelfFFShelf {
 
   /**
    * Check if the piece fits in this shelf.
+   *
+   * A scoring system based on consuming the most shelf height possible is used
+   * to determine the best orientation of pieces in the shelf.
    */
   public function pieceFits($piece) {
     if ($piece['height'] > $this->height) {
@@ -288,7 +333,7 @@ class CabinetryShelfFFShelf {
       return FALSE;
     }
 
-    // If applicable, check if the piece was rotated fits.
+    // If applicable, check if a rotation of the piece makes it fit.
     if ($this->canRotate == TRUE && $piece['height'] <= $this->remain && $piece['width'] <= $this->height) {
       $rotated_balance = $this->height - $piece['width'];
     }
@@ -316,18 +361,20 @@ class CabinetryShelfFFShelf {
 
 }
 
-
+/**
+ * An object providing a sheet packing sheet.
+ */
 class CabinetryShelfFFSheet {
 
   /**
-   * The width (x) of the sheet good, in millimeters.
+   * The width (x) of the sheet, in millimeters.
    *
    * @var float
    */
   public $width = 0.0;
 
   /**
-   * The height (y) of the sheet good, in millimeters.
+   * The height (y) of the sheet, in millimeters.
    *
    * @var float
    */
@@ -341,21 +388,21 @@ class CabinetryShelfFFSheet {
   public $used = 0.0;
 
   /**
-   * The remaining height of sheet good, in millimeters.
+   * The unused height of sheet good, in millimeters.
    *
    * @var float
    */
   public $remain = 0.0;
 
   /**
-   * Shelves this sheet contains.
+   * An array of CabinetryShelfFFShelf objects assigned to this sheet.
    *
    * @var array
    */
   public $shelves = array();
 
   /**
-   * The cut width to allow for, in millimeters.
+   * The blade cut width to consider, in millimeters.
    *
    * @var float
    */
@@ -369,6 +416,8 @@ class CabinetryShelfFFSheet {
    *   The height of this sheet, in millimeters.
    * @param float $width
    *   The width of the shelf, in millimeters.
+   * @param float $cut_width
+   *   The blade cut width to allow for when packing the sheet.
    */
   public function __construct($height, $width, $cut_width) {
     $this->height = $height;
@@ -378,7 +427,7 @@ class CabinetryShelfFFSheet {
   }
 
   /**
-   * Add a piece to the shelf.
+   * Add a shelf to the sheet.
    */
   public function addShelf($shelf) {
     $this->shelves[] = $shelf;

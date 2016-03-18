@@ -12,9 +12,14 @@
 <h2><?php echo $solid_title; ?></h2>
 <?php echo $solid_table; ?>
 
+<h2><?php echo $solid_cut_title; ?></h2>
+<?php echo $solid_cut_table; ?>
+
 <h2><?php echo $sheet_title; ?></h2>
 <?php echo $sheet_table; ?>
 
-<h2>Edge Banding</h2>
+<h2><?php echo $banding_title; ?></h2>
+<?php echo $banding_table; ?>
 
-<h2>Hardware</h2>
+<h2><?php echo $hardware_title; ?></h2>
+<?php echo $hardware_table; ?>

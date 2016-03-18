@@ -16,6 +16,19 @@ class CabinetryCabinetProject extends CabinetryProject {
    */
   public $frameRouterBit = NULL;
 
+  /**
+   * The length of the solid stock to use.
+   *
+   * @var float
+   */
+  public $solidStockLength = 0.0;
+
+  /**
+   * The width of the cut blade.
+   *
+   * @var float
+   */
+  public $bladeCutWidth = 0.0;
 
   /**
    * Collate a list of parts from all components of the project.
@@ -163,7 +176,6 @@ class CabinetryCabinetProject extends CabinetryProject {
         $this->hardware[$part->name]['count']++;
       }
     }
-
   }
 
   /**
@@ -174,14 +186,66 @@ class CabinetryCabinetProject extends CabinetryProject {
    */
   public function packSheets($algorithm) {
     foreach ($this->parts['CabinetrySheetGood'] as $sheet_type_index => $sheet_type) {
+
+      $piece_array = array();
+      foreach ($sheet_type['parts'] as $piece_index => $piece) {
+        foreach ($piece['items'] as $item) {
+          $piece_array[] = array(
+            'label' => $item['label'],
+            'notes' => $item['notes'],
+            'width' => $piece['width'],
+            'height' => $piece['height'],
+          );
+        }
+      }
+
       $packer = new $algorithm(
         $sheet_type['width'],
         $sheet_type['height'],
-        $sheet_type['parts'],
+        $piece_array,
+        $this->bladeCutWidth,
         $sheet_type['preserve_grain']
       );
       $packer->pack();
       $this->parts['CabinetrySheetGood'][$sheet_type_index]['sheets'] = $packer->sheets;
+    }
+  }
+
+  /**
+   * Pack sheet good parts into sheets.
+   *
+   * @param string $algorithm
+   *    The algorithm to use to sort the parts.
+   */
+  public function packSolids($algorithm) {
+    foreach ($this->parts['CabinetrySolidWood'] as $solid_index => $solid_type) {
+      $this->parts['CabinetrySolidWood'][$solid_index]['plots'] = array();
+      $piece_array = array();
+      foreach ($solid_type['parts'] as $piece_index => $piece) {
+        foreach ($piece['items'] as $item) {
+          $piece_array[] = array(
+            'label' => $item['label'],
+            'notes' => $item['notes'],
+            'width' => $piece['length'],
+            'height' => $solid_type['height'],
+          );
+        }
+      }
+
+      $packer = new $algorithm(
+        $this->solidStockLength,
+        $solid_type['height'],
+        $piece_array,
+        $this->bladeCutWidth,
+        TRUE
+      );
+      $packer->pack();
+
+      foreach ($packer->sheets as $sheet_index => $sheet) {
+        $sheet_plotter = new CabinetrySheetGoodPlotter($sheet);
+        $this->parts['CabinetrySolidWood'][$solid_index]['plots'][] = $sheet_plotter->plotSheet();
+      }
+
     }
   }
 

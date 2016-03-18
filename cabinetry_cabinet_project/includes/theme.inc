@@ -80,7 +80,7 @@ function _cabinetry_cabinet_project_get_components_table($node_entity_wrapper) {
     }
 
     $rows[] = array(
-      $component_index,
+      array('data' => $component_index, 'style' => 'text-align: center;'),
       implode(', ', $piece_names),
       array('data' => _cabinetry_cabinet_project_render_measurement($component_entity_metadata_wrapper->field_cabinetry_width->value()), 'style' => 'text-align: right;'),
       array('data' => _cabinetry_cabinet_project_render_measurement($component_entity_metadata_wrapper->field_cabinetry_height->value()), 'style' => 'text-align: right;'),
@@ -126,8 +126,8 @@ function _cabinetry_cabinet_project_get_solid_table($node_entity_wrapper, $node)
       $solid_parts_entity_metadata_wrapper = entity_metadata_wrapper('field_collection_item', $part_list);
       if ($part_index == 0) {
         $rows[] = array(
-          $solid_index,
-          array('data' => $solid_entity_metadata_wrapper->field_cabinetry_solid_name->value(), 'style' => 'font-weight: 600;'),
+          array('data' => $solid_index, 'style' => 'text-align: center;'),
+          $solid_entity_metadata_wrapper->field_cabinetry_solid_name->value(),
           array('data' => _cabinetry_cabinet_project_render_measurement($solid_parts_entity_metadata_wrapper->field_cabinetry_solid_thickness->value()), 'style' => 'text-align: right;'),
           array('data' => _cabinetry_cabinet_project_render_measurement($solid_parts_entity_metadata_wrapper->field_cabinetry_solid_width->value()), 'style' => 'text-align: right;'),
           array('data' => _cabinetry_cabinet_project_render_measurement($solid_parts_entity_metadata_wrapper->field_cabinetry_solid_length->value()), 'style' => 'text-align: right;'),
@@ -145,7 +145,68 @@ function _cabinetry_cabinet_project_get_solid_table($node_entity_wrapper, $node)
         );
       }
     }
+  }
 
+  return theme_table(
+    array(
+      'header' => $header,
+      'rows' => $rows,
+      'attributes' => array(),
+      'caption' => '',
+      'sticky' => FALSE,
+      'empty' => FALSE,
+      'colgroups' => array(),
+    )
+  );
+}
+
+/**
+ * Generate the cabinetry solid cut table.
+ *
+ * @param object $node_entity_wrapper
+ *   The node entity wrapper to query.
+ *
+ * @return string
+ *   HTML of the table.
+ */
+function _cabinetry_cabinet_project_get_solid_cut_list_table($node_entity_wrapper, $node) {
+  $header = array(
+    t('ID'),
+    t('Name'),
+    t('Num Lengths'),
+    t('Cut Images'),
+  );
+  $rows = array();
+
+  foreach ($node_entity_wrapper->field_cabinetry_materials_solid->value() as $solid_index => $solid) {
+    $solid_entity_metadata_wrapper = entity_metadata_wrapper('field_collection_item', $solid);
+    foreach ($solid_entity_metadata_wrapper->field_image->value() as $image_index => $image) {
+
+      $image_html = l(
+        theme('image_style', array('path' => $image['uri'], 'style_name' => 'large')),
+        file_create_url($image['uri']),
+        array(
+          'html' => TRUE,
+        )
+      );
+
+      if ($image_index == 0) {
+        $rows[] = array(
+          array('data' => $solid_index, 'style' => 'text-align: center;'),
+          $solid_entity_metadata_wrapper->field_cabinetry_solid_name->value(),
+          array('data' => count($solid_entity_metadata_wrapper->field_image), 'style' => 'text-align: center;'),
+          $image_html,
+        );
+      }
+      else {
+        $rows[] = array(
+          NULL,
+          NULL,
+          NULL,
+          $image_html,
+        );
+      }
+    }
   }
 
   return theme_table(
@@ -191,7 +252,7 @@ function _cabinetry_cabinet_project_get_sheet_table($node_entity_wrapper, $node)
 
       if ($sheet_image_index == 0) {
         $rows[] = array(
-          $sheet_type_index,
+          array('data' => $sheet_type_index, 'style' => 'text-align: center;'),
           $sheet_entity_metadata_wrapper->field_cabinetry_sheet_name->value(),
           array('data' => $image_html, 'style' => 'text-align: center;'),
         );
@@ -204,6 +265,127 @@ function _cabinetry_cabinet_project_get_sheet_table($node_entity_wrapper, $node)
         );
       }
     }
+  }
+
+  return theme_table(
+    array(
+      'header' => $header,
+      'rows' => $rows,
+      'attributes' => array(),
+      'caption' => '',
+      'sticky' => FALSE,
+      'empty' => FALSE,
+      'colgroups' => array(),
+    )
+  );
+}
+
+/**
+ * Generate the cabinetry banding table.
+ *
+ * @param object $node_entity_wrapper
+ *   The node entity wrapper to query.
+ *
+ * @return string
+ *   HTML of the table.
+ */
+function _cabinetry_cabinet_project_get_banding_table($node_entity_wrapper, $node) {
+  $header = array(
+    t('ID'),
+    t('Type'),
+    t('Length'),
+  );
+  $rows = array();
+
+  foreach ($node_entity_wrapper->field_cabinetry_materials_bandin->value() as $banding_index => $banding_item) {
+    $banding_entity_metadata_wrapper = entity_metadata_wrapper('field_collection_item', $banding_item);
+    $rows[] = array(
+      array('data' => $banding_index, 'style' => 'text-align: center;'),
+      $banding_entity_metadata_wrapper->field_cabinetry_banding_material->value(),
+      array('data' => _cabinetry_cabinet_project_render_measurement($banding_entity_metadata_wrapper->field_cabinetry_banding_amount->value()), 'style' => 'text-align: right;'),
+    );
+  }
+
+  return theme_table(
+    array(
+      'header' => $header,
+      'rows' => $rows,
+      'attributes' => array(),
+      'caption' => '',
+      'sticky' => FALSE,
+      'empty' => FALSE,
+      'colgroups' => array(),
+    )
+  );
+}
+
+/**
+ * Generate the cabinetry bill of goods table.
+ *
+ * @param object $node_entity_wrapper
+ *   The node entity wrapper to query.
+ *
+ * @return string
+ *   HTML of the table.
+ */
+function _cabinetry_cabinet_project_get_bill_goods_table($node_entity_wrapper, $node) {
+  $header = array(
+    t('ID'),
+    t('Item'),
+    t('Price'),
+    t('Count'),
+    t('Total'),
+  );
+  $rows = array();
+
+  /*
+  foreach ($node_entity_wrapper->field_cabinetry_materials_hardwa->value() as $hardware_index => $hardware_type) {
+    $hardware_entity_metadata_wrapper = entity_metadata_wrapper('field_collection_item', $hardware_type);
+    $rows[] = array(
+      $hardware_index,
+      $hardware_entity_metadata_wrapper->field_cabinetry_hardware_name->value(),
+      $hardware_entity_metadata_wrapper->field_cabinetry_number_of_shelve->value(),
+    );
+  }
+*/
+
+  return theme_table(
+    array(
+      'header' => $header,
+      'rows' => $rows,
+      'attributes' => array(),
+      'caption' => '',
+      'sticky' => FALSE,
+      'empty' => FALSE,
+      'colgroups' => array(),
+    )
+  );
+}
+
+/**
+ * Generate the cabinetry hardware table.
+ *
+ * @param object $node_entity_wrapper
+ *   The node entity wrapper to query.
+ *
+ * @return string
+ *   HTML of the table.
+ */
+function _cabinetry_cabinet_project_get_hardware_table($node_entity_wrapper, $node) {
+  $header = array(
+    t('ID'),
+    t('Item'),
+    t('Count'),
+  );
+  $rows = array();
+
+  foreach ($node_entity_wrapper->field_cabinetry_materials_hardwa->value() as $hardware_index => $hardware_type) {
+    $hardware_entity_metadata_wrapper = entity_metadata_wrapper('field_collection_item', $hardware_type);
+    $rows[] = array(
+      array('data' => $hardware_index, 'style' => 'text-align: center;'),
+      $hardware_entity_metadata_wrapper->field_cabinetry_hardware_name->value(),
+      array('data' => $hardware_entity_metadata_wrapper->field_cabinetry_number_of_shelve->value(), 'style' => 'text-align: center;'),
+    );
   }
 
   return theme_table(

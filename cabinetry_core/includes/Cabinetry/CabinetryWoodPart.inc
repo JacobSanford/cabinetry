@@ -70,8 +70,7 @@ class CabinetryWoodPart {
    *   CabinetrySheetGood or CabinetrySolidWood.
    * @param string $notes
    *   Any special notes or comments related to this part, including cut
-   *   instructions or handling directives. This will also be printed on
-   *   the label.
+   *   instructions or handling directives.
    */
   public function __construct($label, $thickness, $width, $height, $source, $notes) {
     $this->label = $label;

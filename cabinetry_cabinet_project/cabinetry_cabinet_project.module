@@ -5,6 +5,7 @@
  */
 
 include_once 'cabinetry_cabinet_project.features.inc';
+include_once 'includes/utilities.inc';
 
 define('CABINETRY_CABINET_PROJECT_THIRTY_TWO_UNIT_SIZE', 32.0);
 
@@ -12,6 +13,8 @@ define('CABINETRY_CABINET_PROJECT_THIRTY_TWO_UNIT_SIZE', 32.0);
  * Implements hook_form_FORM_ID_alter().
  */
 function cabinetry_cabinet_project_form_cabinetry_cabinet_project_node_form_alter(&$form, &$form_state, $form_id) {
+  form_load_include($form_state, 'inc', 'cabinetry_cabinet_project', '/includes/form');
+
   $cabinet_sheet_packing_algos = array(
     'CabinetryShelfFFPacker' => 'ShelfFF from RectangleBinPack',
   );
@@ -21,160 +24,7 @@ function cabinetry_cabinet_project_form_cabinetry_cabinet_project_node_form_alte
   $form['#validate'][] = 'cabinetry_cabinet_project_validate_cabinet_dimensions';
   $form['#validate'][] = 'cabinetry_cabinet_project_validate_thirty_two_system';
   $form['#validate'][] = 'cabinetry_cabinet_project_validate_division_ratio';
-  $form['#submit'][] = 'cabinetry_cabinet_project_generate_cut_list';
-}
-
-/**
- * Validation handler for cabinetry_cabinet_project_form_cabinetry_cabinet_project_node_form.
- *
- * If width, height of depth are not units of 32, then reject those fields and
- * set a form error.
- */
-function cabinetry_cabinet_project_validate_thirty_two_system(&$form, &$form_state) {
-  if ($form_state['values']['field_cabinetry_enforce_32mm'][LANGUAGE_NONE][0]['value'] == '1') {
-    require_once 'includes/utilities.inc';
-
-    foreach ($form_state['values']['field_cabinetry_project_componen'][LANGUAGE_NONE] as $component_index => $cabinet_component) {
-      if (is_numeric($component_index)) {
-        foreach (array('field_cabinetry_width', 'field_cabinetry_height', 'field_cabinetry_depth') as $audit_field) {
-          if (
-            !empty($cabinet_component[$audit_field][LANGUAGE_NONE][0]['value']) &&
-            !_cabinetry_cabinet_project_float_evenly_divisible($cabinet_component[$audit_field][LANGUAGE_NONE][0]['value'], CABINETRY_CABINET_PROJECT_THIRTY_TWO_UNIT_SIZE)
-          ) {
-            form_set_error(
-              'field_cabinetry_project_componen][' . LANGUAGE_NONE . '][' . $component_index . '][' . $audit_field . '][' . LANGUAGE_NONE . '][0',
-              t(
-                'The @field_label value of Component @component_index [@value] is not evenly divisible by 32.0',
-                array(
-                  '@component_index' => $component_index,
-                  '@field_label' => $form['field_cabinetry_project_componen'][LANGUAGE_NONE][$component_index][$audit_field][LANGUAGE_NONE][0]['value']['#title'],
-                  '@value' => $cabinet_component[$audit_field][LANGUAGE_NONE][0]['value'],
-                )
-              )
-            );
-          }
-        }
-      }
-    }
-  }
-}
-
-/**
- * Validation handler for cabinetry_cabinet_project_form_cabinetry_cabinet_project_node_form.
- *
- * Ensure width, height of depth are set for each component.
- */
-function cabinetry_cabinet_project_validate_cabinet_dimensions(&$form, &$form_state) {
-  require_once 'includes/utilities.inc';
-  foreach ($form_state['values']['field_cabinetry_project_componen'][LANGUAGE_NONE] as $component_index => $cabinet_component) {
-    if (is_numeric($component_index)) {
-      foreach (array('field_cabinetry_width', 'field_cabinetry_height', 'field_cabinetry_depth') as $audit_field) {
-        if (
-          empty($cabinet_component[$audit_field][LANGUAGE_NONE][0]['value']) ||
-          !is_numeric($cabinet_component[$audit_field][LANGUAGE_NONE][0]['value']) ||
-          $cabinet_component[$audit_field][LANGUAGE_NONE][0]['value'] < 0
-        ) {
-          form_set_error(
-            'field_cabinetry_project_componen][' . LANGUAGE_NONE . '][' . $component_index . '][' . $audit_field . '][' . LANGUAGE_NONE . '][0',
-            t(
-              'The @field_label value of Component @component_index is not a positive decimal number.',
-              array(
-                '@audit_field' => $audit_field,
-                '@component_index' => $component_index,
-                '@field_label' => $form['field_cabinetry_project_componen'][LANGUAGE_NONE][$component_index][$audit_field][LANGUAGE_NONE][0]['value']['#title'],
-              )
-            )
-          );
-        }
-      }
-    }
-  }
-}
-
-/**
- * Validation handler for cabinetry_cabinet_project_form_cabinetry_cabinet_project_node_form.
- *
- * Audit division ratios.
- */
-function cabinetry_cabinet_project_validate_division_ratio(&$form, &$form_state) {
-  require_once 'includes/utilities.inc';
-  $division_ratio_sum = 0.0;
-  foreach ($form_state['values']['field_cabinetry_project_componen'][LANGUAGE_NONE] as $component_index => $cabinet_component) {
-    if (is_numeric($component_index)) {
-      foreach ($cabinet_component['field_cabinetry_carcass_division'][LANGUAGE_NONE][0]['field_cabinetry_division_ratio'][LANGUAGE_NONE] as $division_index => $division_ratio) {
-        if (!empty($division_ratio['value'])) {
-          $division_ratio_sum += (float) $division_ratio['value'];
-
-          if ($form_state['values']['field_cabinetry_enforce_32mm'][LANGUAGE_NONE][0]['value'] == '1') {
-            if (!empty($form_state['values']['field_cabinetry_project_componen'][LANGUAGE_NONE][$component_index]['field_cabinetry_height'][LANGUAGE_NONE][0]['value'])) {
-              $section_height = (float) $cabinet_component['field_cabinetry_height'][LANGUAGE_NONE][0]['value'] * (float) $division_ratio['value'];
-              $section_height = round($section_height, 1);
-              if (!_cabinetry_cabinet_project_float_evenly_divisible($section_height, CABINETRY_CABINET_PROJECT_THIRTY_TWO_UNIT_SIZE)) {
-                form_set_error(
-                  'field_cabinetry_project_componen][' . LANGUAGE_NONE . '][' . $component_index . '][field_cabinetry_carcass_division][' . LANGUAGE_NONE . '][0][field_cabinetry_division_ratio][' . LANGUAGE_NONE . '][' . $division_index,
-                  t(
-                    '@field_label @division_id of Component @component_index of does not evenly divide by 32, and Enforce 32 is enabled.',
-                    array(
-                      '@component_index' => $component_index,
-                      '@division_id' => $division_index,
-                      '@field_label' => $form['field_cabinetry_project_componen'][LANGUAGE_NONE][$component_index]['field_cabinetry_carcass_division'][LANGUAGE_NONE][0]['#title'],
-                    )
-                  )
-                );
-              }
-            }
-          }
-
-        }
-      }
-      if ($division_ratio_sum != 1.0) {
-        form_set_error(
-          'field_cabinetry_project_componen][' . LANGUAGE_NONE . '][' . $component_index . '][field_cabinetry_carcass_division',
-          t(
-            'The sum of the @field_label elements of Component @component_index is not 1.0.',
-            array(
-              '@component_index' => $component_index,
-              '@field_label' => $form['field_cabinetry_project_componen'][LANGUAGE_NONE][$component_index]['field_cabinetry_carcass_division'][LANGUAGE_NONE][0]['#title'],
-            )
-          )
-        );
-      }
-    }
-  }
-}
-
-/**
- * Callback : Form submit handler for cabinetry_cabinet_project node form.
- *
- * @see cabinetry_cabinet_project_validate_cabinet_dimensions()
- * @see cabinetry_cabinet_project_validate_thirty_two_system()
- */
-function cabinetry_cabinet_project_generate_cut_list(&$form, &$form_state) {
-  _cabinetry_core_bootstrap();
-  _cabinetry_cabinet_project_bootstrap();
-  $project = new CabinetryCabinetProject();
-  $project->frameRouterBit = _cabinetry_cabinet_project_load_router_bit_object($form_state['values']['field_cabinetry_frame_router_bit'][LANGUAGE_NONE][0]['tid']);
-
-  foreach ($form_state['values']['field_cabinetry_project_componen'][LANGUAGE_NONE] as $component_index => $cabinet_component) {
-    if (is_numeric($component_index)) {
-      foreach ($cabinet_component['field_cabinetry_name'][LANGUAGE_NONE] as $name_index => $name_value) {
-        if (!empty($name_value['value'])) {
-          $component = new CabinetryBasicEuroCabinet();
-          $component->label = $name_value['value'];
-          $component->doorFrameRouterBit = $project->frameRouterBit;
-          $component->build($cabinet_component);
-          $project->addComponent($component);
-        }
-      }
-    }
-  }
-
-  $project->collateParts();
-  $project->packSheets($form_state['values']['field_cabinetry_sheet_packing_al'][LANGUAGE_NONE][0]['value']);
-  $project->plotSheets();
-
-  ctools_include('object-cache');
-  ctools_object_cache_set('cabinetry_cabinet_project', 'presave_object', $project);
+  $form['#submit'][] = 'cabinetry_cabinet_project_generate_materials';
 }
 
 /**
@@ -190,9 +40,10 @@ function cabinetry_cabinet_project_node_presave($node) {
       $hook_running = TRUE;
     }
 
+    module_load_include('inc', 'cabinetry_cabinet_project', 'includes/node');
     ctools_include('object-cache');
-
     $project = ctools_object_cache_get('cabinetry_cabinet_project', 'presave_object');
+    ctools_object_cache_clear('cabinetry_cabinet_project', 'presave_object');
 
     _cabinetry_cabinet_project_remove_sheet_materials($node);
     _cabinetry_cabinet_project_add_sheet_materials($node, $project);
@@ -203,228 +54,11 @@ function cabinetry_cabinet_project_node_presave($node) {
     _cabinetry_cabinet_project_remove_hardware_materials($node);
     _cabinetry_cabinet_project_add_hardware_materials($node, $project);
 
-    ctools_object_cache_clear('cabinetry_cabinet_project', 'presave_object');
+    _cabinetry_cabinet_project_remove_banding_materials($node);
+    _cabinetry_cabinet_project_add_banding_materials($node, $project);
 
     $hook_running = FALSE;
   }
-}
-
-function _cabinetry_cabinet_project_remove_hardware_materials($node) {
-  foreach ($node->field_cabinetry_materials_hardwa[LANGUAGE_NONE] as $hardware_index => $hardware_type) {
-    // Delete field collection entities.
-    if (isset($hardware_type['entity']) && method_exists($hardware_type['entity'], 'delete')) {
-      $hardware_type['entity']->delete();
-    }
-
-    // Remove values from node object.
-    unset($node->field_cabinetry_materials_hardwa[LANGUAGE_NONE][$hardware_index]);
-  }
-}
-
-function _cabinetry_cabinet_project_add_hardware_materials($node, $project) {
-
-  foreach ($project->hardware as $hardware_type => $hardware_item) {
-
-    $field_collection_object = entity_create(
-      'field_collection_item',
-      array('field_name' => 'field_cabinetry_materials_hardwa')
-    );
-
-    $field_collection_object->field_cabinetry_hardware_name[LANGUAGE_NONE][0]['value'] = $hardware_item['name'];
-    $field_collection_object->field_cabinetry_number_of_shelve[LANGUAGE_NONE][0]['value'] = $hardware_item['count'];
-    $field_collection_object->field_cabinetry_item_cost[LANGUAGE_NONE][0]['value'] = $hardware_item['price'];
-
-    $sheet_type_array = array(
-      'field_cabinetry_hardware_name' => _cabinetry_cabinet_project_stuff_field($hardware_item['name']),
-      'field_cabinetry_number_of_shelve' => _cabinetry_cabinet_project_stuff_field($hardware_item['count']),
-      'field_cabinetry_item_cost' => _cabinetry_cabinet_project_stuff_field($hardware_item['price']),
-      'remove_button' => 'Remove',
-      'entity' => $field_collection_object,
-    );
-    $node->field_cabinetry_materials_hardwa[LANGUAGE_NONE][] = $sheet_type_array;
-  }
-}
-
-function _cabinetry_cabinet_project_remove_solid_materials($node) {
-  foreach ($node->field_cabinetry_materials_solid[LANGUAGE_NONE] as $solid_index => $solid_type) {
-    // Delete field collection entities.
-    foreach ($solid_type['field_cabinetry_solid_part_list'][LANGUAGE_NONE] as $part_list_index => $part_list) {
-      if (isset($part_list['entity']) && method_exists($part_list['entity'], 'delete')) {
-        $part_list['entity']->delete();
-      }
-      unset($node->field_cabinetry_materials_solid[LANGUAGE_NONE][$solid_index]['field_cabinetry_solid_part_list'][LANGUAGE_NONE][$part_list_index]);
-    }
-
-    if (isset($solid_type['entity']) && method_exists($solid_type['entity'], 'delete')) {
-      $solid_type['entity']->delete();
-    }
-
-    // Remove values from node object.
-    unset($node->field_cabinetry_materials_solid[LANGUAGE_NONE][$solid_index]);
-  }
-}
-
-function _cabinetry_cabinet_project_add_solid_materials($node, $project) {
-  foreach ($project->parts['CabinetrySolidWood'] as $solid_type => $solid) {
-    $parts_list = array();
-
-    foreach ($solid['parts'] as $part_index => $part) {
-      $length = $part['length'];
-
-      $part_names = array();
-      foreach ($part['items'] as $part_name) {
-        $part_names[] = array(
-          'value' => $part_name['label'],
-          '_weight' => 0,
-        );
-      }
-
-      $parts_list_field_collection_object = entity_create(
-        'field_collection_item',
-        array('field_name' => 'field_cabinetry_solid_part_list')
-      );
-
-      $parts_list_field_collection_object->field_cabinetry_solid_thickness[LANGUAGE_NONE][0]['value'] = $solid['thickness'];
-      $parts_list_field_collection_object->field_cabinetry_solid_width[LANGUAGE_NONE][0]['value'] = $solid['height'];
-      $parts_list_field_collection_object->field_cabinetry_solid_length[LANGUAGE_NONE][0]['value'] = $length;
-      $parts_list_field_collection_object->field_cabinetry_part_names[LANGUAGE_NONE] = $part_names;
-
-      $parts_list[] = array(
-        'field_cabinetry_solid_thickness' => _cabinetry_cabinet_project_stuff_field($solid['thickness']),
-        'field_cabinetry_solid_width' => _cabinetry_cabinet_project_stuff_field($solid['height']),
-        'field_cabinetry_solid_length' => _cabinetry_cabinet_project_stuff_field($length),
-        'field_cabinetry_part_names' => array(
-          LANGUAGE_NONE => $part_names,
-        ),
-        'remove_button' => 'Remove',
-        'entity' => $parts_list_field_collection_object,
-      );
-    }
-
-    $solid_materials_field_collection_object = entity_create(
-      'field_collection_item',
-      array('field_name' => 'field_cabinetry_materials_solid')
-    );
-
-    $solid_materials_field_collection_object->field_cabinetry_solid_name[LANGUAGE_NONE][0]['value'] = $solid_type;
-    $solid_materials_field_collection_object->field_cabinetry_item_cost[LANGUAGE_NONE][0]['value'] = $solid['price'];
-    $solid_materials_field_collection_object->field_cabinetry_board_feet[LANGUAGE_NONE][0]['value'] = $solid['board_feet'];
-    $solid_materials_field_collection_object->field_cabinetry_solid_part_list[LANGUAGE_NONE] = $parts_list;
-
-    $solid_type_array = array(
-      'field_cabinetry_solid_name' => _cabinetry_cabinet_project_stuff_field($solid_type),
-      'field_cabinetry_item_cost' => _cabinetry_cabinet_project_stuff_field($solid['price']),
-      'field_cabinetry_board_feet' => _cabinetry_cabinet_project_stuff_field($solid['board_feet']),
-      'field_cabinetry_solid_part_list' => array(
-        LANGUAGE_NONE => $parts_list,
-      ),
-      'remove_button' => 'Remove',
-      'entity' => $solid_materials_field_collection_object,
-    );
-
-    $node->field_cabinetry_materials_solid[LANGUAGE_NONE][] = $solid_type_array;
-  }
-}
-
-function _cabinetry_cabinet_project_remove_sheet_materials($node) {
-  foreach ($node->field_cabinetry_materials_sheet[LANGUAGE_NONE] as $sheet_index => $sheet_type) {
-
-    // Delete old files.
-    if (!empty($sheet_type['field_image'][LANGUAGE_NONE])) {
-      foreach ($sheet_type['field_image'][LANGUAGE_NONE] as $old_file) {
-        if (!empty($old_file['fid']) && $old_file['fid'] != 0 && $old_file['fid'] != '') {
-          $file_object = file_load($old_file['fid']);
-          file_delete($file_object, TRUE);
-        }
-      }
-    }
-
-    // Delete field collection entities.
-    if (isset($sheet_type['entity']) && method_exists($sheet_type['entity'], 'delete')) {
-      $sheet_type['entity']->delete();
-    }
-
-    // Remove values from node object.
-    unset($node->field_cabinetry_materials_sheet[LANGUAGE_NONE][$sheet_index]);
-  }
-}
-
-function _cabinetry_cabinet_project_add_sheet_materials($node, $project) {
-  $directory = 'public://cabinetry/sheets';
-  file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
-
-  foreach ($project->parts['CabinetrySheetGood'] as $sheet_type => $sheet) {
-    // Files.
-    $plot_files = array();
-    foreach ($sheet['plots'] as $plot_index => $plot_file) {
-      $sheet_plot = file_get_contents($plot_file);
-      $file_name = basename($plot_file);
-      $file = file_save_data($sheet_plot, "public://cabinetry/sheets/$file_name.png", FILE_EXISTS_REPLACE);
-      $file->status = FILE_STATUS_PERMANENT;
-      file_save($file);
-      $plot_files[] = (array) $file;
-    }
-
-    $field_collection_object = entity_create(
-      'field_collection_item',
-      array('field_name' => 'field_cabinetry_materials_sheet')
-    );
-
-    $field_collection_object->field_cabinetry_item_cost[LANGUAGE_NONE][0]['value'] = $sheet['price'];
-    $field_collection_object->field_cabinetry_sheet_name[LANGUAGE_NONE][0]['value'] = $sheet_type;
-    $field_collection_object->field_image[LANGUAGE_NONE] = $plot_files;
-
-    $sheet_type_array = array(
-      'field_cabinetry_item_cost' => _cabinetry_cabinet_project_stuff_field($sheet['price']),
-      'field_cabinetry_sheet_name' => _cabinetry_cabinet_project_stuff_field($sheet_type),
-      'remove_button' => 'Remove',
-      'field_image' => array(
-        LANGUAGE_NONE => $plot_files,
-      ),
-      'entity' => $field_collection_object,
-    );
-    $node->field_cabinetry_materials_sheet[LANGUAGE_NONE][] = $sheet_type_array;
-  }
-}
-
-function _cabinetry_cabinet_project_stuff_field($value) {
-  return array(
-    LANGUAGE_NONE => array(
-      0 => array(
-        'value' => $value,
-      ),
-    ),
-  );
-}
-
-
-/**
- * Bootstrap cabinetry_cabinet_project object classes.
- */
-function _cabinetry_cabinet_project_bootstrap() {
-  spl_autoload_register(function ($class_name) {
-    $filename = DRUPAL_ROOT . '/' . drupal_get_path('module', 'cabinetry_cabinet_project') . "/includes/Cabinetry/$class_name.inc";
-    if (file_exists($filename)) {
-      include "$filename";
-    }
-  });
-}
-
-/**
- * Instantiate a CabinetryToolItem from a cabinetry_rail_stile_router_bits tid.
- *
- * @param int $tid
- *   The tid to query.
- *
- * @return object
- *   Returns a CabinetryToolItem object populated from $tid.
- */
-function _cabinetry_cabinet_project_load_router_bit_object($tid) {
-  return new CabinetryToolItem(
-    _cabinetry_core_get_term_field($tid, 'name'),
-    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_rail_cut_depth'),
-    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_rail_cut_thickne')
-  );
 }
 
 /**
@@ -442,10 +76,17 @@ function cabinetry_cabinet_project_preprocess_node(&$variables) {
     $variables['solid_title'] = t('Solid Pieces');
     $variables['solid_table'] = _cabinetry_cabinet_project_get_solid_table($node_entity_wrapper, $variables['node']);
 
+    $variables['solid_cut_title'] = t('Solid Pieces');
+    $variables['solid_cut_table'] = _cabinetry_cabinet_project_get_solid_cut_list_table($node_entity_wrapper, $variables['node']);
+
     $variables['sheet_title'] = t('Sheet Goods');
     $variables['sheet_table'] = _cabinetry_cabinet_project_get_sheet_table($node_entity_wrapper, $variables['node']);
-    $canvas = imagecreate(100, 100);
-    dpm(imagecolorallocate($canvas, 248, 50, 0));
+
+    $variables['banding_title'] = t('Edge Banding');
+    $variables['banding_table'] = _cabinetry_cabinet_project_get_banding_table($node_entity_wrapper, $variables['node']);
+
+    $variables['hardware_title'] = t('Hardware');
+    $variables['hardware_table'] = _cabinetry_cabinet_project_get_hardware_table($node_entity_wrapper, $variables['node']);
   }
 }
 

@@ -17,28 +17,28 @@ class CabinetryWoodPiece {
   public $material = NULL;
 
   /**
-   * The thickness (z) of the sheet good, in millimeters.
+   * The thickness (z) of the wood piece, in millimeters.
    *
    * @var float
    */
   public $thickness = 0.0;
 
   /**
-   * The width (x) of the sheet good, in millimeters.
+   * The width (x) of the wood piece, in millimeters.
    *
    * @var float
    */
   public $width = 0.0;
 
   /**
-   * The height (y) of the sheet good, in millimeters.
+   * The height (y) of the wood piece, in millimeters.
    *
    * @var float
    */
   public $height = 0.0;
 
   /**
-   * The approximate price of the sheet good, in dollars.
+   * The approximate price of wood piece, in dollars.
    *
    * @var float
    */

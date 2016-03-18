@@ -5,6 +5,8 @@
  * Provides a generic object to serve as a basic european style cabinet.
  */
 
+define('CABINETRY_CABINET_PROJECT_CABINET_SHELF_UNDERSIZE', 6.0);
+
 /**
  * A generic object to serve as a basic european style cabinet.
  */
@@ -269,9 +271,9 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
    * Generate the nailer strips panel parts for the cabinet carcass.
    */
   protected function generateNailerParts() {
-    for ($nailerid = 0; $nailerid < 2; $nailerid++) {
+    for ($nailer_id = 0; $nailer_id < 2; $nailer_id++) {
       $this->parts[] = new CabinetryWoodPart(
-        "Nailer $nailerid",
+        "Nailer $nailer_id",
         $this->carcassSheetGood->thickness,
         $this->carcassInnerWidth,
         75,
@@ -285,16 +287,16 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
    * Generate the CabinetryWoodPart shelves for this cabinet.
    */
   protected function generateShelfParts() {
-    for ($shelfid = 0; $shelfid < $this->numShelves; $shelfid++) {
+    for ($shelf_id = 0; $shelf_id < $this->numShelves; $shelf_id++) {
       $this->parts[] = new CabinetryWoodPart(
-        "Shelf $shelfid",
+        "Shelf $shelf_id",
         $this->carcassSheetGood->thickness,
-        $this->carcassInnerWidth - 6.0,
-        $this->depth - 6.0,
+        $this->carcassInnerWidth - CABINETRY_CABINET_PROJECT_CABINET_SHELF_UNDERSIZE,
+        $this->depth - CABINETRY_CABINET_PROJECT_CABINET_SHELF_UNDERSIZE,
         $this->carcassSheetGood,
         ''
       );
-      $this->addBanding($this->carcassSheetGood->material, $this->carcassSheetGood->thickness, $this->carcassInnerWidth - 6.0);
+      $this->addBanding($this->carcassSheetGood->material, $this->carcassSheetGood->thickness, $this->carcassInnerWidth - CABINETRY_CABINET_PROJECT_CABINET_SHELF_UNDERSIZE);
     }
   }
 
@@ -322,7 +324,7 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
    * Generate a top or bottom panel for the caracass.
    *
    * @param string $label
-   *   A label to identify the panel (Top, Bottom).
+   *   A label to identify the side (Top, Bottom).
    */
   protected function generateTopBottomPart($label) {
     $this->parts[] = new CabinetryWoodPart(

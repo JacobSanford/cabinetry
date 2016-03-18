@@ -10,7 +10,7 @@
 class CabinetryToolItem {
 
   /**
-   * A label for this tool, typically a descriptive string.
+   * A label for this tool.
    *
    * @var string
    */
