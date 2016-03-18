@@ -408,6 +408,10 @@ function _cabinetry_cabinet_project_get_bill_goods_table($node_entity_wrapper, $
   $total_price += (float) $total_sheet_price;
   $rows = array_merge($rows, $sheet_rows);
 
+  list($hardware_rows, $total_hardware_price) = _cabinetry_cabinet_project_get_hardware_bill_rows($node_entity_wrapper, $node);
+  $total_price += (float) $total_hardware_price;
+  $rows = array_merge($rows, $hardware_rows);
+
   /*
   foreach ($node_entity_wrapper->field_cabinetry_materials_hardwa->value() as $hardware_index => $hardware_type) {
     $hardware_entity_metadata_wrapper = entity_metadata_wrapper('field_collection_item', $hardware_type);
@@ -514,6 +518,40 @@ function _cabinetry_cabinet_project_get_sheet_bill_rows($node_entity_wrapper, $n
   }
 
   return array($rows, $total_sheet_price);
+}
+
+function _cabinetry_cabinet_project_get_hardware_bill_rows($node_entity_wrapper, $node) {
+  $rows = array();
+  $total_hardware_cost = 0.00;
+
+  foreach ($node_entity_wrapper->field_cabinetry_materials_hardwa->value() as $hardware_index => $hardware_type) {
+    $hardware_entity_metadata_wrapper = entity_metadata_wrapper('field_collection_item', $hardware_type);
+    $name = $hardware_entity_metadata_wrapper->field_cabinetry_hardware_name->value();
+    $price = (float) $hardware_entity_metadata_wrapper->field_cabinetry_item_cost->value();
+    $number = (float) $hardware_entity_metadata_wrapper->field_cabinetry_number_of_shelve->value();
+    $total = $price * $number;
+    $total_hardware_cost += $total_hardware_cost;
+    $rows[] = array(
+      array(
+        'data' => $name,
+        'style' => 'text-align: left;',
+      ),
+      array(
+        'data' => _cabinetry_cabinet_project_render_price($price),
+        'style' => 'text-align: center;',
+      ),
+      array(
+        'data' => $number,
+        'style' => 'text-align: center;',
+      ),
+      array(
+        'data' => _cabinetry_cabinet_project_render_price($total),
+        'style' => 'text-align: right;',
+      ),
+    );
+  }
+
+  return array($rows, $total_hardware_cost);
 }
 
 /**
