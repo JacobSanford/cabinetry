@@ -87,6 +87,9 @@ function cabinetry_cabinet_project_preprocess_node(&$variables) {
 
     $variables['hardware_title'] = t('Hardware');
     $variables['hardware_table'] = _cabinetry_cabinet_project_get_hardware_table($node_entity_wrapper, $variables['node']);
+
+    $variables['bill_of_goods_title'] = t('Bill of Goods');
+    $variables['bill_of_goods_table'] = _cabinetry_cabinet_project_get_bill_goods_table($node_entity_wrapper, $variables['node']);
   }
 }
 

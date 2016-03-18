@@ -23,3 +23,6 @@
 
 <h2><?php echo $hardware_title; ?></h2>
 <?php echo $hardware_table; ?>
+
+<h2><?php echo $bill_of_goods_title; ?></h2>
+<?php echo $bill_of_goods_table; ?>

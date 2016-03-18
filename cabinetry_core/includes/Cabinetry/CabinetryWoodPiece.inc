@@ -44,6 +44,7 @@ class CabinetryWoodPiece {
    */
   public $price = 0.00;
 
+
   /**
    * Constructor.
    */

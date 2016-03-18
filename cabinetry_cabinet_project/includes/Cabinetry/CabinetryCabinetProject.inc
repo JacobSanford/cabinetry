@@ -30,6 +30,7 @@ class CabinetryCabinetProject extends CabinetryProject {
    */
   public $bladeCutWidth = 0.0;
 
+
   /**
    * Collate a list of parts from all components of the project.
    */
