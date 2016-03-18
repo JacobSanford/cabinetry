@@ -10,6 +10,161 @@
 function cabinetry_cabinet_project_field_default_field_bases() {
   $field_bases = array();
 
+  // Exported field_base: 'field_cabinetry_banding_amount'.
+  $field_bases['field_cabinetry_banding_amount'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_banding_amount',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'decimal_separator' => '.',
+    ),
+    'translatable' => 0,
+    'type' => 'number_float',
+  );
+
+  // Exported field_base: 'field_cabinetry_banding_material'.
+  $field_bases['field_cabinetry_banding_material'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_banding_material',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 512,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
+  // Exported field_base: 'field_cabinetry_bill_item_count'.
+  $field_bases['field_cabinetry_bill_item_count'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_bill_item_count',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
+  // Exported field_base: 'field_cabinetry_bill_item_name'.
+  $field_bases['field_cabinetry_bill_item_name'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_bill_item_name',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 512,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
+  // Exported field_base: 'field_cabinetry_bill_item_total'.
+  $field_bases['field_cabinetry_bill_item_total'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_bill_item_total',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
+  // Exported field_base: 'field_cabinetry_bill_of_goods'.
+  $field_bases['field_cabinetry_bill_of_goods'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_bill_of_goods',
+    'indexes' => array(
+      'revision_id' => array(
+        0 => 'revision_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'field_collection',
+    'settings' => array(
+      'hide_blank_items' => 1,
+      'path' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'field_collection',
+  );
+
+  // Exported field_base: 'field_cabinetry_bill_unit_price'.
+  $field_bases['field_cabinetry_bill_unit_price'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_bill_unit_price',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
+  // Exported field_base: 'field_cabinetry_blade_cut_width'.
+  $field_bases['field_cabinetry_blade_cut_width'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_blade_cut_width',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'decimal_separator' => '.',
+    ),
+    'translatable' => 0,
+    'type' => 'number_float',
+  );
+
   // Exported field_base: 'field_cabinetry_board_feet'.
   $field_bases['field_cabinetry_board_feet'] = array(
     'active' => 1,
@@ -460,6 +615,28 @@ function cabinetry_cabinet_project_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'number_decimal',
+  );
+
+  // Exported field_base: 'field_cabinetry_materials_bandin'.
+  $field_bases['field_cabinetry_materials_bandin'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_materials_bandin',
+    'indexes' => array(
+      'revision_id' => array(
+        0 => 'revision_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'field_collection',
+    'settings' => array(
+      'hide_blank_items' => 1,
+      'path' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'field_collection',
   );
 
   // Exported field_base: 'field_cabinetry_materials_hardwa'.
@@ -969,6 +1146,23 @@ function cabinetry_cabinet_project_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'field_collection',
+  );
+
+  // Exported field_base: 'field_cabinetry_solid_stock_leng'.
+  $field_bases['field_cabinetry_solid_stock_leng'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_solid_stock_leng',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'decimal_separator' => '.',
+    ),
+    'translatable' => 0,
+    'type' => 'number_float',
   );
 
   // Exported field_base: 'field_cabinetry_solid_thickness'.

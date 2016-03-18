@@ -11,6 +11,152 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_bill_of_goods-field_cabinetry_bill_item_count'.
+  $field_instances['field_collection_item-field_cabinetry_bill_of_goods-field_cabinetry_bill_item_count'] = array(
+    'bundle' => 'field_cabinetry_bill_of_goods',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_integer',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_bill_item_count',
+    'label' => 'Cabinetry Bill Item Count',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_bill_of_goods-field_cabinetry_bill_item_name'.
+  $field_instances['field_collection_item-field_cabinetry_bill_of_goods-field_cabinetry_bill_item_name'] = array(
+    'bundle' => 'field_cabinetry_bill_of_goods',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_bill_item_name',
+    'label' => 'Cabinetry Bill Item Name',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_bill_of_goods-field_cabinetry_bill_item_total'.
+  $field_instances['field_collection_item-field_cabinetry_bill_of_goods-field_cabinetry_bill_item_total'] = array(
+    'bundle' => 'field_cabinetry_bill_of_goods',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_bill_item_total',
+    'label' => 'Cabinetry Bill Item Total',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_bill_of_goods-field_cabinetry_bill_unit_price'.
+  $field_instances['field_collection_item-field_cabinetry_bill_of_goods-field_cabinetry_bill_unit_price'] = array(
+    'bundle' => 'field_cabinetry_bill_of_goods',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_bill_unit_price',
+    'label' => 'Cabinetry Bill Unit Price',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance:
   // 'field_collection_item-field_cabinetry_carcass_division-field_cabinetry_division_ratio'.
   $field_instances['field_collection_item-field_cabinetry_carcass_division-field_cabinetry_division_ratio'] = array(
     'bundle' => 'field_cabinetry_carcass_division',
@@ -51,6 +197,82 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_materials_bandin-field_cabinetry_banding_amount'.
+  $field_instances['field_collection_item-field_cabinetry_materials_bandin-field_cabinetry_banding_amount'] = array(
+    'bundle' => 'field_cabinetry_materials_bandin',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_banding_amount',
+    'label' => 'Banding Amount',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_materials_bandin-field_cabinetry_banding_material'.
+  $field_instances['field_collection_item-field_cabinetry_materials_bandin-field_cabinetry_banding_material'] = array(
+    'bundle' => 'field_cabinetry_materials_bandin',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_banding_material',
+    'label' => 'Banding Material',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
       'weight' => 1,
     ),
   );
@@ -445,6 +667,51 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'settings' => array(),
       'type' => 'field_collection_embed',
       'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_materials_solid-field_image'.
+  $field_instances['field_collection_item-field_cabinetry_materials_solid-field_image'] = array(
+    'bundle' => 'field_cabinetry_materials_solid',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_image',
+    'label' => 'Cut Plan',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 5,
     ),
   );
 
@@ -1399,6 +1666,101 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'node-cabinetry_cabinet_project-field_cabinetry_bill_of_goods'.
+  $field_instances['node-cabinetry_cabinet_project-field_cabinetry_bill_of_goods'] = array(
+    'bundle' => 'cabinetry_cabinet_project',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 10,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cabinetry_bill_of_goods',
+    'label' => 'Bill of Goods',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 10,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-cabinetry_cabinet_project-field_cabinetry_blade_cut_width'.
+  $field_instances['node-cabinetry_cabinet_project-field_cabinetry_blade_cut_width'] = array(
+    'bundle' => 'cabinetry_cabinet_project',
+    'default_value' => array(
+      0 => array(
+        'value' => '4.0',
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Enter the cut width of the saw blade, in mm.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 12,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cabinetry_blade_cut_width',
+    'label' => 'Saw Blade Cut Width',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '0.0',
+      'prefix' => '',
+      'suffix' => 'mm',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance:
   // 'node-cabinetry_cabinet_project-field_cabinetry_description'.
   $field_instances['node-cabinetry_cabinet_project-field_cabinetry_description'] = array(
     'bundle' => 'cabinetry_cabinet_project',
@@ -1521,7 +1883,51 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 4,
+      'weight' => 7,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-cabinetry_cabinet_project-field_cabinetry_materials_bandin'.
+  $field_instances['node-cabinetry_cabinet_project-field_cabinetry_materials_bandin'] = array(
+    'bundle' => 'cabinetry_cabinet_project',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 9,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cabinetry_materials_bandin',
+    'label' => 'Banding Materials',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 9,
     ),
   );
 
@@ -1779,6 +2185,57 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
+      'weight' => 8,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-cabinetry_cabinet_project-field_cabinetry_solid_stock_leng'.
+  $field_instances['node-cabinetry_cabinet_project-field_cabinetry_solid_stock_leng'] = array(
+    'bundle' => 'cabinetry_cabinet_project',
+    'default_value' => array(
+      0 => array(
+        'value' => 2438.4,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Enter the length of the hardwood lumber stock to use in computing how much to purchase.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 11,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cabinetry_solid_stock_leng',
+    'label' => 'Solid Stock Length',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '0.0',
+      'prefix' => '',
+      'suffix' => 'mm',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
       'weight' => 5,
     ),
   );
@@ -2492,6 +2949,14 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('<p>Enter an identifying name for this component.</p>
 <p><b>If you want multiple copies of this exact cabinet, add additional name fields here.</p>
 <p>The number of elements in this field controls the number of copies generated.</b></p>');
+  t('Banding Amount');
+  t('Banding Material');
+  t('Banding Materials');
+  t('Bill of Goods');
+  t('Cabinetry Bill Item Count');
+  t('Cabinetry Bill Item Name');
+  t('Cabinetry Bill Item Total');
+  t('Cabinetry Bill Unit Price');
   t('Cabinetry Board Feet');
   t('Cabinetry Division Ratio');
   t('Cabinetry PHP Library Class');
@@ -2515,6 +2980,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Cost Per BoardFoot');
   t('Cost Per Meter');
   t('Cost Per Sheet');
+  t('Cut Plan');
   t('Description');
   t('Direction');
   t('Does this sheet good have grain that should be preserved?');
@@ -2535,10 +3001,12 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Enter the color of the veneer. If wood, \'natural\' is a usual choice.');
   t('Enter the cost of the item, in dollars.');
   t('Enter the cost of the item, per meter, in dollars.');
+  t('Enter the cut width of the saw blade, in mm.');
   t('Enter the depth of the carcass (without doors), in mm.');
   t('Enter the direction of the measurement, i.e. \'Width\'.');
   t('Enter the door reveal for the box, in mm.');
   t('Enter the height of the sheet, in mm. Height is typically considered the dimension of the sheet that is perpendicular to the to the veneer grain, or the longest side if non-wood.');
+  t('Enter the length of the hardwood lumber stock to use in computing how much to purchase.');
   t('Enter the length, in mm.');
   t('Enter the number of divisions and ratio for the carcass box. Doors will also be divided to match.');
   t('Enter the number of doors that should span the carcass horizontally.');
@@ -2564,6 +3032,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Rail Cut Depth');
   t('Rail Slot Thickness');
   t('Rail/Stile Router Bit');
+  t('Saw Blade Cut Width');
   t('Select the core material of the sheet.');
   t('Select the material used for the back panel');
   t('Select the material used for the box carcass.');
@@ -2582,6 +3051,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Sheet Veneer Side 2');
   t('Sheet Width');
   t('Solid Name');
+  t('Solid Stock Length');
   t('Stock Thickness');
   t('Stock Width');
 

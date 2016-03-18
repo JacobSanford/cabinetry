@@ -150,7 +150,8 @@ function cabinetry_cabinet_project_field_group_info() {
       0 => 'field_cabinetry_description',
       1 => 'field_cabinetry_enforce_32mm',
       2 => 'field_cabinetry_project_measurem',
-      3 => 'title',
+      3 => 'field_cabinetry_solid_stock_leng',
+      4 => 'title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -179,9 +180,10 @@ function cabinetry_cabinet_project_field_group_info() {
     'label' => 'Materials List',
     'weight' => '8',
     'children' => array(
-      0 => 'field_cabinetry_materials_sheet',
-      1 => 'field_cabinetry_materials_solid',
-      2 => 'field_cabinetry_materials_hardwa',
+      0 => 'field_cabinetry_materials_hardwa',
+      1 => 'field_cabinetry_materials_sheet',
+      2 => 'field_cabinetry_materials_solid',
+      3 => 'field_cabinetry_materials_bandin',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -212,6 +214,7 @@ function cabinetry_cabinet_project_field_group_info() {
     'children' => array(
       0 => 'field_cabinetry_frame_router_bit',
       1 => 'field_cabinetry_sheet_packing_al',
+      2 => 'field_cabinetry_blade_cut_width',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
