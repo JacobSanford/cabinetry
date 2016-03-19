@@ -6,6 +6,7 @@
  */
 
 define('CABINETRY_CABINET_PROJECT_CABINET_SHELF_UNDERSIZE', 6.0);
+define('CABINETRY_CABINET_PROJECT_CABINET_NAILER_HEIGHT', 75.0);
 
 /**
  * A generic object to serve as a basic european style cabinet.
@@ -276,7 +277,7 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
         "Nailer $nailer_id",
         $this->carcassSheetGood->thickness,
         $this->carcassInnerWidth,
-        75,
+        CABINETRY_CABINET_PROJECT_CABINET_NAILER_HEIGHT,
         $this->carcassSheetGood,
         ''
       );
