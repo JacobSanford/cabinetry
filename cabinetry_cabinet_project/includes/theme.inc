@@ -530,7 +530,7 @@ function _cabinetry_cabinet_project_get_hardware_bill_rows($node_entity_wrapper,
     $price = (float) $hardware_entity_metadata_wrapper->field_cabinetry_item_cost->value();
     $number = (float) $hardware_entity_metadata_wrapper->field_cabinetry_number_of_shelve->value();
     $total = $price * $number;
-    $total_hardware_cost += $total_hardware_cost;
+    $total_hardware_cost += $total;
     $rows[] = array(
       array(
         'data' => $name,
