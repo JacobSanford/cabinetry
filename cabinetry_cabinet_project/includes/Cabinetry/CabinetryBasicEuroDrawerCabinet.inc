@@ -35,7 +35,7 @@ class CabinetryBasicEuroDrawerCabinet extends CabinetryBasicEuroCabinet {
    *   cabinetry_cabinet_project_node_form drupal module form submit.
    */
   public function build($cabinet_component) {
-    // TODO : parent::build($cabinet_component);
+    // TODO : parent::build($cabinet_component);?
 
     $this->height = (float) $cabinet_component['field_cabinetry_height'][LANGUAGE_NONE][0]['value'];
     $this->width = (float) $cabinet_component['field_cabinetry_width'][LANGUAGE_NONE][0]['value'];
@@ -65,30 +65,10 @@ class CabinetryBasicEuroDrawerCabinet extends CabinetryBasicEuroCabinet {
    * Generate parts required to build this cabinet configuration.
    */
   protected function generateParts() {
-    $this->parts = array();
-    $this->setInnerWidth();
-    $this->generateShelfParts();
-    $this->generateSidePart('Left');
-    $this->generateSidePart('Right');
-    $this->generateTopBottomPart('Top');
-    $this->generateTopBottomPart('Bottom');
-    $this->generateBackPanelPart();
-    $this->generateDividerPanelParts();
-    $this->generateNailerParts();
-    $this->generateDoorParts();
+    parent::generateParts();
 
     // Add drawer spreader parts.
-    // Add drawer parts.
-  }
-
-  /**
-   * Generate the doors parts for the cabinet.
-   */
-  protected function generateDoorParts() {
-    $this->generateDoors();
-    foreach ($this->doors as $door) {
-      $door->generateParts();
-    }
+    // Add drawer parts / slides.
   }
 
   /**
@@ -97,7 +77,7 @@ class CabinetryBasicEuroDrawerCabinet extends CabinetryBasicEuroCabinet {
   protected function generateDoors() {
     $this->doors = array();
 
-    // Add drawer front.
+    // Add drawer front 'door'.
     // TODO : top and bottom rails smaller?
     $this->doors[] = new CabinetryCabinetDoor(
       $this->width - 2 * $this->doorReveal,
