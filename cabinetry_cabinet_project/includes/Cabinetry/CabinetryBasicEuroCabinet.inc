@@ -21,13 +21,6 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
   public $backSheetGood = NULL;
 
   /**
-   * An array of CabinetryEdgeBanding objects comprising this component.
-   *
-   * @var array
-   */
-  public $banding = array();
-
-  /**
    * The inner width dim, in millimeters.
    *
    * @var float
@@ -86,6 +79,20 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
   public $doorFrameMaterial = NULL;
 
   /**
+   * The door frame material thickness.
+   *
+   * @var float
+   */
+  public $doorFrameThickness = NULL;
+
+  /**
+   * The door frame material height.
+   *
+   * @var float
+   */
+  public $doorFrameHeight = NULL;
+
+  /**
    * The door frame rail/stile bit.
    *
    * @var object CabinetryToolItem
@@ -120,7 +127,6 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
    */
   public $numShelves = 0;
 
-
   /**
    * Build the cabinet and determine parts required.
    *
@@ -138,8 +144,15 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
     $this->numShelves = (int) $cabinet_component['field_cabinetry_number_of_shelve'][LANGUAGE_NONE][0]['value'];
 
     // Door properties.
-    $this->doorFrameMaterial = _cabinetry_core_load_solid_wood_object($cabinet_component['field_cabinetry_door_frame_mater'][LANGUAGE_NONE][0]['tid']);
+    $this->doorFrameThickness = (float) $cabinet_component['field_cabinetry_door_frame_thick'][LANGUAGE_NONE][0]['value'];
+    $this->doorFrameHeight = (float) $cabinet_component['field_cabinetry_door_frame_heigh'][LANGUAGE_NONE][0]['value'];
+    $this->doorFrameMaterial = _cabinetry_core_load_solid_wood_object(
+      $cabinet_component['field_cabinetry_door_frame_mater'][LANGUAGE_NONE][0]['tid'],
+      $this->doorFrameThickness,
+      $this->doorFrameHeight
+    );
     $this->doorPanelMaterial = _cabinetry_core_load_sheet_good_object($cabinet_component['field_cabinetry_door_panel_mater'][LANGUAGE_NONE][0]['tid']);
+
     $this->doorReveal = (float) $cabinet_component['field_cabinetry_door_reveal'][LANGUAGE_NONE][0]['value'];
     $this->doorPanelUndersize = (float) $cabinet_component['field_cabinetry_door_panel_under'][LANGUAGE_NONE][0]['value'];
     $this->doorsAcrossGap = (int) $cabinet_component['field_cabinetry_doors_span_gap'][LANGUAGE_NONE][0]['value'];
@@ -236,23 +249,13 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
   }
 
   /**
-   * Generate the doors parts for the cabinet.
-   */
-  protected function generateDoorParts() {
-    $this->generateDoors();
-    foreach ($this->doors as $door) {
-      $door->generateParts();
-    }
-  }
-
-  /**
    * Generate the doors for the cabinet.
    */
-  protected function generateDoors() {
+  protected function generateDoorParts() {
     $this->doors = array();
     foreach ($this->divisions as $division_ratio) {
       for ($door_counter = 0; $door_counter < $this->doorsAcrossGap; $door_counter++) {
-        $this->doors[] = new CabinetryCabinetDoor(
+        $door = new CabinetryCabinetDoor(
           ($this->width / $this->doorsAcrossGap) - 2 * $this->doorReveal,
           ($this->height * $division_ratio) - 2 * $this->doorReveal,
           $this->doorFrameMaterial,
@@ -260,6 +263,8 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
           $this->doorPanelMaterial,
           $this->doorPanelUndersize
         );
+        $this->doors[] = $door;
+        $this->parts = array_merge($this->parts, $door->parts);
         $this->hardware[] = $this->doorHinge;
         $this->hardware[] = $this->doorHinge;
         $this->hardware[] = $this->doorHingePlate;

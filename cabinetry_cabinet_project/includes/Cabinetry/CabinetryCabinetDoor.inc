@@ -63,6 +63,7 @@ class CabinetryCabinetDoor extends CabinetryComponent {
     $this->doorFrameRouterBit = $door_frame_router_bit;
     $this->doorPanelMaterial = $door_panel_material;
     $this->doorPanelUndersize = $door_panel_undersize;
+    $this->generateParts();
   }
 
   /**

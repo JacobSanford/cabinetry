@@ -51,11 +51,11 @@ function _cabinetry_core_load_sheet_good_object($tid) {
  * @return object
  *   Returns a CabinetrySolidWood object populated from $tid.
  */
-function _cabinetry_core_load_solid_wood_object($tid) {
+function _cabinetry_core_load_solid_wood_object($tid, $thickness, $height) {
   return new CabinetrySolidWood(
     _cabinetry_core_get_term_field($tid, 'name'),
-    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_thickness'),
-    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_height'),
+    (float) $thickness,
+    (float) $height,
     0.0,
     (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_item_cost')
   );

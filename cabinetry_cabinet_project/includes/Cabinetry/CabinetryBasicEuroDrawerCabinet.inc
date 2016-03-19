@@ -78,19 +78,19 @@ class CabinetryBasicEuroDrawerCabinet extends CabinetryBasicEuroCabinet {
     $this->doors = array();
 
     // Add drawer front 'door'.
-    // TODO : top and bottom rails smaller?
-    $this->doors[] = new CabinetryCabinetDoor(
-      $this->width - 2 * $this->doorReveal,
-      $this->drawerSectionHeight - 2 * $this->doorReveal,
+    $drawer_front = new CabinetryCabinetDrawerFront(
+      ($this->width / $this->doorsAcrossGap) - 2 * $this->doorReveal,
+      $this->cabinetSectionHeight - 2 * $this->doorReveal,
       $this->doorFrameMaterial,
       $this->doorFrameRouterBit,
       $this->doorPanelMaterial,
       $this->doorPanelUndersize
     );
+    $this->parts = array_merge($this->parts, $drawer_front->parts);
 
     // Add cabinet section doors.
     for ($door_counter = 0; $door_counter < $this->doorsAcrossGap; $door_counter++) {
-      $this->doors[] = new CabinetryCabinetDoor(
+      $door = new CabinetryCabinetDoor(
         ($this->width / $this->doorsAcrossGap) - 2 * $this->doorReveal,
         $this->cabinetSectionHeight - 2 * $this->doorReveal,
         $this->doorFrameMaterial,
@@ -98,6 +98,7 @@ class CabinetryBasicEuroDrawerCabinet extends CabinetryBasicEuroCabinet {
         $this->doorPanelMaterial,
         $this->doorPanelUndersize
       );
+      $this->parts = array_merge($this->parts, $door->parts);
       $this->hardware[] = $this->doorHinge;
       $this->hardware[] = $this->doorHinge;
       $this->hardware[] = $this->doorHingePlate;

@@ -45,16 +45,6 @@ class CabinetryCabinetProject extends CabinetryProject {
         );
       }
 
-      // Add door parts.
-      foreach ($component->doors as $door_id => $door) {
-        foreach ($door->parts as $door_part_id => $door_part) {
-          $this->sortPart(
-            $door_part,
-            "$component->label[$component_id] Door $door_id $door_part->label"
-          );
-        }
-      }
-
       // Add banding.
       $this->addBanding($component->banding);
 

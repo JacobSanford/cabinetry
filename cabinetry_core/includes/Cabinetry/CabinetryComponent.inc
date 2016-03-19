@@ -38,6 +38,13 @@ class CabinetryComponent {
   public $hardware = array();
 
   /**
+   * An array of CabinetryEdgeBanding objects comprising this component.
+   *
+   * @var array
+   */
+  public $banding = array();
+
+  /**
    * An array of CabinetryWoodPart objects comprising this component.
    *
    * @var array
