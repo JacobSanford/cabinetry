@@ -179,30 +179,16 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Soft Maple 57.15mm (2.25"), 20.6mm (0.8125") Thick',
-    'description' => 'Soft Maple 57.15mm (2.25"), 20.6mm (0.8125") Thick',
+    'name' => 'Soft Maple',
+    'description' => 'Soft Maple',
     'format' => 'filtered_html',
     'weight' => 0,
     'uuid' => '94ae2104-4264-47b1-a28b-489840a3954d',
     'vocabulary_machine_name' => 'cabinetry_solid_wood',
-    'field_cabinetry_height' => array(
-      'und' => array(
-        0 => array(
-          'value' => 57.15,
-        ),
-      ),
-    ),
     'field_cabinetry_item_cost' => array(
       'und' => array(
         0 => array(
           'value' => '2.00',
-        ),
-      ),
-    ),
-    'field_cabinetry_thickness' => array(
-      'und' => array(
-        0 => array(
-          'value' => 20.6,
         ),
       ),
     ),

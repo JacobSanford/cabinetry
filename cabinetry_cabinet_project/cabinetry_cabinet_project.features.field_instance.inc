@@ -516,8 +516,8 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_cabinetry_materials_solid-field_cabinetry_board_feet'.
-  $field_instances['field_collection_item-field_cabinetry_materials_solid-field_cabinetry_board_feet'] = array(
+  // 'field_collection_item-field_cabinetry_materials_solid-field_cabinetry_height'.
+  $field_instances['field_collection_item-field_cabinetry_materials_solid-field_cabinetry_height'] = array(
     'bundle' => 'field_cabinetry_materials_solid',
     'default_value' => NULL,
     'deleted' => 0,
@@ -533,18 +533,18 @@ function cabinetry_cabinet_project_field_default_field_instances() {
           'thousand_separator' => '',
         ),
         'type' => 'number_decimal',
-        'weight' => 3,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'field_collection_item',
-    'field_name' => 'field_cabinetry_board_feet',
-    'label' => 'Cabinetry Board Feet',
+    'field_name' => 'field_cabinetry_height',
+    'label' => 'Height',
     'required' => 0,
     'settings' => array(
       'max' => '',
-      'min' => '',
+      'min' => '0.0',
       'prefix' => '',
-      'suffix' => '',
+      'suffix' => 'mm',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -666,6 +666,47 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_materials_solid-field_cabinetry_thickness'.
+  $field_instances['field_collection_item-field_cabinetry_materials_solid-field_cabinetry_thickness'] = array(
+    'bundle' => 'field_cabinetry_materials_solid',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_thickness',
+    'label' => 'Thickness',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '0.0',
+      'prefix' => '',
+      'suffix' => 'mm',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
       'weight' => 1,
     ),
   );
@@ -983,6 +1024,51 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_project_componen-field_cabinetry_door_frame_heigh'.
+  $field_instances['field_collection_item-field_cabinetry_project_componen-field_cabinetry_door_frame_heigh'] = array(
+    'bundle' => 'field_cabinetry_project_componen',
+    'default_value' => array(
+      0 => array(
+        'value' => 57.15,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Enter the width of the door frame material, in mm.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 19,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_door_frame_heigh',
+    'label' => 'Door Frame Width',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '0.0',
+      'prefix' => '',
+      'suffix' => 'mm',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance:
   // 'field_collection_item-field_cabinetry_project_componen-field_cabinetry_door_frame_mater'.
   $field_instances['field_collection_item-field_cabinetry_project_componen-field_cabinetry_door_frame_mater'] = array(
     'bundle' => 'field_cabinetry_project_componen',
@@ -1019,6 +1105,51 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_project_componen-field_cabinetry_door_frame_thick'.
+  $field_instances['field_collection_item-field_cabinetry_project_componen-field_cabinetry_door_frame_thick'] = array(
+    'bundle' => 'field_cabinetry_project_componen',
+    'default_value' => array(
+      0 => array(
+        'value' => 20.6,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Enter the thickness of the door frame solid, in mm.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 18,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_door_frame_thick',
+    'label' => 'Door Frame Thickness',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '0.0',
+      'prefix' => '',
+      'suffix' => 'mm',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance:
   // 'field_collection_item-field_cabinetry_project_componen-field_cabinetry_door_hinge'.
   $field_instances['field_collection_item-field_cabinetry_project_componen-field_cabinetry_door_hinge'] = array(
     'bundle' => 'field_cabinetry_project_componen',
@@ -1050,7 +1181,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 8,
+      'weight' => 10,
     ),
   );
 
@@ -1086,7 +1217,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 9,
+      'weight' => 11,
     ),
   );
 
@@ -1122,7 +1253,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 6,
+      'weight' => 8,
     ),
   );
 
@@ -1168,7 +1299,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 7,
+      'weight' => 9,
     ),
   );
 
@@ -1213,7 +1344,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 5,
+      'weight' => 7,
     ),
   );
 
@@ -1580,88 +1711,6 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'settings' => array(),
       'type' => 'number',
       'weight' => 2,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'field_collection_item-field_cabinetry_solid_part_list-field_cabinetry_solid_thickness'.
-  $field_instances['field_collection_item-field_cabinetry_solid_part_list-field_cabinetry_solid_thickness'] = array(
-    'bundle' => 'field_cabinetry_solid_part_list',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 2,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_decimal',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'field_collection_item',
-    'field_name' => 'field_cabinetry_solid_thickness',
-    'label' => 'Cabinetry Solid Thickness',
-    'required' => 0,
-    'settings' => array(
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
-      'weight' => 0,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'field_collection_item-field_cabinetry_solid_part_list-field_cabinetry_solid_width'.
-  $field_instances['field_collection_item-field_cabinetry_solid_part_list-field_cabinetry_solid_width'] = array(
-    'bundle' => 'field_cabinetry_solid_part_list',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 2,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_decimal',
-        'weight' => 1,
-      ),
-    ),
-    'entity_type' => 'field_collection_item',
-    'field_name' => 'field_cabinetry_solid_width',
-    'label' => 'Cabinetry Solid Width',
-    'required' => 0,
-    'settings' => array(
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
-      'weight' => 1,
     ),
   );
 
@@ -2738,51 +2787,6 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'taxonomy_term-cabinetry_solid_wood-field_cabinetry_height'.
-  $field_instances['taxonomy_term-cabinetry_solid_wood-field_cabinetry_height'] = array(
-    'bundle' => 'cabinetry_solid_wood',
-    'default_value' => array(
-      0 => array(
-        'value' => 57.15,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => 'Stock Width',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 2,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_decimal',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'taxonomy_term',
-    'field_name' => 'field_cabinetry_height',
-    'label' => 'Stock Width',
-    'required' => 0,
-    'settings' => array(
-      'max' => '',
-      'min' => '0.0',
-      'prefix' => '',
-      'suffix' => 'mm',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
-      'weight' => 2,
-    ),
-  );
-
-  // Exported field_instance:
   // 'taxonomy_term-cabinetry_solid_wood-field_cabinetry_item_cost'.
   $field_instances['taxonomy_term-cabinetry_solid_wood-field_cabinetry_item_cost'] = array(
     'bundle' => 'cabinetry_solid_wood',
@@ -2820,51 +2824,6 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'settings' => array(),
       'type' => 'number',
       'weight' => 6,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'taxonomy_term-cabinetry_solid_wood-field_cabinetry_thickness'.
-  $field_instances['taxonomy_term-cabinetry_solid_wood-field_cabinetry_thickness'] = array(
-    'bundle' => 'cabinetry_solid_wood',
-    'default_value' => array(
-      0 => array(
-        'value' => 20.6,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => 'Stock Thickness',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 2,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_decimal',
-        'weight' => 1,
-      ),
-    ),
-    'entity_type' => 'taxonomy_term',
-    'field_name' => 'field_cabinetry_thickness',
-    'label' => 'Stock Thickness',
-    'required' => 0,
-    'settings' => array(
-      'max' => '',
-      'min' => '0.0',
-      'prefix' => '',
-      'suffix' => 'mm',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
-      'weight' => 4,
     ),
   );
 
@@ -2957,13 +2916,10 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Cabinetry Bill Item Name');
   t('Cabinetry Bill Item Total');
   t('Cabinetry Bill Unit Price');
-  t('Cabinetry Board Feet');
   t('Cabinetry Division Ratio');
   t('Cabinetry PHP Library Class');
   t('Cabinetry Part Names');
   t('Cabinetry Solid Length');
-  t('Cabinetry Solid Thickness');
-  t('Cabinetry Solid Width');
   t('Carcass Back Material');
   t('Carcass Divisions');
   t('Carcass Outer Depth');
@@ -2985,6 +2941,8 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Direction');
   t('Does this sheet good have grain that should be preserved?');
   t('Door Frame Material');
+  t('Door Frame Thickness');
+  t('Door Frame Width');
   t('Door Hinge Plates');
   t('Door Hinges');
   t('Door Panel Material');
@@ -3014,8 +2972,11 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Enter the outer width of the carcass, in mm.');
   t('Enter the rail cut depth, in mm.');
   t('Enter the rail slot thickness, in mm.');
+  t('Enter the thickness of the door frame solid, in mm.');
   t('Enter the thickness of the sheet, in mm.');
+  t('Enter the width of the door frame material, in mm.');
   t('Enter the width of the sheet, in mm. Width is typically considered the dimension of the sheet that is parallel to the veneer grain, or the longest side if non-wood.');
+  t('Height');
   t('Item');
   t('Item Cost');
   t('Item Name');
@@ -3052,8 +3013,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Sheet Width');
   t('Solid Name');
   t('Solid Stock Length');
-  t('Stock Thickness');
-  t('Stock Width');
+  t('Thickness');
 
   return $field_instances;
 }

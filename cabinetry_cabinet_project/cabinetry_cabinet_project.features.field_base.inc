@@ -165,23 +165,6 @@ function cabinetry_cabinet_project_field_default_field_bases() {
     'type' => 'number_float',
   );
 
-  // Exported field_base: 'field_cabinetry_board_feet'.
-  $field_bases['field_cabinetry_board_feet'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_cabinetry_board_feet',
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'number',
-    'settings' => array(
-      'decimal_separator' => '.',
-    ),
-    'translatable' => 0,
-    'type' => 'number_float',
-  );
-
   // Exported field_base: 'field_cabinetry_carcass_back_mat'.
   $field_bases['field_cabinetry_carcass_back_mat'] = array(
     'active' => 1,
@@ -356,6 +339,23 @@ function cabinetry_cabinet_project_field_default_field_bases() {
     'type' => 'number_float',
   );
 
+  // Exported field_base: 'field_cabinetry_door_frame_heigh'.
+  $field_bases['field_cabinetry_door_frame_heigh'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_door_frame_heigh',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'decimal_separator' => '.',
+    ),
+    'translatable' => 0,
+    'type' => 'number_float',
+  );
+
   // Exported field_base: 'field_cabinetry_door_frame_mater'.
   $field_bases['field_cabinetry_door_frame_mater'] = array(
     'active' => 1,
@@ -380,6 +380,23 @@ function cabinetry_cabinet_project_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'taxonomy_term_reference',
+  );
+
+  // Exported field_base: 'field_cabinetry_door_frame_thick'.
+  $field_bases['field_cabinetry_door_frame_thick'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_door_frame_thick',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'decimal_separator' => '.',
+    ),
+    'translatable' => 0,
+    'type' => 'number_float',
   );
 
   // Exported field_base: 'field_cabinetry_door_hinge'.
@@ -1155,40 +1172,6 @@ function cabinetry_cabinet_project_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_cabinetry_solid_stock_leng',
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'number',
-    'settings' => array(
-      'decimal_separator' => '.',
-    ),
-    'translatable' => 0,
-    'type' => 'number_float',
-  );
-
-  // Exported field_base: 'field_cabinetry_solid_thickness'.
-  $field_bases['field_cabinetry_solid_thickness'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_cabinetry_solid_thickness',
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'number',
-    'settings' => array(
-      'decimal_separator' => '.',
-    ),
-    'translatable' => 0,
-    'type' => 'number_float',
-  );
-
-  // Exported field_base: 'field_cabinetry_solid_width'.
-  $field_bases['field_cabinetry_solid_width'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_cabinetry_solid_width',
     'indexes' => array(),
     'locked' => 0,
     'module' => 'number',
