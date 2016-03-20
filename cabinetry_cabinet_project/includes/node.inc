@@ -88,80 +88,84 @@ function _cabinetry_cabinet_project_remove_solid_materials($node) {
 function _cabinetry_cabinet_project_add_solid_materials($node, $project) {
   $directory = 'public://cabinetry/solids';
   file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
-
+  dpm($project);
   foreach ($project->parts['CabinetrySolidWood'] as $solid_type => $solid) {
-    $parts_list = array();
 
-    foreach ($solid['parts'] as $part_index => $part) {
-      $length = $part['length'];
+    foreach ($solid['parts'] as $part_thickness => $thickness_part) {
+      foreach ($thickness_part as $part_height => $height_part) {
+        $parts_list = array();
+        foreach ($height_part as $part_width => $width_parts) {
+          if (is_numeric($part_width)) {
+            $part_names = array();
 
-      $part_names = array();
-      foreach ($part['items'] as $part_name) {
-        $part_names[] = array(
-          'value' => $part_name['label'],
-          '_weight' => 0,
+            foreach ($width_parts as $part_name) {
+              $part_names[] = array(
+                'value' => $part_name['label'],
+                '_weight' => 0,
+              );
+            }
+
+            $parts_list_field_collection_object = entity_create(
+              'field_collection_item',
+              array('field_name' => 'field_cabinetry_solid_part_list')
+            );
+
+            $parts_list_field_collection_object->field_cabinetry_solid_length[LANGUAGE_NONE][0]['value'] = $part_width;
+            $parts_list_field_collection_object->field_cabinetry_part_names[LANGUAGE_NONE] = $part_names;
+
+            $parts_list[] = array(
+              'field_cabinetry_solid_length' => _cabinetry_cabinet_project_stuff_field($part_width),
+              'field_cabinetry_part_names' => array(
+                LANGUAGE_NONE => $part_names,
+              ),
+              'remove_button' => 'Remove',
+              'entity' => $parts_list_field_collection_object,
+            );
+          }
+        }
+
+        $solid_materials_field_collection_object = entity_create(
+          'field_collection_item',
+          array('field_name' => 'field_cabinetry_materials_solid')
         );
+
+        // Files.
+        $plot_files = array();
+        foreach ($height_part['plots'] as $plot_index => $plot_file) {
+          $sheet_plot = file_get_contents($plot_file);
+          $file_name = basename($plot_file);
+          $file = file_save_data($sheet_plot, "$directory/$file_name.png", FILE_EXISTS_REPLACE);
+          $file->status = FILE_STATUS_PERMANENT;
+          file_save($file);
+          $plot_files[] = (array) $file;
+        }
+
+        $solid_materials_field_collection_object->field_cabinetry_solid_name[LANGUAGE_NONE][0]['value'] = $solid_type;
+        $solid_materials_field_collection_object->field_cabinetry_thickness[LANGUAGE_NONE][0]['value'] = $part_thickness;
+        $solid_materials_field_collection_object->field_cabinetry_height[LANGUAGE_NONE][0]['value'] = $part_height;
+        $solid_materials_field_collection_object->field_cabinetry_item_cost[LANGUAGE_NONE][0]['value'] = $solid['price'];
+        $solid_materials_field_collection_object->field_cabinetry_solid_part_list[LANGUAGE_NONE] = $parts_list;
+        $solid_materials_field_collection_object->field_image[LANGUAGE_NONE] = $plot_files;
+
+        $solid_type_array = array(
+          'field_cabinetry_solid_name' => _cabinetry_cabinet_project_stuff_field($solid_type),
+          'field_cabinetry_item_cost' => _cabinetry_cabinet_project_stuff_field($solid['price']),
+          'field_cabinetry_thickness' => _cabinetry_cabinet_project_stuff_field($part_thickness),
+          'field_cabinetry_height' => _cabinetry_cabinet_project_stuff_field($part_height),
+          'field_image' => array(
+            LANGUAGE_NONE => $plot_files,
+          ),
+          'field_cabinetry_solid_part_list' => array(
+            LANGUAGE_NONE => $parts_list,
+          ),
+          'remove_button' => 'Remove',
+          'entity' => $solid_materials_field_collection_object,
+        );
+
+        $node->field_cabinetry_materials_solid[LANGUAGE_NONE][] = $solid_type_array;
+
       }
-
-      $parts_list_field_collection_object = entity_create(
-        'field_collection_item',
-        array('field_name' => 'field_cabinetry_solid_part_list')
-      );
-
-      $parts_list_field_collection_object->field_cabinetry_solid_thickness[LANGUAGE_NONE][0]['value'] = $solid['thickness'];
-      $parts_list_field_collection_object->field_cabinetry_solid_width[LANGUAGE_NONE][0]['value'] = $solid['height'];
-      $parts_list_field_collection_object->field_cabinetry_solid_length[LANGUAGE_NONE][0]['value'] = $length;
-      $parts_list_field_collection_object->field_cabinetry_part_names[LANGUAGE_NONE] = $part_names;
-
-      $parts_list[] = array(
-        'field_cabinetry_solid_thickness' => _cabinetry_cabinet_project_stuff_field($solid['thickness']),
-        'field_cabinetry_solid_width' => _cabinetry_cabinet_project_stuff_field($solid['height']),
-        'field_cabinetry_solid_length' => _cabinetry_cabinet_project_stuff_field($length),
-        'field_cabinetry_part_names' => array(
-          LANGUAGE_NONE => $part_names,
-        ),
-        'remove_button' => 'Remove',
-        'entity' => $parts_list_field_collection_object,
-      );
     }
-
-    $solid_materials_field_collection_object = entity_create(
-      'field_collection_item',
-      array('field_name' => 'field_cabinetry_materials_solid')
-    );
-
-    // Files.
-    $plot_files = array();
-    foreach ($solid['plots'] as $plot_index => $plot_file) {
-      $sheet_plot = file_get_contents($plot_file);
-      $file_name = basename($plot_file);
-      $file = file_save_data($sheet_plot, "$directory/$file_name.png", FILE_EXISTS_REPLACE);
-      $file->status = FILE_STATUS_PERMANENT;
-      file_save($file);
-      $plot_files[] = (array) $file;
-    }
-
-    $solid_materials_field_collection_object->field_cabinetry_solid_name[LANGUAGE_NONE][0]['value'] = $solid_type;
-    $solid_materials_field_collection_object->field_cabinetry_item_cost[LANGUAGE_NONE][0]['value'] = $solid['price'];
-    $solid_materials_field_collection_object->field_cabinetry_board_feet[LANGUAGE_NONE][0]['value'] = $solid['board_feet'];
-    $solid_materials_field_collection_object->field_cabinetry_solid_part_list[LANGUAGE_NONE] = $parts_list;
-    $solid_materials_field_collection_object->field_image[LANGUAGE_NONE] = $plot_files;
-
-    $solid_type_array = array(
-      'field_cabinetry_solid_name' => _cabinetry_cabinet_project_stuff_field($solid_type),
-      'field_cabinetry_item_cost' => _cabinetry_cabinet_project_stuff_field($solid['price']),
-      'field_cabinetry_board_feet' => _cabinetry_cabinet_project_stuff_field($solid['board_feet']),
-      'field_image' => array(
-        LANGUAGE_NONE => $plot_files,
-      ),
-      'field_cabinetry_solid_part_list' => array(
-        LANGUAGE_NONE => $parts_list,
-      ),
-      'remove_button' => 'Remove',
-      'entity' => $solid_materials_field_collection_object,
-    );
-
-    $node->field_cabinetry_materials_solid[LANGUAGE_NONE][] = $solid_type_array;
   }
 }
 

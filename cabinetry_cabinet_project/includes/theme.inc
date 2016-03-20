@@ -141,11 +141,11 @@ function _cabinetry_cabinet_project_get_solid_table($node_entity_wrapper, $node)
           ),
           $solid_entity_metadata_wrapper->field_cabinetry_solid_name->value(),
           array(
-            'data' => _cabinetry_cabinet_project_render_measurement($solid_parts_entity_metadata_wrapper->field_cabinetry_solid_thickness->value()),
+            'data' => _cabinetry_cabinet_project_render_measurement($solid_entity_metadata_wrapper->field_cabinetry_thickness->value()),
             'style' => 'text-align: right;',
           ),
           array(
-            'data' => _cabinetry_cabinet_project_render_measurement($solid_parts_entity_metadata_wrapper->field_cabinetry_solid_width->value()),
+            'data' => _cabinetry_cabinet_project_render_measurement($solid_entity_metadata_wrapper->field_cabinetry_height->value()),
             'style' => 'text-align: right;',
           ),
           array(
@@ -212,6 +212,7 @@ function _cabinetry_cabinet_project_get_solid_cut_list_table($node_entity_wrappe
     $solid_entity_metadata_wrapper = entity_metadata_wrapper('field_collection_item', $solid);
     foreach ($solid_entity_metadata_wrapper->field_image->value() as $image_index => $image) {
 
+      /*
       $image_html = l(
         theme(
           'image_style',
@@ -248,6 +249,8 @@ function _cabinetry_cabinet_project_get_solid_cut_list_table($node_entity_wrappe
           $image_html,
         );
       }
+      */
+
     }
   }
 
@@ -452,7 +455,8 @@ function _cabinetry_cabinet_project_get_bill_goods_table($node_entity_wrapper, $
 function _cabinetry_cabinet_project_get_solid_bill_rows($node_entity_wrapper, $node) {
   $rows = array();
   $total_solid_cost = 0.00;
-
+  $rows=array();
+/*
   foreach ($node_entity_wrapper->field_cabinetry_materials_solid->value() as $solid_index => $solid) {
     $solid_entity_metadata_wrapper = entity_metadata_wrapper('field_collection_item', $solid);
     $solid_stock_length = $node_entity_wrapper->field_cabinetry_solid_stock_leng->value();
@@ -484,6 +488,7 @@ function _cabinetry_cabinet_project_get_solid_bill_rows($node_entity_wrapper, $n
       break;
     }
   }
+*/
 
   return array($rows, $total_solid_cost);
 }

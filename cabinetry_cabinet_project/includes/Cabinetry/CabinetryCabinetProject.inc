@@ -56,6 +56,7 @@ class CabinetryCabinetProject extends CabinetryProject {
         );
       }
     }
+    dpm($this);
   }
 
   /**
@@ -111,47 +112,31 @@ class CabinetryCabinetProject extends CabinetryProject {
 
     // Solid Wood.
     if (isset($part->source) && $part->source instanceof CabinetrySolidWood) {
-
       if (!isset($this->parts['CabinetrySolidWood'])) {
         $this->parts['CabinetrySolidWood'] = array();
       }
 
       if (!isset($this->parts['CabinetrySolidWood'][$part->source->material])) {
         $this->parts['CabinetrySolidWood'][$part->source->material] = array(
-          'thickness' => $part->source->thickness,
-          'height' => $part->source->height,
           'price' => $part->source->price,
-          'length' => 0.0,
-          'board_feet' => 0.0,
           'parts' => array(),
         );
       }
 
-      $found_part = FALSE;
-      foreach ($this->parts['CabinetrySolidWood'][$part->source->material]['parts'] as $part_index => $cur_part) {
-        if ($cur_part['length'] == $part->width) {
-          $found_part = TRUE;
-          $this->parts['CabinetrySolidWood'][$part->source->material]['parts'][$part_index]['items'][] = array(
-            'label' => $label,
-            'notes' => $part->notes,
-          );
-        }
-      }
-      if ($found_part == FALSE) {
-        $this->parts['CabinetrySolidWood'][$part->source->material]['parts'][] = array(
-          'items' => array(
-            array(
-              'label' => $label,
-              'notes' => $part->notes,
-            ),
-          ),
-          'length' => $part->width,
+      if (!empty($this->parts['CabinetrySolidWood'][$part->source->material]['parts'][$part->thickness][$part->height][$part->width])) {
+        $this->parts['CabinetrySolidWood'][$part->source->material]['parts'][$part->thickness][$part->height][$part->width][] = array(
+          'label' => $label,
+          'notes' => $part->notes,
         );
       }
-
-      $this->parts['CabinetrySolidWood'][$part->source->material]['length'] += $part->width;
-      $part_boardfeet = $part->width * $this->parts['CabinetrySolidWood'][$part->source->material]['thickness'] * $this->parts['CabinetrySolidWood'][$part->source->material]['height'] * CABINETRY_CORE_MM3_TO_BOARDFEET;
-      $this->parts['CabinetrySolidWood'][$part->source->material]['board_feet'] += $part_boardfeet;
+      else {
+        $this->parts['CabinetrySolidWood'][$part->source->material]['parts'][$part->thickness][$part->height][$part->width] = array(
+          array(
+            'label' => $label,
+            'notes' => $part->notes,
+          ),
+        );
+      }
     }
 
     // Hardware.
@@ -210,33 +195,36 @@ class CabinetryCabinetProject extends CabinetryProject {
    */
   public function packSolids($algorithm) {
     foreach ($this->parts['CabinetrySolidWood'] as $solid_index => $solid_type) {
-      $this->parts['CabinetrySolidWood'][$solid_index]['plots'] = array();
-      $piece_array = array();
-      foreach ($solid_type['parts'] as $piece_index => $piece) {
-        foreach ($piece['items'] as $item) {
-          $piece_array[] = array(
-            'label' => $item['label'],
-            'notes' => $item['notes'],
-            'width' => $piece['length'],
-            'height' => $solid_type['height'],
+      foreach ($solid_type['parts'] as $piece_thickness => $thickness_piece) {
+        foreach ($thickness_piece as $piece_height => $height_piece) {
+
+          $piece_array = array();
+          $this->parts['CabinetrySolidWood'][$solid_index]['parts'][$piece_thickness][$piece_height]['plots'] = array();
+          foreach ($height_piece as $piece_width => $width_pieces) {
+            foreach ($width_pieces as $width_piece) {
+              $piece_array[] = array(
+                'label' => $width_piece['label'],
+                'notes' => $width_piece['notes'],
+                'width' => $piece_width,
+                'height' => $piece_height,
+              );
+            }
+          }
+          $packer = new $algorithm(
+            $this->solidStockLength,
+            $piece_height,
+            $piece_array,
+            $this->bladeCutWidth,
+            TRUE
           );
+          $packer->pack();
+
+          foreach ($packer->sheets as $sheet_index => $sheet) {
+            $sheet_plotter = new CabinetrySheetGoodPlotter($sheet);
+            $this->parts['CabinetrySolidWood'][$solid_index]['parts'][$piece_thickness][$piece_height]['plots'][] = $sheet_plotter->plotSheet();
+          }
         }
       }
-
-      $packer = new $algorithm(
-        $this->solidStockLength,
-        $solid_type['height'],
-        $piece_array,
-        $this->bladeCutWidth,
-        TRUE
-      );
-      $packer->pack();
-
-      foreach ($packer->sheets as $sheet_index => $sheet) {
-        $sheet_plotter = new CabinetrySheetGoodPlotter($sheet);
-        $this->parts['CabinetrySolidWood'][$solid_index]['plots'][] = $sheet_plotter->plotSheet();
-      }
-
     }
   }
 

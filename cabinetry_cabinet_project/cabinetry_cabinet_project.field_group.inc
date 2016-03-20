@@ -91,8 +91,6 @@ function cabinetry_cabinet_project_field_group_info() {
       4 => 'field_cabinetry_door_panel_under',
       5 => 'field_cabinetry_door_reveal',
       6 => 'field_cabinetry_doors_span_gap',
-      7 => 'field_cabinetry_door_frame_thick',
-      8 => 'field_cabinetry_door_frame_heigh',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
