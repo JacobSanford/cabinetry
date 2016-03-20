@@ -123,14 +123,14 @@ class CabinetryCabinetProject extends CabinetryProject {
         );
       }
 
-      if (!empty($this->parts['CabinetrySolidWood'][$part->source->material]['parts'][$part->thickness][$part->height][$part->width])) {
-        $this->parts['CabinetrySolidWood'][$part->source->material]['parts'][$part->thickness][$part->height][$part->width][] = array(
+      if (!empty($this->parts['CabinetrySolidWood'][$part->source->material]['parts']["$part->thickness"]["$part->height"]["$part->width"])) {
+        $this->parts['CabinetrySolidWood'][$part->source->material]['parts']["$part->thickness"]["$part->height"]["$part->width"][] = array(
           'label' => $label,
           'notes' => $part->notes,
         );
       }
       else {
-        $this->parts['CabinetrySolidWood'][$part->source->material]['parts'][$part->thickness][$part->height][$part->width] = array(
+        $this->parts['CabinetrySolidWood'][$part->source->material]['parts']["$part->thickness"]["$part->height"]["$part->width"] = array(
           array(
             'label' => $label,
             'notes' => $part->notes,

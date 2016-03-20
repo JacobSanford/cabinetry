@@ -203,6 +203,8 @@ function _cabinetry_cabinet_project_get_solid_cut_list_table($node_entity_wrappe
   $header = array(
     t('ID'),
     t('Name'),
+    t('Thickness'),
+    t('Height'),
     t('Num Lengths'),
     t('Cut Images'),
   );
@@ -212,7 +214,6 @@ function _cabinetry_cabinet_project_get_solid_cut_list_table($node_entity_wrappe
     $solid_entity_metadata_wrapper = entity_metadata_wrapper('field_collection_item', $solid);
     foreach ($solid_entity_metadata_wrapper->field_image->value() as $image_index => $image) {
 
-      /*
       $image_html = l(
         theme(
           'image_style',
@@ -235,6 +236,14 @@ function _cabinetry_cabinet_project_get_solid_cut_list_table($node_entity_wrappe
           ),
           $solid_entity_metadata_wrapper->field_cabinetry_solid_name->value(),
           array(
+            'data' => _cabinetry_cabinet_project_render_measurement($solid_entity_metadata_wrapper->field_cabinetry_thickness->value()),
+            'style' => 'text-align: center;',
+          ),
+          array(
+            'data' => _cabinetry_cabinet_project_render_measurement($solid_entity_metadata_wrapper->field_cabinetry_height->value()),
+            'style' => 'text-align: center;',
+          ),
+          array(
             'data' => count($solid_entity_metadata_wrapper->field_image),
             'style' => 'text-align: center;',
           ),
@@ -246,10 +255,11 @@ function _cabinetry_cabinet_project_get_solid_cut_list_table($node_entity_wrappe
           NULL,
           NULL,
           NULL,
+          NULL,
+          NULL,
           $image_html,
         );
       }
-      */
 
     }
   }
@@ -456,17 +466,19 @@ function _cabinetry_cabinet_project_get_solid_bill_rows($node_entity_wrapper, $n
   $rows = array();
   $total_solid_cost = 0.00;
   $rows=array();
-/*
+
   foreach ($node_entity_wrapper->field_cabinetry_materials_solid->value() as $solid_index => $solid) {
+    dpm($solid);
     $solid_entity_metadata_wrapper = entity_metadata_wrapper('field_collection_item', $solid);
     $solid_stock_length = $node_entity_wrapper->field_cabinetry_solid_stock_leng->value();
     foreach ($solid_entity_metadata_wrapper->field_cabinetry_solid_part_list->value() as $part_index => $part_list) {
+      dpm($part_list);
       $solid_parts_entity_metadata_wrapper = entity_metadata_wrapper('field_collection_item', $part_list);
       $lengths_count = count($solid_entity_metadata_wrapper->field_image->value());
       $total_cost = $lengths_count *
         $solid_stock_length *
-        (float) $solid_parts_entity_metadata_wrapper->field_cabinetry_solid_width->value() *
-        (float) $solid_parts_entity_metadata_wrapper->field_cabinetry_solid_thickness->value() *
+        (float) $solid_entity_metadata_wrapper->field_cabinetry_height->value() *
+        (float) $solid_entity_metadata_wrapper->field_cabinetry_thickness->value() *
         (float) CABINETRY_CORE_MM3_TO_BOARDFEET *
         (float) $solid_entity_metadata_wrapper->field_cabinetry_item_cost->value();
       $rows[] = array(
@@ -476,7 +488,7 @@ function _cabinetry_cabinet_project_get_solid_bill_rows($node_entity_wrapper, $n
           'style' => 'text-align: center;',
         ),
         array(
-          'data' => "$lengths_count x {$solid_stock_length}mm lengths",
+          'data' => "$lengths_count x {$solid_stock_length}mm ({$solid_entity_metadata_wrapper->field_cabinetry_height->value()}w, {$solid_entity_metadata_wrapper->field_cabinetry_thickness->value()}w) lengths",
           'style' => 'text-align: center;',
         ),
         array(
@@ -488,7 +500,7 @@ function _cabinetry_cabinet_project_get_solid_bill_rows($node_entity_wrapper, $n
       break;
     }
   }
-*/
+
 
   return array($rows, $total_solid_cost);
 }
