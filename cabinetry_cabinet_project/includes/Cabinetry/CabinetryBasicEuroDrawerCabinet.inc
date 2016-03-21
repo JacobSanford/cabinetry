@@ -84,8 +84,21 @@ class CabinetryBasicEuroDrawerCabinet extends CabinetryBasicEuroCabinet {
       $this->carcassSheetGood,
       ''
     );
+    $this->addBanding($this->carcassSheetGood, $this->carcassSheetGood->thickness, $this->carcassInnerWidth);
 
-    // Add drawer parts / slides.
+    // Add drawer front 'door'.
+    $drawer = new CabinetryCabinetDrawer(
+      $this->width - 2 * $this->doorReveal,
+      $this->cabinetSectionHeight - 2 * $this->doorReveal,
+      $this->doorFrameMaterial,
+      $this->doorFrameRouterBit,
+      $this->doorPanelMaterial,
+      $this->doorPanelUndersize,
+      $this->drawerRailHeight
+    );
+    $this->parts = array_merge($this->parts, $drawer->parts);
+    $this->hardware = array_merge($this->parts, $drawer->hardware);
+    // TODO : banding
   }
 
   /**
@@ -94,18 +107,6 @@ class CabinetryBasicEuroDrawerCabinet extends CabinetryBasicEuroCabinet {
   protected function generateDoors() {
     $this->doors = array();
 
-    // Add drawer front 'door'.
-    $drawer_front = new CabinetryCabinetDrawerFront(
-      ($this->width / $this->doorsAcrossGap) - 2 * $this->doorReveal,
-      $this->cabinetSectionHeight - 2 * $this->doorReveal,
-      $this->doorFrameMaterial,
-      $this->doorFrameRouterBit,
-      $this->doorPanelMaterial,
-      $this->doorPanelUndersize
-    );
-    $this->parts = array_merge($this->parts, $drawer_front->parts);
-
-    // Add cabinet section doors.
     for ($door_counter = 0; $door_counter < $this->doorsAcrossGap; $door_counter++) {
       $door = new CabinetryCabinetDoor(
         ($this->width / $this->doorsAcrossGap) - 2 * $this->doorReveal,

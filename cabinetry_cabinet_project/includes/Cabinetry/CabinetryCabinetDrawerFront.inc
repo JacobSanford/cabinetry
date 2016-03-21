@@ -5,12 +5,28 @@
  * Provides a generic object to serve as a basic cabinet door.
  */
 
-define('CABINETRY_CABINET_PROJECT_CABINET_DRAWER_FRONT_RAIL_HEIGHT', 38.1);
-
 /**
  * A generic object to serve as a basic cabinet door.
  */
 class CabinetryCabinetDrawerFront extends CabinetryCabinetDoor {
+
+  /**
+   * The height of the rail components of the door frame.
+   *
+   * @var float
+   */
+  public $drawerRailHeight = 0.0;
+
+  public function __construct($width, $height, $door_frame_material, $door_frame_router_bit, $door_panel_material, $door_panel_undersize, $rail_height) {
+    $this->width = $width;
+    $this->height = $height;
+    $this->doorFrameMaterial = $door_frame_material;
+    $this->doorFrameRouterBit = $door_frame_router_bit;
+    $this->doorPanelMaterial = $door_panel_material;
+    $this->doorPanelUndersize = $door_panel_undersize;
+    $this->drawerRailHeight = $rail_height;
+    $this->generateParts();
+  }
 
   /**
    * Generate the rail components for this door.
@@ -20,10 +36,10 @@ class CabinetryCabinetDrawerFront extends CabinetryCabinetDoor {
    */
   protected function generateRailPart($label) {
     $this->parts[] = new CabinetryWoodPart(
-      "$label Rail",
+      "Drawer $label Rail",
       $this->doorFrameMaterial->thickness,
       $this->width - 2 * $this->doorFrameMaterial->height + 2 * $this->doorFrameRouterBit->cutDepth,
-      CABINETRY_CABINET_PROJECT_CABINET_DRAWER_FRONT_RAIL_HEIGHT,
+      $this->drawerRailHeight,
       $this->doorFrameMaterial,
       ''
     );
@@ -36,7 +52,7 @@ class CabinetryCabinetDrawerFront extends CabinetryCabinetDoor {
     $this->parts[] = new CabinetryWoodPart(
       "Panel",
       $this->doorPanelMaterial->thickness,
-      $this->height - 2 * CABINETRY_CABINET_PROJECT_CABINET_DRAWER_FRONT_RAIL_HEIGHT + 2 * $this->doorFrameRouterBit->cutDepth - 2 * $this->doorPanelUndersize,
+      $this->height - 2 * $this->drawerRailHeight + 2 * $this->doorFrameRouterBit->cutDepth - 2 * $this->doorPanelUndersize,
       $this->width - 2 * $this->doorFrameMaterial->height + 2 * $this->doorFrameRouterBit->cutDepth - 2 * $this->doorPanelUndersize,
       $this->doorPanelMaterial,
       ''

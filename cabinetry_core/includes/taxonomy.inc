@@ -109,6 +109,7 @@ function _cabinetry_core_load_drawer_slide_object($tid) {
   return new CabinetryDrawerSlide(
     _cabinetry_core_get_term_field($tid, 'name'),
     (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_item_cost'),
+    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_slide_length'),
     (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_slide_clearance')
   );
 }
