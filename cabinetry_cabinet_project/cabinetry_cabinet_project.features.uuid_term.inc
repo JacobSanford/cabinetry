@@ -74,7 +74,7 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Blum T230M',
+    'name' => '350mm Blum T230M',
     'description' => '',
     'format' => 'filtered_html',
     'weight' => 0,
@@ -87,7 +87,20 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_cabinetry_item_cost' => array(),
+    'field_cabinetry_item_cost' => array(
+      'und' => array(
+        0 => array(
+          'value' => '7.00',
+        ),
+      ),
+    ),
+    'field_cabinetry_slide_length' => array(
+      'und' => array(
+        0 => array(
+          'value' => 350,
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Laminated Wood',

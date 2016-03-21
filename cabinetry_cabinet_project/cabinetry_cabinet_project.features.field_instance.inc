@@ -2407,7 +2407,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -2421,7 +2421,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       ),
     ),
     'deleted' => 0,
-    'description' => 'Enter the clearance from carcass required for each slide, in mm.',
+    'description' => 'Enter the horizontal clearance from carcass required for each slide, in mm.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -2438,7 +2438,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     ),
     'entity_type' => 'taxonomy_term',
     'field_name' => 'field_cabinetry_slide_clearance',
-    'label' => 'Cabinetry Slide Clearance',
+    'label' => 'Slide Clearance',
     'required' => 0,
     'settings' => array(
       'max' => '',
@@ -2452,7 +2452,52 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 1,
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'taxonomy_term-cabinetry_drawer_slides-field_cabinetry_slide_length'.
+  $field_instances['taxonomy_term-cabinetry_drawer_slides-field_cabinetry_slide_length'] = array(
+    'bundle' => 'cabinetry_drawer_slides',
+    'default_value' => array(
+      0 => array(
+        'value' => 350,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Enter the length of the slide, in mm.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_cabinetry_slide_length',
+    'label' => 'Slide Length',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '0.0',
+      'prefix' => '',
+      'suffix' => 'mm',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 3,
     ),
   );
 
@@ -3086,7 +3131,6 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Cabinetry Division Ratio');
   t('Cabinetry PHP Library Class');
   t('Cabinetry Part Names');
-  t('Cabinetry Slide Clearance');
   t('Cabinetry Solid Length');
   t('Carcass Back Material');
   t('Carcass Divisions');
@@ -3128,7 +3172,6 @@ function cabinetry_cabinet_project_field_default_field_instances() {
 ');
   t('Enter the approximate cost of a single item. ');
   t('Enter the class the PHP Library should use to build this component.');
-  t('Enter the clearance from carcass required for each slide, in mm.');
   t('Enter the color of the veneer. If wood, \'natural\' is a usual choice.');
   t('Enter the cost of the item, in dollars.');
   t('Enter the cost of the item, per meter, in dollars.');
@@ -3138,7 +3181,9 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Enter the door reveal for the box, in mm.');
   t('Enter the height of the drawer rails, in mm.');
   t('Enter the height of the sheet, in mm. Height is typically considered the dimension of the sheet that is perpendicular to the to the veneer grain, or the longest side if non-wood.');
+  t('Enter the horizontal clearance from carcass required for each slide, in mm.');
   t('Enter the length of the hardwood lumber stock to use in computing how much to purchase.');
+  t('Enter the length of the slide, in mm.');
   t('Enter the length, in mm.');
   t('Enter the number of divisions and ratio for the carcass box. Doors will also be divided to match.');
   t('Enter the number of doors that should span the carcass horizontally.');
@@ -3185,6 +3230,8 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Sheet Veneer Side 1');
   t('Sheet Veneer Side 2');
   t('Sheet Width');
+  t('Slide Clearance');
+  t('Slide Length');
   t('Solid Name');
   t('Solid Stock Length');
   t('Thickness');
