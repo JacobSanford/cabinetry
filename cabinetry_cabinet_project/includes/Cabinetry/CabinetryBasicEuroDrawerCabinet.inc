@@ -35,8 +35,6 @@ class CabinetryBasicEuroDrawerCabinet extends CabinetryBasicEuroCabinet {
    *   cabinetry_cabinet_project_node_form drupal module form submit.
    */
   public function build($cabinet_component) {
-    // TODO : parent::build($cabinet_component);?
-
     $this->height = (float) $cabinet_component['field_cabinetry_height'][LANGUAGE_NONE][0]['value'];
     $this->width = (float) $cabinet_component['field_cabinetry_width'][LANGUAGE_NONE][0]['value'];
     $this->depth = (float) $cabinet_component['field_cabinetry_depth'][LANGUAGE_NONE][0]['value'];
@@ -45,13 +43,23 @@ class CabinetryBasicEuroDrawerCabinet extends CabinetryBasicEuroCabinet {
     $this->numShelves = (int) $cabinet_component['field_cabinetry_number_of_shelve'][LANGUAGE_NONE][0]['value'];
 
     // Door properties.
-    $this->doorFrameMaterial = _cabinetry_core_load_solid_wood_object($cabinet_component['field_cabinetry_door_frame_mater'][LANGUAGE_NONE][0]['tid']);
+    $this->doorFrameThickness = (float) $cabinet_component['field_cabinetry_door_frame_thick'][LANGUAGE_NONE][0]['value'];
+    $this->doorFrameHeight = (float) $cabinet_component['field_cabinetry_door_frame_heigh'][LANGUAGE_NONE][0]['value'];
+    $this->doorFrameMaterial = _cabinetry_core_load_solid_wood_object(
+      $cabinet_component['field_cabinetry_door_frame_mater'][LANGUAGE_NONE][0]['tid'],
+      $this->doorFrameThickness,
+      $this->doorFrameHeight
+    );
     $this->doorPanelMaterial = _cabinetry_core_load_sheet_good_object($cabinet_component['field_cabinetry_door_panel_mater'][LANGUAGE_NONE][0]['tid']);
     $this->doorReveal = (float) $cabinet_component['field_cabinetry_door_reveal'][LANGUAGE_NONE][0]['value'];
     $this->doorPanelUndersize = (float) $cabinet_component['field_cabinetry_door_panel_under'][LANGUAGE_NONE][0]['value'];
     $this->doorsAcrossGap = (int) $cabinet_component['field_cabinetry_doors_span_gap'][LANGUAGE_NONE][0]['value'];
     $this->doorHinge = _cabinetry_core_load_hardware_object($cabinet_component['field_cabinetry_door_hinge'][LANGUAGE_NONE][0]['tid']);
     $this->doorHingePlate = _cabinetry_core_load_hardware_object($cabinet_component['field_cabinetry_door_hinge_plate'][LANGUAGE_NONE][0]['tid']);
+
+    // Drawers
+    $this->drawerSlides = _cabinetry_core_load_drawer_slide_object($cabinet_component['field_cabinetry_drawer_slides'][LANGUAGE_NONE][0]['tid']);
+    $this->drawerRailHeight = (float) $cabinet_component['field_cabinetry_drawer_rail_heig'][LANGUAGE_NONE][0]['value'];
 
     // Lay out sections.
     $this->drawerSectionHeight = CABINETRY_CABINET_PROJECT_CABINET_DRAWER_SECTION_HEIGHT;
@@ -68,6 +76,15 @@ class CabinetryBasicEuroDrawerCabinet extends CabinetryBasicEuroCabinet {
     parent::generateParts();
 
     // Add drawer spreader parts.
+    $this->parts[] = new CabinetryWoodPart(
+      "Drawer Spreader",
+      $this->carcassSheetGood->thickness,
+      $this->carcassInnerWidth,
+      CABINETRY_CABINET_PROJECT_CABINET_NAILER_HEIGHT,
+      $this->carcassSheetGood,
+      ''
+    );
+
     // Add drawer parts / slides.
   }
 

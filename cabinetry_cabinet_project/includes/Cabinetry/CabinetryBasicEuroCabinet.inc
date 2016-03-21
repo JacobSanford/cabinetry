@@ -114,11 +114,25 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
   public $doorHinge = NULL;
 
   /**
-   * The door hinge.
+   * The door hinge plate.
    *
    * @var object CabinetryHardwareItem
    */
   public $doorHingePlate = NULL;
+
+  /**
+   * The drawerSlides.
+   *
+   * @var object CabinetryDrawerSlides
+   */
+  public $drawerSlides = NULL;
+
+  /**
+   * The drawer Rail height.
+   *
+   * @var float
+   */
+  public $drawerRailHeight = NULL;
 
   /**
    * The number of shelves.

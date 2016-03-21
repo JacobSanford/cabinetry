@@ -65,6 +65,7 @@ function _cabinetry_cabinet_project_simple_field_return($node_entity_wrapper, $f
 function _cabinetry_cabinet_project_get_components_table($node_entity_wrapper) {
   $header = array(
     t('ID'),
+    t('Number to Produce'),
     t('Component Name(s)'),
     t('Width'),
     t('Height'),
@@ -82,6 +83,10 @@ function _cabinetry_cabinet_project_get_components_table($node_entity_wrapper) {
     $rows[] = array(
       array(
         'data' => $component_index,
+        'style' => 'text-align: center;',
+      ),
+      array(
+        'data' => count($piece_names),
         'style' => 'text-align: center;',
       ),
       implode(', ', $piece_names),

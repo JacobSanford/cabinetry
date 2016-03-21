@@ -100,6 +100,8 @@ class CabinetryCabinetDrawerSection extends CabinetryComponent {
   public function generateParts() {
     $this->parts = array();
     $this->generateDrawerFront();
+    $this->generateDrawerBox();
+    $this->addHardware();
   }
 
   /**

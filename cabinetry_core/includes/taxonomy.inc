@@ -95,3 +95,20 @@ function _cabinetry_core_load_hardware_object($tid) {
     (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_item_cost')
   );
 }
+
+/**
+ * Instantiate a CabinetrySolidWood from a cabinetry_solid_wood tid.
+ *
+ * @param int $tid
+ *   The tid to query.
+ *
+ * @return object
+ *   Returns a CabinetrySolidWood object populated from $tid.
+ */
+function _cabinetry_core_load_drawer_slide_object($tid) {
+  return new CabinetryDrawerSlide(
+    _cabinetry_core_get_term_field($tid, 'name'),
+    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_item_cost'),
+    (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_slide_clearance')
+  );
+}
