@@ -74,6 +74,22 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Blum T230M',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '28a89a1e-db60-4959-9aaf-bc323bde8243',
+    'vocabulary_machine_name' => 'cabinetry_drawer_slides',
+    'field_cabinetry_slide_clearance' => array(
+      'und' => array(
+        0 => array(
+          'value' => 12.5,
+        ),
+      ),
+    ),
+    'field_cabinetry_item_cost' => array(),
+  );
+  $terms[] = array(
     'name' => 'Laminated Wood',
     'description' => '',
     'format' => 'filtered_html',

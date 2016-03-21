@@ -526,6 +526,49 @@ function cabinetry_cabinet_project_field_default_field_bases() {
     'type' => 'number_integer',
   );
 
+  // Exported field_base: 'field_cabinetry_drawer_rail_heig'.
+  $field_bases['field_cabinetry_drawer_rail_heig'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_drawer_rail_heig',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'decimal_separator' => '.',
+    ),
+    'translatable' => 0,
+    'type' => 'number_float',
+  );
+
+  // Exported field_base: 'field_cabinetry_drawer_slides'.
+  $field_bases['field_cabinetry_drawer_slides'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_drawer_slides',
+    'indexes' => array(
+      'tid' => array(
+        0 => 'tid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'taxonomy',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'cabinetry_drawer_slides',
+          'parent' => 0,
+        ),
+      ),
+    ),
+    'translatable' => 0,
+    'type' => 'taxonomy_term_reference',
+  );
+
   // Exported field_base: 'field_cabinetry_enforce_32mm'.
   $field_bases['field_cabinetry_enforce_32mm'] = array(
     'active' => 1,
@@ -1103,6 +1146,23 @@ function cabinetry_cabinet_project_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'taxonomy_term_reference',
+  );
+
+  // Exported field_base: 'field_cabinetry_slide_clearance'.
+  $field_bases['field_cabinetry_slide_clearance'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_slide_clearance',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'decimal_separator' => '.',
+    ),
+    'translatable' => 0,
+    'type' => 'number_float',
   );
 
   // Exported field_base: 'field_cabinetry_solid_length'.

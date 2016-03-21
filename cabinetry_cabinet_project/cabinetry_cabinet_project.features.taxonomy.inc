@@ -9,6 +9,29 @@
  */
 function cabinetry_cabinet_project_taxonomy_default_vocabularies() {
   return array(
+    'cabinetry_drawer_slides' => array(
+      'name' => 'Drawer Slides',
+      'machine_name' => 'cabinetry_drawer_slides',
+      'description' => 'Drawer Slides',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
+    ),
     'cabinetry_hinge_plates' => array(
       'name' => 'Hinge Plates',
       'machine_name' => 'cabinetry_hinge_plates',

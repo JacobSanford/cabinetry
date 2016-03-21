@@ -1394,6 +1394,87 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_project_componen-field_cabinetry_drawer_rail_heig'.
+  $field_instances['field_collection_item-field_cabinetry_project_componen-field_cabinetry_drawer_rail_heig'] = array(
+    'bundle' => 'field_cabinetry_project_componen',
+    'default_value' => array(
+      0 => array(
+        'value' => 38.1,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Enter the height of the drawer rails, in mm.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 21,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_drawer_rail_heig',
+    'label' => 'Drawer Rail Height',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '0.00',
+      'prefix' => '',
+      'suffix' => 'mm',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 15,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_project_componen-field_cabinetry_drawer_slides'.
+  $field_instances['field_collection_item-field_cabinetry_project_componen-field_cabinetry_drawer_slides'] = array(
+    'bundle' => 'field_cabinetry_project_componen',
+    'default_value' => array(
+      0 => array(
+        'tid' => 15,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Choose the drawer slide to use',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 20,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_drawer_slides',
+    'label' => 'Drawer Slides',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 16,
+    ),
+  );
+
+  // Exported field_instance:
   // 'field_collection_item-field_cabinetry_project_componen-field_cabinetry_height'.
   $field_instances['field_collection_item-field_cabinetry_project_componen-field_cabinetry_height'] = array(
     'bundle' => 'field_cabinetry_project_componen',
@@ -2290,6 +2371,92 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'taxonomy_term-cabinetry_drawer_slides-field_cabinetry_item_cost'.
+  $field_instances['taxonomy_term-cabinetry_drawer_slides-field_cabinetry_item_cost'] = array(
+    'bundle' => 'cabinetry_drawer_slides',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Cost Per Pair',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_cabinetry_item_cost',
+    'label' => 'Cost Per Pair',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '0.00',
+      'prefix' => '$',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'taxonomy_term-cabinetry_drawer_slides-field_cabinetry_slide_clearance'.
+  $field_instances['taxonomy_term-cabinetry_drawer_slides-field_cabinetry_slide_clearance'] = array(
+    'bundle' => 'cabinetry_drawer_slides',
+    'default_value' => array(
+      0 => array(
+        'value' => 12.5,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Enter the clearance from carcass required for each slide, in mm.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_cabinetry_slide_clearance',
+    'label' => 'Cabinetry Slide Clearance',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '0.0',
+      'prefix' => '',
+      'suffix' => 'mm',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance:
   // 'taxonomy_term-cabinetry_hinge_plates-field_cabinetry_item_cost'.
   $field_instances['taxonomy_term-cabinetry_hinge_plates-field_cabinetry_item_cost'] = array(
     'bundle' => 'cabinetry_hinge_plates',
@@ -2919,6 +3086,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Cabinetry Division Ratio');
   t('Cabinetry PHP Library Class');
   t('Cabinetry Part Names');
+  t('Cabinetry Slide Clearance');
   t('Cabinetry Solid Length');
   t('Carcass Back Material');
   t('Carcass Divisions');
@@ -2926,6 +3094,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Carcass Outer Height');
   t('Carcass Outer Width');
   t('Carcass Sheet Material');
+  t('Choose the drawer slide to use');
   t('Color');
   t('Component Name');
   t('Component Type');
@@ -2935,6 +3104,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Cost Per Board Foot');
   t('Cost Per BoardFoot');
   t('Cost Per Meter');
+  t('Cost Per Pair');
   t('Cost Per Sheet');
   t('Cut Plan');
   t('Description');
@@ -2949,6 +3119,8 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Door Panel Underdersize');
   t('Door Reveal');
   t('Doors Across Gap');
+  t('Drawer Rail Height');
+  t('Drawer Slides');
   t('Enforce 32mm System');
   t('Enforce 32mm system restrictions on carcass dimensions when auditing this project.');
   t('Enter a description of the project, including notes and errata.');
@@ -2956,6 +3128,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
 ');
   t('Enter the approximate cost of a single item. ');
   t('Enter the class the PHP Library should use to build this component.');
+  t('Enter the clearance from carcass required for each slide, in mm.');
   t('Enter the color of the veneer. If wood, \'natural\' is a usual choice.');
   t('Enter the cost of the item, in dollars.');
   t('Enter the cost of the item, per meter, in dollars.');
@@ -2963,6 +3136,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Enter the depth of the carcass (without doors), in mm.');
   t('Enter the direction of the measurement, i.e. \'Width\'.');
   t('Enter the door reveal for the box, in mm.');
+  t('Enter the height of the drawer rails, in mm.');
   t('Enter the height of the sheet, in mm. Height is typically considered the dimension of the sheet that is perpendicular to the to the veneer grain, or the longest side if non-wood.');
   t('Enter the length of the hardwood lumber stock to use in computing how much to purchase.');
   t('Enter the length, in mm.');
