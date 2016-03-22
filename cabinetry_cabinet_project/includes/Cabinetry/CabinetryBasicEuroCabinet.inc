@@ -135,6 +135,13 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
   public $drawerRailHeight = NULL;
 
   /**
+   * The drawer Rail height.
+   *
+   * @var float
+   */
+  public $drawerBottomMaterial = NULL;
+
+  /**
    * The number of shelves.
    *
    * @var integer

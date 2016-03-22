@@ -57,9 +57,10 @@ class CabinetryBasicEuroDrawerCabinet extends CabinetryBasicEuroCabinet {
     $this->doorHinge = _cabinetry_core_load_hardware_object($cabinet_component['field_cabinetry_door_hinge'][LANGUAGE_NONE][0]['tid']);
     $this->doorHingePlate = _cabinetry_core_load_hardware_object($cabinet_component['field_cabinetry_door_hinge_plate'][LANGUAGE_NONE][0]['tid']);
 
-    // Drawers
+    // Drawers.
     $this->drawerSlides = _cabinetry_core_load_drawer_slide_object($cabinet_component['field_cabinetry_drawer_slides'][LANGUAGE_NONE][0]['tid']);
     $this->drawerRailHeight = (float) $cabinet_component['field_cabinetry_drawer_rail_heig'][LANGUAGE_NONE][0]['value'];
+    $this->drawerBottomMaterial = _cabinetry_core_load_sheet_good_object($cabinet_component['field_cabinetry_drawer_bottom_ma'][LANGUAGE_NONE][0]['tid']);
 
     // Lay out sections.
     $this->drawerSectionHeight = CABINETRY_CABINET_PROJECT_CABINET_DRAWER_SECTION_HEIGHT;
@@ -86,16 +87,22 @@ class CabinetryBasicEuroDrawerCabinet extends CabinetryBasicEuroCabinet {
     );
     $this->addBanding($this->carcassSheetGood, $this->carcassSheetGood->thickness, $this->carcassInnerWidth);
 
-    // Add drawer front 'door'.
-    $drawer = new CabinetryCabinetDrawer(
+    // Add drawer section.
+    $drawer = new CabinetryCabinetDrawerSection(
       $this->width - 2 * $this->doorReveal,
       $this->cabinetSectionHeight - 2 * $this->doorReveal,
+      $this->depth,
+      $this->carcassSheetGood,
       $this->doorFrameMaterial,
+      $this->drawerRailHeight,
+      $this->drawerSlides,
       $this->doorFrameRouterBit,
       $this->doorPanelMaterial,
       $this->doorPanelUndersize,
-      $this->drawerRailHeight
+      $this->doorReveal,
+      $this->drawerBottomMaterial
     );
+
     $this->parts = array_merge($this->parts, $drawer->parts);
     $this->hardware = array_merge($this->parts, $drawer->hardware);
     // TODO : banding

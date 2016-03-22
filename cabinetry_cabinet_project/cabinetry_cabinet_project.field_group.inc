@@ -120,8 +120,9 @@ function cabinetry_cabinet_project_field_group_info() {
     'label' => 'Drawer Details',
     'weight' => '14',
     'children' => array(
-      0 => 'field_cabinetry_drawer_slides',
-      1 => 'field_cabinetry_drawer_rail_heig',
+      0 => 'field_cabinetry_drawer_rail_heig',
+      1 => 'field_cabinetry_drawer_slides',
+      2 => 'field_cabinetry_drawer_bottom_ma',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

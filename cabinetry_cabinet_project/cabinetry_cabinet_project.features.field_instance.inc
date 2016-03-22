@@ -838,7 +838,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 14,
+        'tid' => 15,
       ),
     ),
     'deleted' => 0,
@@ -912,7 +912,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 5,
+        'tid' => 6,
       ),
     ),
     'deleted' => 0,
@@ -1074,7 +1074,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 7,
+        'tid' => 8,
       ),
     ),
     'deleted' => 0,
@@ -1155,7 +1155,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 6,
+        'tid' => 7,
       ),
     ),
     'deleted' => 0,
@@ -1191,7 +1191,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 12,
+        'tid' => 13,
       ),
     ),
     'deleted' => 0,
@@ -1227,7 +1227,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 9,
+        'tid' => 10,
       ),
     ),
     'deleted' => 0,
@@ -1394,6 +1394,42 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_project_componen-field_cabinetry_drawer_bottom_ma'.
+  $field_instances['field_collection_item-field_cabinetry_project_componen-field_cabinetry_drawer_bottom_ma'] = array(
+    'bundle' => 'field_cabinetry_project_componen',
+    'default_value' => array(
+      0 => array(
+        'tid' => 10,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Drawer Bottom Material',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 22,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_drawer_bottom_ma',
+    'label' => 'Drawer Bottom Material',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 17,
+    ),
+  );
+
+  // Exported field_instance:
   // 'field_collection_item-field_cabinetry_project_componen-field_cabinetry_drawer_rail_heig'.
   $field_instances['field_collection_item-field_cabinetry_project_componen-field_cabinetry_drawer_rail_heig'] = array(
     'bundle' => 'field_cabinetry_project_componen',
@@ -1444,7 +1480,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 15,
+        'tid' => 3,
       ),
     ),
     'deleted' => 0,
@@ -3163,6 +3199,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Door Panel Underdersize');
   t('Door Reveal');
   t('Doors Across Gap');
+  t('Drawer Bottom Material');
   t('Drawer Rail Height');
   t('Drawer Slides');
   t('Enforce 32mm System');
