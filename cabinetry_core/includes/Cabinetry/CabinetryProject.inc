@@ -37,6 +37,12 @@ class CabinetryProject {
    */
   public $parts = array();
 
+  /**
+   * An array of text labels.
+   *
+   * @var array
+   */
+  public $labels = array();
 
   /**
    * Constructor.

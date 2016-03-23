@@ -43,6 +43,7 @@ class CabinetryCabinetProject extends CabinetryProject {
           $part,
           "[#$component_id] $component->label $part->label"
         );
+        $this->labels[] = "[#$component_id]\n$component->label $part->label\n$part->notes";
       }
 
       // Add banding.

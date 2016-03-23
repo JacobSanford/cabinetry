@@ -43,27 +43,36 @@ function cabinetry_cabinet_project_generate_materials(&$form, &$form_state) {
       $thickness = (float) $cabinet_piece['field_cabinetry_thickness'][LANGUAGE_NONE][0]['value'];
 
       if ($type == 'CabinetrySolidWood') {
-        // Solids.
-        $this->parts[] = new CabinetryWoodPart(
+        $solid_material = _cabinetry_core_load_solid_wood_object(
+          $cabinet_piece['field_cabinetry_door_frame_mater'][LANGUAGE_NONE][0]['tid'],
+          $thickness,
+          $height
+        );
+        $part = new CabinetryWoodPart(
           $label,
           $thickness,
           $width,
           $height,
-          $this->doorPanelMaterial,
+          $solid_material,
           ''
         );
       }
       else {
-        // Sheet.
-        $this->parts[] = new CabinetryWoodPart(
+        $sheet_object = _cabinetry_core_load_sheet_good_object($cabinet_piece['field_cabinetry_carcass_sheet_mt'][LANGUAGE_NONE][0]['tid']);
+        $part = new CabinetryWoodPart(
           $label,
-          $this->carcassSheetGood->thickness,
-          $this->carcassInnerWidth,
-          $this->depth,
-          $this->carcassSheetGood,
+          $sheet_object->thickness,
+          $width,
+          $height,
+          $sheet_object,
           ''
         );
       }
+
+      $project->sortPart(
+        $part,
+        $part->label
+      );
     }
   }
 
@@ -146,8 +155,8 @@ function cabinetry_cabinet_project_validate_cabinet_dimensions(&$form, &$form_st
  * Audit division ratios.
  */
 function cabinetry_cabinet_project_validate_division_ratio(&$form, &$form_state) {
-  $division_ratio_sum = 0.0;
   foreach ($form_state['values']['field_cabinetry_project_componen'][LANGUAGE_NONE] as $component_index => $cabinet_component) {
+    $division_ratio_sum = 0.0;
     if (is_numeric($component_index)) {
       foreach ($cabinet_component['field_cabinetry_carcass_division'][LANGUAGE_NONE][0]['field_cabinetry_division_ratio'][LANGUAGE_NONE] as $division_index => $division_ratio) {
         if (!empty($division_ratio['value'])) {

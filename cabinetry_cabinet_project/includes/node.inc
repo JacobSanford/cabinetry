@@ -285,3 +285,17 @@ function _cabinetry_cabinet_project_add_banding_materials($node, $project) {
     $node->field_cabinetry_materials_bandin[LANGUAGE_NONE][] = $sheet_type_array;
   }
 }
+
+function _cabinetry_cabinet_project_remove_labels($node) {
+  foreach ($node->field_cabinetry_project_labels[LANGUAGE_NONE] as $label_index => $label) {
+    unset($node->field_cabinetry_project_labels[LANGUAGE_NONE][$label_index]);
+  }
+}
+
+function _cabinetry_cabinet_project_add_labels($node, $project) {
+  foreach ($project->labels as $label_id => $label) {
+    $node->field_cabinetry_project_labels[LANGUAGE_NONE][] = array(
+      'value' => $label,
+    );
+  }
+}

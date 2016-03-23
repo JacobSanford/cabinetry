@@ -49,7 +49,7 @@ class CabinetrySheetGoodPlotter {
    *
    * @var int
    */
-  public $labelOffset = 256;
+  public $labelOffset = 128;
 
   /**
    * The amount of pixels to pad the plot image on all sides.
@@ -137,7 +137,6 @@ class CabinetrySheetGoodPlotter {
       }
     }
     $this->fontSize = 1;
-    return;
   }
 
   /**
@@ -189,65 +188,65 @@ class CabinetrySheetGoodPlotter {
     // Plot shelf pieces.
     $cur_x = $this->padding + $this->labelOffset;
     foreach ($shelf->pieces as $piece_index => $piece) {
-      $upper_left_x = $cur_x;
-      $bottom_right_x = $cur_x + $piece['width'];
-      $bottom_right_y = $shelf_top_boundary + $shelf->height;
-      $upper_left_y = $bottom_right_y - $piece['height'];
+      if (!empty($piece['width']) && $piece['width'] != 0 && !empty($piece['height']) && $piece['height'] != 0) {
+        $upper_left_x = $cur_x;
+        $bottom_right_x = $cur_x + $piece['width'];
+        $bottom_right_y = $shelf_top_boundary + $shelf->height;
+        $upper_left_y = $bottom_right_y - $piece['height'];
 
-      // Plot piece.
-      imagefilledrectangle(
+        // Plot piece.
+        imagefilledrectangle(
+          $this->canvas,
+          $upper_left_x,
+          $upper_left_y,
+          $bottom_right_x,
+          $bottom_right_y,
+          $this->pieceColor
+        );
+        imagerectangle(
+          $this->canvas,
+          $upper_left_x,
+          $upper_left_y,
+          $bottom_right_x,
+          $bottom_right_y,
+          $this->cutColor
+        );
+
+        $shelf_label_1 = $piece['label'];
+        $shelf_label_2 = "{$piece['width']}mm x {$piece['height']}mm";
+
+        // Plot piece label.
+        $this->centerLabelsInShape(
+          $shelf_label_1,
+          $shelf_label_2,
+          $upper_left_x,
+          $upper_left_y,
+          $bottom_right_x,
+          $bottom_right_y,
+          $piece['rotated']
+        );
+        $cur_x += $piece['width'];
+      }
+
+      // Shelf Boundary line.
+      imageline(
         $this->canvas,
-        $upper_left_x,
-        $upper_left_y,
-        $bottom_right_x,
-        $bottom_right_y,
-        $this->pieceColor
+        $this->padding + $this->labelOffset - ($this->labelOffset / 4),
+        $shelf_top_boundary,
+        $this->padding + $this->labelOffset + $this->width,
+        $shelf_top_boundary,
+        $this->shelfColor
       );
-      imagerectangle(
+      $this->fontSize = 5;
+      imagestring(
         $this->canvas,
-        $upper_left_x,
-        $upper_left_y,
-        $bottom_right_x,
-        $bottom_right_y,
-        $this->cutColor
+        $this->fontSize,
+        $this->padding + $this->labelOffset / 2,
+        $shelf_top_boundary,
+        "{$shelf->height}mm",
+        $this->labelColor
       );
-
-      $shelf_label_1 = $piece['label'];
-      $shelf_label_2 = "{$piece['width']}mm x {$piece['height']}mm";
-
-      $this->setFontSize($shelf_label_1, $upper_left_x, $bottom_right_x);
-
-      // Plot piece label.
-      $this->centerLabelsInShape(
-        $shelf_label_1,
-        $shelf_label_2,
-        $upper_left_x,
-        $upper_left_y,
-        $bottom_right_x,
-        $bottom_right_y,
-        $piece['rotated']
-      );
-      $cur_x += $piece['width'];
     }
-
-    // Shelf Boundary line.
-    imageline(
-      $this->canvas,
-      $this->padding + $this->labelOffset - ($this->labelOffset / 4),
-      $shelf_top_boundary,
-      $this->padding + $this->labelOffset + $this->width,
-      $shelf_top_boundary,
-      $this->shelfColor
-    );
-
-    imagestring(
-      $this->canvas,
-      $this->fontSize,
-      $this->padding + $this->labelOffset / 2,
-      $shelf_top_boundary,
-      "{$shelf->height}mm",
-      $this->labelColor
-    );
   }
 
   /**
@@ -287,11 +286,13 @@ class CabinetrySheetGoodPlotter {
     $string_dimensions = $this->getStringSize($string_1);
 
     if ($rotated) {
-      $x_dim = $upper_left_x + (($bottom_right_x - $upper_left_x) / 2) - $string_dimensions['height'] / 2;
-      $y_dim = $upper_left_y + (($bottom_right_y - $upper_left_y) / 2) + $string_dimensions['width'] / 2 - $string_dimensions['width'];
+      $this->setFontSize($string_1, $upper_left_y, $bottom_right_y);
+      $x_dim = $upper_left_x + (($bottom_right_x - $upper_left_x) / 2) - $string_dimensions['height'] / 2 - $string_dimensions['height'];
+      $y_dim = $upper_left_y + (($bottom_right_y - $upper_left_y) / 2) + $string_dimensions['width'] / 2;
       $plot_function = 'imagestringup';
     }
     else {
+      $this->setFontSize($string_1, $upper_left_x, $bottom_right_x);
       $x_dim = $upper_left_x + (($bottom_right_x - $upper_left_x) / 2) - $string_dimensions['width'] / 2;
       $y_dim = $upper_left_y + (($bottom_right_y - $upper_left_y) / 2) - $string_dimensions['height'] / 2 - $string_dimensions['height'];
       $plot_function = 'imagestring';
@@ -309,11 +310,13 @@ class CabinetrySheetGoodPlotter {
     $string_dimensions = $this->getStringSize($string_2);
 
     if ($rotated) {
-      $x_dim = $upper_left_x + (($bottom_right_x - $upper_left_x) / 2) - $string_dimensions['height'] / 2;
-      $y_dim = $upper_left_y + (($bottom_right_y - $upper_left_y) / 2) + $string_dimensions['width'] / 2 + $string_dimensions['width'];
+      $this->setFontSize($string_2, $upper_left_y, $bottom_right_y);
+      $x_dim = $upper_left_x + (($bottom_right_x - $upper_left_x) / 2) - $string_dimensions['height'] / 2 + $string_dimensions['height'];
+      $y_dim = $upper_left_y + (($bottom_right_y - $upper_left_y) / 2) + $string_dimensions['width'] / 2;
       $plot_function = 'imagestringup';
     }
     else {
+      $this->setFontSize($string_2, $upper_left_x, $bottom_right_x);
       $x_dim = $upper_left_x + (($bottom_right_x - $upper_left_x) / 2) - $string_dimensions['width'] / 2;
       $y_dim = $upper_left_y + (($bottom_right_y - $upper_left_y) / 2) - $string_dimensions['height'] / 2 + $string_dimensions['height'];
       $plot_function = 'imagestring';

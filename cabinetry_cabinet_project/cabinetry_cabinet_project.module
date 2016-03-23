@@ -10,6 +10,84 @@ include_once 'includes/utilities.inc';
 define('CABINETRY_CABINET_PROJECT_THIRTY_TWO_UNIT_SIZE', 32.0);
 
 /**
+ * Implements hook_menu().
+ */
+function cabinetry_cabinet_project_menu() {
+  $items['node/%/cabinetry/labels'] = array(
+    'title' => 'Labels',
+    'page callback' => '_cabinetry_cabinet_project_generate_pdf',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 5,
+  );
+
+  $items['node/%/cabinetry/plans'] = array(
+    'title' => 'Plan PDF',
+    'page callback' => '_cabinetry_cabinet_project_generate_plans',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 5,
+  );
+
+  return $items;
+}
+
+function _cabinetry_cabinet_project_generate_pdf($nid) {
+  module_load_include('inc', 'cabinetry_core', 'includes/PDF_Label/PDF_Label');
+
+  $num_label_rows = 20;
+  $num_label_cols = 4;
+  $labels_per_page = $num_label_rows * $num_label_cols;
+
+  $node = node_load($nid);
+
+  $pdf = new PDF_Label(
+    array(
+      'paper-size' => 'letter',
+      'metric' => 'mm',
+      'marginLeft' => 15,
+      'marginTop' => 13,
+      'NX' => $num_label_cols,
+      'NY' => $num_label_rows,
+      'SpaceX' => 5,
+      'SpaceY' => 1.8,
+      'width' => 45,
+      'height' => 11,
+      'font-size' => 7,
+    )
+  );
+
+  $pdf->AddPage();
+
+  foreach ($node->field_cabinetry_project_labels[LANGUAGE_NONE] as $label_id => $label) {
+    $pdf->Add_Label($label['value']);
+    if ($label_id != 0 && $label_id % ($labels_per_page - 1) == 0) {
+      $pdf->AddPage();
+    }
+  }
+
+  $pdf->Output();
+}
+
+function _cabinetry_cabinet_project_generate_plans($nid) {
+  module_load_include('inc', 'cabinetry_core', 'includes/PDF_Label/PDF_Image');
+
+  $node = node_load($nid);
+  $title = '5/8" (16.8mm) Full Sheet White MOP Melamine #1';
+
+  $pdf = new PDF_Image();
+  $pdf->AddPage("L");
+  $pdf->SetFont('Arial', 'B', 18);
+  $pdf->Cell(260, 10, $title, 0, 0, 'C');
+  $pdf->centreImage('/app/html/sites/default/files/cabinetry/sheets/cabinetry_sheetiaoAlB.png', 'PNG');
+  $pdf->SetTitle($node->title);
+  $pdf->Output();
+
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function cabinetry_cabinet_project_form_cabinetry_cabinet_project_node_form_alter(&$form, &$form_state, $form_id) {
@@ -20,6 +98,13 @@ function cabinetry_cabinet_project_form_cabinetry_cabinet_project_node_form_alte
   );
   drupal_alter('cabinetry_sheet_packing', $cabinet_sheet_packing_algos);
   $form['field_cabinetry_sheet_packing_al'][LANGUAGE_NONE]['#options'] = $cabinet_sheet_packing_algos;
+
+  hide($form['field_cabinetry_materials_bandin']);
+  hide($form['field_cabinetry_materials_hardwa']);
+  hide($form['field_cabinetry_materials_sheet']);
+  hide($form['field_cabinetry_materials_solid']);
+  hide($form['field_cabinetry_bill_of_goods']);
+  hide($form['field_cabinetry_project_labels']);
 
   $form['#validate'][] = 'cabinetry_cabinet_project_validate_cabinet_dimensions';
   $form['#validate'][] = 'cabinetry_cabinet_project_validate_thirty_two_system';
@@ -56,6 +141,10 @@ function cabinetry_cabinet_project_node_presave($node) {
 
     _cabinetry_cabinet_project_remove_banding_materials($node);
     _cabinetry_cabinet_project_add_banding_materials($node, $project);
+
+    dpm($node);
+    _cabinetry_cabinet_project_remove_labels($node);
+    _cabinetry_cabinet_project_add_labels($node, $project);
 
     $hook_running = FALSE;
   }

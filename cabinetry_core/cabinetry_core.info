@@ -3,3 +3,5 @@ description = Core Operations for Cabinetry
 core = 7.x
 package = Cabinetry
 version = 7.x-1.0
+
+dependencies[] = fpdf

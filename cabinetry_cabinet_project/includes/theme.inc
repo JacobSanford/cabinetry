@@ -504,7 +504,6 @@ function _cabinetry_cabinet_project_get_solid_bill_rows($node_entity_wrapper, $n
     }
   }
 
-
   return array($rows, $total_solid_cost);
 }
 
