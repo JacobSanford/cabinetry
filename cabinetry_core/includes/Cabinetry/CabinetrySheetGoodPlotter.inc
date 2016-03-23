@@ -126,6 +126,21 @@ class CabinetrySheetGoodPlotter {
   }
 
   /**
+   * Set up the canvas used to plot the sheet.
+   */
+  public function setFontSize($string, $upper_left_x, $bottom_right_x) {
+    $x_length = $bottom_right_x - $upper_left_x;
+    for ($i = 5; $i > 0; $i--) {
+      $this->fontSize = $i;
+      if ($this->getStringSize($string)['width'] < $x_length) {
+        return;
+      }
+    }
+    $this->fontSize = 1;
+    return;
+  }
+
+  /**
    * Set up colors used in the plot.
    */
   public function setupColors() {
@@ -197,9 +212,15 @@ class CabinetrySheetGoodPlotter {
         $this->cutColor
       );
 
+      $shelf_label_1 = $piece['label'];
+      $shelf_label_2 = "{$piece['width']}mm x {$piece['height']}mm";
+
+      $this->setFontSize($shelf_label_1, $upper_left_x, $bottom_right_x);
+
       // Plot piece label.
-      $this->centerStringInShape(
-        "{$piece['label']} {$piece['width']}mm x {$piece['height']}mm",
+      $this->centerLabelsInShape(
+        $shelf_label_1,
+        $shelf_label_2,
         $upper_left_x,
         $upper_left_y,
         $bottom_right_x,
@@ -262,17 +283,17 @@ class CabinetrySheetGoodPlotter {
    * @param bool $rotated
    *   Should the text be vertical, not horizontal?.
    */
-  public function centerStringInShape($string, $upper_left_x, $upper_left_y, $bottom_right_x, $bottom_right_y, $rotated) {
-    $string_dimensions = $this->getStringSize($string);
+  public function centerLabelsInShape($string_1, $string_2, $upper_left_x, $upper_left_y, $bottom_right_x, $bottom_right_y, $rotated) {
+    $string_dimensions = $this->getStringSize($string_1);
 
     if ($rotated) {
       $x_dim = $upper_left_x + (($bottom_right_x - $upper_left_x) / 2) - $string_dimensions['height'] / 2;
-      $y_dim = $upper_left_y + (($bottom_right_y - $upper_left_y) / 2) + $string_dimensions['width'] / 2;
+      $y_dim = $upper_left_y + (($bottom_right_y - $upper_left_y) / 2) + $string_dimensions['width'] / 2 - $string_dimensions['width'];
       $plot_function = 'imagestringup';
     }
     else {
       $x_dim = $upper_left_x + (($bottom_right_x - $upper_left_x) / 2) - $string_dimensions['width'] / 2;
-      $y_dim = $upper_left_y + (($bottom_right_y - $upper_left_y) / 2) - $string_dimensions['height'] / 2;
+      $y_dim = $upper_left_y + (($bottom_right_y - $upper_left_y) / 2) - $string_dimensions['height'] / 2 - $string_dimensions['height'];
       $plot_function = 'imagestring';
     }
 
@@ -281,7 +302,29 @@ class CabinetrySheetGoodPlotter {
       $this->fontSize,
       $x_dim,
       $y_dim,
-      $string,
+      $string_1,
+      $this->labelColor
+    );
+
+    $string_dimensions = $this->getStringSize($string_2);
+
+    if ($rotated) {
+      $x_dim = $upper_left_x + (($bottom_right_x - $upper_left_x) / 2) - $string_dimensions['height'] / 2;
+      $y_dim = $upper_left_y + (($bottom_right_y - $upper_left_y) / 2) + $string_dimensions['width'] / 2 + $string_dimensions['width'];
+      $plot_function = 'imagestringup';
+    }
+    else {
+      $x_dim = $upper_left_x + (($bottom_right_x - $upper_left_x) / 2) - $string_dimensions['width'] / 2;
+      $y_dim = $upper_left_y + (($bottom_right_y - $upper_left_y) / 2) - $string_dimensions['height'] / 2 + $string_dimensions['height'];
+      $plot_function = 'imagestring';
+    }
+
+    $plot_function(
+      $this->canvas,
+      $this->fontSize,
+      $x_dim,
+      $y_dim,
+      $string_2,
       $this->labelColor
     );
   }

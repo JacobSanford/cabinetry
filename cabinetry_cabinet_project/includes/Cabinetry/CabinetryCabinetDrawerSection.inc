@@ -84,6 +84,48 @@ class CabinetryCabinetDrawerSection extends CabinetryComponent {
   public $drawerBottom = NULL;
 
   /**
+   * The drawer outer width.
+   *
+   * @var float
+   */
+  public $drawerOuterWidth = 0.0;
+
+  /**
+   * The drawer inner width.
+   *
+   * @var float
+   */
+  public $drawerInnerWidth = 0.0;
+
+  /**
+   * The drawer depth.
+   *
+   * @var float
+   */
+  public $drawerDepth = 0.0;
+
+  /**
+   * The drawer outer height.
+   *
+   * @var float
+   */
+  public $drawerOuterHeight = 0.0;
+
+  /**
+   * The drawer inner height.
+   *
+   * @var float
+   */
+  public $drawerInnerHeight = 0.0;
+
+  /**
+   * The drawer box height.
+   *
+   * @var float
+   */
+  public $drawerBoxHeight = 0.0;
+
+  /**
    * Constructor.
    *
    * @param float $width
@@ -123,6 +165,7 @@ class CabinetryCabinetDrawerSection extends CabinetryComponent {
     $this->drawerSlides = $drawer_slides;
     $this->drawerRailHeight = $drawer_front_rail_height;
     $this->drawerBottom = $drawer_bottom;
+    $this->setDrawerDims();
     $this->generateParts();
   }
 
@@ -133,14 +176,13 @@ class CabinetryCabinetDrawerSection extends CabinetryComponent {
     $this->parts = array();
     $this->generateDrawerFront();
     $this->generateDrawerBox();
-    $this->addHardware();
+    $this->hardware[] = $this->drawerSlides;
   }
 
   /**
    * Generate the drawer front.
    */
   protected function generateDrawerFront() {
-    // Add drawer front 'door'.
     $drawer_front = new CabinetryCabinetDrawerFront(
       $this->width - 2 * $this->drawerFrontReveal,
       $this->height - 2 * $this->drawerFrontReveal,
@@ -150,7 +192,7 @@ class CabinetryCabinetDrawerSection extends CabinetryComponent {
       $this->drawerFrontPanelUndersize,
       $this->drawerRailHeight
     );
-    $this->parts = array_merge($this->parts, $drawer_front->parts);
+    $this->addParts($drawer_front->parts);
   }
 
   /**
@@ -165,11 +207,17 @@ class CabinetryCabinetDrawerSection extends CabinetryComponent {
   }
 
   /**
-   * Generate the doors for the cabinet.
+   * Generate the drawer box for the cabinet.
    */
-  protected function addHardware() {
-    $this->hardware[] = $this->drawerSlides;
+  protected function setDrawerDims() {
+    $this->drawerOuterWidth = $this->width - 2 * $this->drawerSlides->carcassClearance;
+    $this->drawerInnerWidth = $this->drawerOuterWidth - 2 * $this->cabinetCarcassSheetType->thickness;
+    $this->drawerDepth = $this->drawerSlides->length - CABINETRY_CABINET_PROJECT_CABINET_DRAWER_SECTION_DRAWER_LENGTH_DELTA;
+    $this->drawerOuterHeight = $this->height - 0.5 * $this->cabinetCarcassSheetType->thickness;
+    $this->drawerInnerHeight = $this->drawerOuterHeight - 1.5 * $this->cabinetCarcassSheetType->thickness;
+    $this->drawerBoxHeight = $this->drawerInnerHeight - CABINETRY_CABINET_PROJECT_CABINET_DRAWER_SECTION_DRAWER_HEIGHT_DELTA;
   }
+
 
   /**
    * Generate a back or front part for the drawer box.
@@ -178,24 +226,15 @@ class CabinetryCabinetDrawerSection extends CabinetryComponent {
    *   A label to identify the side (Back, Front).
    */
   protected function generateBackFrontPart($label) {
-    $drawer_outer_width = $this->width - 2 * $this->drawerSlides->carcassClearance;
-    $drawer_inner_width = $drawer_outer_width - 2 * $this->cabinetCarcassSheetType->thickness;
-
-    $drawer_depth = $this->drawerSlides->length - CABINETRY_CABINET_PROJECT_CABINET_DRAWER_SECTION_DRAWER_LENGTH_DELTA;
-
-    $drawer_outer_height = $this->height - 0.5 * $this->cabinetCarcassSheetType->thickness;
-    $drawer_inner_height = $drawer_outer_height - 1.5 * $this->cabinetCarcassSheetType->thickness;
-    $drawer_box_height = $drawer_inner_height - CABINETRY_CABINET_PROJECT_CABINET_DRAWER_SECTION_DRAWER_HEIGHT_DELTA;
-
     $this->parts[] = new CabinetryWoodPart(
-      "$label Drawer Piece",
+      "Drawer $label",
       $this->cabinetCarcassSheetType->thickness,
-      $drawer_inner_width,
-      $drawer_box_height,
+      $this->drawerInnerWidth,
+      $this->drawerBoxHeight,
       $this->cabinetCarcassSheetType,
       ''
     );
-    $this->addBanding($this->cabinetCarcassSheetType, $this->cabinetCarcassSheetType->thickness, $drawer_inner_width);
+    $this->addBanding($this->cabinetCarcassSheetType->material, $this->cabinetCarcassSheetType->thickness, $this->drawerInnerWidth);
   }
 
   /**
@@ -205,44 +244,26 @@ class CabinetryCabinetDrawerSection extends CabinetryComponent {
    *   A label to identify the side (Left, Right).
    */
   protected function generateSidePart($label) {
-    $drawer_outer_width = $this->width - 2 * $this->drawerSlides->carcassClearance;
-    $drawer_inner_width = $drawer_outer_width - 2 * $this->cabinetCarcassSheetType->thickness;
-
-    $drawer_depth = $this->drawerSlides->length - CABINETRY_CABINET_PROJECT_CABINET_DRAWER_SECTION_DRAWER_LENGTH_DELTA;
-
-    $drawer_outer_height = $this->height - 0.5 * $this->cabinetCarcassSheetType->thickness;
-    $drawer_inner_height = $drawer_outer_height - 1.5 * $this->cabinetCarcassSheetType->thickness;
-    $drawer_box_height = $drawer_inner_height - CABINETRY_CABINET_PROJECT_CABINET_DRAWER_SECTION_DRAWER_HEIGHT_DELTA;
-
     $this->parts[] = new CabinetryWoodPart(
-      "$label Drawer Box",
+      "Drawer $label",
       $this->cabinetCarcassSheetType->thickness,
-      $drawer_depth,
-      $drawer_box_height,
+      $this->drawerDepth,
+      $this->drawerBoxHeight,
       $this->cabinetCarcassSheetType,
       ''
     );
-    $this->addBanding($this->cabinetCarcassSheetType, $this->cabinetCarcassSheetType->thickness, $drawer_depth);
+    $this->addBanding($this->cabinetCarcassSheetType->material, $this->cabinetCarcassSheetType->thickness, $this->drawerDepth);
   }
 
   /**
    * Generate a bottom panel for the drawer box.
    */
   protected function generateDrawerPanelPart() {
-    $drawer_outer_width = $this->width - 2 * $this->drawerSlides->carcassClearance;
-    $drawer_inner_width = $drawer_outer_width - 2 * $this->cabinetCarcassSheetType->thickness;
-
-    $drawer_depth = $this->drawerSlides->length - CABINETRY_CABINET_PROJECT_CABINET_DRAWER_SECTION_DRAWER_LENGTH_DELTA;
-
-    $drawer_outer_height = $this->height - 0.5 * $this->cabinetCarcassSheetType->thickness;
-    $drawer_inner_height = $drawer_outer_height - 1.5 * $this->cabinetCarcassSheetType->thickness;
-    $drawer_box_height = $drawer_inner_height - CABINETRY_CABINET_PROJECT_CABINET_DRAWER_SECTION_DRAWER_HEIGHT_DELTA;
-
     $this->parts[] = new CabinetryWoodPart(
       "Drawer Bottom",
       $this->drawerBottom->thickness,
-      $drawer_outer_width,
-      $drawer_depth,
+      $this->drawerOuterWidth,
+      $this->drawerDepth,
       $this->drawerBottom,
       ''
     );

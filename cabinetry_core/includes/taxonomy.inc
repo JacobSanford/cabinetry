@@ -113,3 +113,16 @@ function _cabinetry_core_load_drawer_slide_object($tid) {
     (float) _cabinetry_core_get_term_field($tid, 'field_cabinetry_slide_clearance')
   );
 }
+
+/**
+ * Return a class name for the cabinetry component type.
+ *
+ * @param int $tid
+ *   The tid to query.
+ *
+ * @return string
+ *   Returns a Class name to use as the component.
+ */
+function _cabinetry_core_get_component_type_class($tid) {
+  return _cabinetry_core_get_term_field($tid, 'field_cabinetry_php_library_clas');
+}

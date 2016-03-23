@@ -46,14 +46,31 @@ class CabinetryCabinetDrawerFront extends CabinetryCabinetDoor {
   }
 
   /**
+   * Generate the stile components for this door.
+   *
+   * @param string $label
+   *   A label to identify the side (Left, Right).
+   */
+  protected function generateStilePart($label) {
+    $this->parts[] = new CabinetryWoodPart(
+      "Drawer $label Stile",
+      $this->doorFrameMaterial->thickness,
+      $this->height,
+      $this->doorFrameMaterial->height,
+      $this->doorFrameMaterial,
+      ''
+    );
+  }
+
+  /**
    * Generate the panel component for this door.
    */
   protected function generatePanelPart() {
     $this->parts[] = new CabinetryWoodPart(
-      "Panel",
+      "Drawer Panel",
       $this->doorPanelMaterial->thickness,
-      $this->height - 2 * $this->drawerRailHeight + 2 * $this->doorFrameRouterBit->cutDepth - 2 * $this->doorPanelUndersize,
       $this->width - 2 * $this->doorFrameMaterial->height + 2 * $this->doorFrameRouterBit->cutDepth - 2 * $this->doorPanelUndersize,
+      $this->height - 2 * $this->drawerRailHeight + 2 * $this->doorFrameRouterBit->cutDepth - 2 * $this->doorPanelUndersize,
       $this->doorPanelMaterial,
       ''
     );

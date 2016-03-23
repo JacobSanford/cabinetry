@@ -473,11 +473,9 @@ function _cabinetry_cabinet_project_get_solid_bill_rows($node_entity_wrapper, $n
   $rows=array();
 
   foreach ($node_entity_wrapper->field_cabinetry_materials_solid->value() as $solid_index => $solid) {
-    dpm($solid);
     $solid_entity_metadata_wrapper = entity_metadata_wrapper('field_collection_item', $solid);
     $solid_stock_length = $node_entity_wrapper->field_cabinetry_solid_stock_leng->value();
     foreach ($solid_entity_metadata_wrapper->field_cabinetry_solid_part_list->value() as $part_index => $part_list) {
-      dpm($part_list);
       $solid_parts_entity_metadata_wrapper = entity_metadata_wrapper('field_collection_item', $part_list);
       $lengths_count = count($solid_entity_metadata_wrapper->field_image->value());
       $total_cost = $lengths_count *

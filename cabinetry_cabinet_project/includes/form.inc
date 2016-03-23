@@ -23,7 +23,8 @@ function cabinetry_cabinet_project_generate_materials(&$form, &$form_state) {
     if (is_numeric($component_index)) {
       foreach ($cabinet_component['field_cabinetry_name'][LANGUAGE_NONE] as $name_index => $name_value) {
         if (!empty($name_value['value'])) {
-          $component = new CabinetryBasicEuroCabinet();
+          $component_class = _cabinetry_core_get_component_type_class($cabinet_component['field_cabinetry_component_type'][LANGUAGE_NONE][0]['tid']);
+          $component = new $component_class();
           $component->label = $name_value['value'];
           $component->doorFrameRouterBit = $project->frameRouterBit;
           $component->build($cabinet_component);
@@ -32,6 +33,40 @@ function cabinetry_cabinet_project_generate_materials(&$form, &$form_state) {
       }
     }
   }
+
+  foreach ($form_state['values']['field_cabinetry_single_piece'][LANGUAGE_NONE] as $piece_index => $cabinet_piece) {
+    if (is_numeric($piece_index)) {
+      $label = $cabinet_piece['field_cabinetry_hardware_name'][LANGUAGE_NONE][0]['value'];
+      $type = $cabinet_piece['field_cabinetry_piece_type'][LANGUAGE_NONE][0]['value'];
+      $width = (float) $cabinet_piece['field_cabinetry_width'][LANGUAGE_NONE][0]['value'];
+      $height = (float) $cabinet_piece['field_cabinetry_height'][LANGUAGE_NONE][0]['value'];
+      $thickness = (float) $cabinet_piece['field_cabinetry_thickness'][LANGUAGE_NONE][0]['value'];
+
+      if ($type == 'CabinetrySolidWood') {
+        // Solids.
+        $this->parts[] = new CabinetryWoodPart(
+          $label,
+          $thickness,
+          $width,
+          $height,
+          $this->doorPanelMaterial,
+          ''
+        );
+      }
+      else {
+        // Sheet.
+        $this->parts[] = new CabinetryWoodPart(
+          $label,
+          $this->carcassSheetGood->thickness,
+          $this->carcassInnerWidth,
+          $this->depth,
+          $this->carcassSheetGood,
+          ''
+        );
+      }
+    }
+  }
+
   $project->collateParts();
   $project->packSolids($form_state['values']['field_cabinetry_sheet_packing_al'][LANGUAGE_NONE][0]['value']);
   $project->packSheets($form_state['values']['field_cabinetry_sheet_packing_al'][LANGUAGE_NONE][0]['value']);

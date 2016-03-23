@@ -211,33 +211,6 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
   }
 
   /**
-   * Add a length of edge banding to the cabinet materials list.
-   *
-   * @param object $material
-   *   The CabinetrySheetGood object to edge band.
-   * @param float $width
-   *   The width of the banding, in millimeters.
-   * @param float $length
-   *   The length required, in millimeters.
-   */
-  protected function addBanding($material, $width, $length) {
-    $object_found = FALSE;
-    foreach ($this->banding as $banding_index => $banding_value) {
-      if (
-        $banding_value->material == $material &&
-        $banding_value->width == $width
-      ) {
-        $this->banding[$banding_index]->add($length);
-        $object_found = TRUE;
-      }
-    }
-    if ($object_found == FALSE) {
-      $this->banding[] = new CabinetryEdgeBanding($material, $width);
-      $this->banding[count($this->banding) - 1]->add($length);
-    }
-  }
-
-  /**
    * Set inner width of this cabinet.
    */
   protected function setInnerWidth() {
@@ -285,7 +258,7 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
           $this->doorPanelUndersize
         );
         $this->doors[] = $door;
-        $this->parts = array_merge($this->parts, $door->parts);
+        $this->addParts($door->parts);
         $this->hardware[] = $this->doorHinge;
         $this->hardware[] = $this->doorHinge;
         $this->hardware[] = $this->doorHingePlate;
@@ -337,7 +310,7 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
     $dado_depth = round($this->carcassSheetGood->thickness / 2, 1);
 
     $this->parts[] = new CabinetryWoodPart(
-      "$label Panel",
+      "$label Carcass",
       $this->carcassSheetGood->thickness,
       $this->height,
       $this->depth,
@@ -355,7 +328,7 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
    */
   protected function generateTopBottomPart($label) {
     $this->parts[] = new CabinetryWoodPart(
-      "$label Panel",
+      "$label Carcass",
       $this->carcassSheetGood->thickness,
       $this->carcassInnerWidth,
       $this->depth,

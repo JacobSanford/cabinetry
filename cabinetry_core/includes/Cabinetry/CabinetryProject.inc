@@ -51,7 +51,7 @@ class CabinetryProject {
    * @param array $banding_array
    *   An array of CabinetryEdgeBanding objects.
    */
-  public function addBanding($banding_array) {
+  public function addBandingArray($banding_array) {
     foreach ($banding_array as $banding_object) {
       $object_found = FALSE;
       foreach ($this->banding as $banding_index => $banding_value) {

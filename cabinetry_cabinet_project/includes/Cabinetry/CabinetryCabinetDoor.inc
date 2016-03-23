@@ -117,7 +117,7 @@ class CabinetryCabinetDoor extends CabinetryComponent {
    */
   protected function generatePanelPart() {
     $this->parts[] = new CabinetryWoodPart(
-      "Panel",
+      "Door Panel",
       $this->doorPanelMaterial->thickness,
       $this->height - 2 * $this->doorFrameMaterial->height + 2 * $this->doorFrameRouterBit->cutDepth - 2 * $this->doorPanelUndersize,
       $this->width - 2 * $this->doorFrameMaterial->height + 2 * $this->doorFrameRouterBit->cutDepth - 2 * $this->doorPanelUndersize,

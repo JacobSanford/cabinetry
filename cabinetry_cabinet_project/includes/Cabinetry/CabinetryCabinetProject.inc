@@ -37,26 +37,25 @@ class CabinetryCabinetProject extends CabinetryProject {
   public function collateParts() {
     foreach ($this->components as $component_id => $component) {
 
-      // Add carcass panel parts.
+      // Add parts.
       foreach ($component->parts as $part_id => $part) {
         $this->sortPart(
           $part,
-          "$component->label[$component_id] $part->label"
+          "[#$component_id] $component->label $part->label"
         );
       }
 
       // Add banding.
-      $this->addBanding($component->banding);
+      $this->addBandingArray($component->banding);
 
       // Add hardware.
       foreach ($component->hardware as $hardware_id => $hardware_item) {
         $this->sortPart(
           $hardware_item,
-          "$component->label[$component_id] $hardware_item->name"
+          "[#$component_id] $component->label $hardware_item->name"
         );
       }
     }
-    dpm($this);
   }
 
   /**
@@ -161,29 +160,31 @@ class CabinetryCabinetProject extends CabinetryProject {
    *    The algorithm to use to sort the parts.
    */
   public function packSheets($algorithm) {
-    foreach ($this->parts['CabinetrySheetGood'] as $sheet_type_index => $sheet_type) {
+    if (isset($this->parts['CabinetrySheetGood'])) {
+      foreach ($this->parts['CabinetrySheetGood'] as $sheet_type_index => $sheet_type) {
 
-      $piece_array = array();
-      foreach ($sheet_type['parts'] as $piece_index => $piece) {
-        foreach ($piece['items'] as $item) {
-          $piece_array[] = array(
-            'label' => $item['label'],
-            'notes' => $item['notes'],
-            'width' => $piece['width'],
-            'height' => $piece['height'],
-          );
+        $piece_array = array();
+        foreach ($sheet_type['parts'] as $piece_index => $piece) {
+          foreach ($piece['items'] as $item) {
+            $piece_array[] = array(
+              'label' => $item['label'],
+              'notes' => $item['notes'],
+              'width' => $piece['width'],
+              'height' => $piece['height'],
+            );
+          }
         }
-      }
 
-      $packer = new $algorithm(
-        $sheet_type['width'],
-        $sheet_type['height'],
-        $piece_array,
-        $this->bladeCutWidth,
-        $sheet_type['preserve_grain']
-      );
-      $packer->pack();
-      $this->parts['CabinetrySheetGood'][$sheet_type_index]['sheets'] = $packer->sheets;
+        $packer = new $algorithm(
+          $sheet_type['width'],
+          $sheet_type['height'],
+          $piece_array,
+          $this->bladeCutWidth,
+          $sheet_type['preserve_grain']
+        );
+        $packer->pack();
+        $this->parts['CabinetrySheetGood'][$sheet_type_index]['sheets'] = $packer->sheets;
+      }
     }
   }
 
@@ -194,34 +195,36 @@ class CabinetryCabinetProject extends CabinetryProject {
    *    The algorithm to use to sort the parts.
    */
   public function packSolids($algorithm) {
-    foreach ($this->parts['CabinetrySolidWood'] as $solid_index => $solid_type) {
-      foreach ($solid_type['parts'] as $piece_thickness => $thickness_piece) {
-        foreach ($thickness_piece as $piece_height => $height_piece) {
+    if (isset($this->parts['CabinetrySolidWood'])) {
+      foreach ($this->parts['CabinetrySolidWood'] as $solid_index => $solid_type) {
+        foreach ($solid_type['parts'] as $piece_thickness => $thickness_piece) {
+          foreach ($thickness_piece as $piece_height => $height_piece) {
 
-          $piece_array = array();
-          $this->parts['CabinetrySolidWood'][$solid_index]['parts'][$piece_thickness][$piece_height]['plots'] = array();
-          foreach ($height_piece as $piece_width => $width_pieces) {
-            foreach ($width_pieces as $width_piece) {
-              $piece_array[] = array(
-                'label' => $width_piece['label'],
-                'notes' => $width_piece['notes'],
-                'width' => $piece_width,
-                'height' => $piece_height,
-              );
+            $piece_array = array();
+            $this->parts['CabinetrySolidWood'][$solid_index]['parts'][$piece_thickness][$piece_height]['plots'] = array();
+            foreach ($height_piece as $piece_width => $width_pieces) {
+              foreach ($width_pieces as $width_piece) {
+                $piece_array[] = array(
+                  'label' => $width_piece['label'],
+                  'notes' => $width_piece['notes'],
+                  'width' => $piece_width,
+                  'height' => $piece_height,
+                );
+              }
             }
-          }
-          $packer = new $algorithm(
-            $this->solidStockLength,
-            $piece_height,
-            $piece_array,
-            $this->bladeCutWidth,
-            TRUE
-          );
-          $packer->pack();
+            $packer = new $algorithm(
+              $this->solidStockLength,
+              $piece_height,
+              $piece_array,
+              $this->bladeCutWidth,
+              TRUE
+            );
+            $packer->pack();
 
-          foreach ($packer->sheets as $sheet_index => $sheet) {
-            $sheet_plotter = new CabinetrySheetGoodPlotter($sheet);
-            $this->parts['CabinetrySolidWood'][$solid_index]['parts'][$piece_thickness][$piece_height]['plots'][] = $sheet_plotter->plotSheet();
+            foreach ($packer->sheets as $sheet_index => $sheet) {
+              $sheet_plotter = new CabinetrySheetGoodPlotter($sheet);
+              $this->parts['CabinetrySolidWood'][$solid_index]['parts'][$piece_thickness][$piece_height]['plots'][] = $sheet_plotter->plotSheet();
+            }
           }
         }
       }
@@ -232,11 +235,13 @@ class CabinetryCabinetProject extends CabinetryProject {
    * Generate the plots for the cut and shelves for the sheets goods.
    */
   public function plotSheets() {
-    foreach ($this->parts['CabinetrySheetGood'] as $sheet_type_index => $sheet_type) {
-      foreach ($sheet_type['sheets'] as $sheet_index => $sheet) {
-        $sheet_plotter = new CabinetrySheetGoodPlotter($sheet);
-        $file_path = $sheet_plotter->plotSheet();
-        $this->parts['CabinetrySheetGood'][$sheet_type_index]['plots'][$sheet_index] = $file_path;
+    if (isset($this->parts['CabinetrySheetGood'])) {
+      foreach ($this->parts['CabinetrySheetGood'] as $sheet_type_index => $sheet_type) {
+        foreach ($sheet_type['sheets'] as $sheet_index => $sheet) {
+          $sheet_plotter = new CabinetrySheetGoodPlotter($sheet);
+          $file_path = $sheet_plotter->plotSheet();
+          $this->parts['CabinetrySheetGood'][$sheet_type_index]['plots'][$sheet_index] = $file_path;
+        }
       }
     }
   }
