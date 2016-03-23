@@ -2137,7 +2137,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 10,
+      'weight' => 8,
     ),
   );
 
@@ -2359,7 +2359,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 9,
+      'weight' => 7,
     ),
   );
 
@@ -2403,7 +2403,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 8,
+      'weight' => 6,
     ),
   );
 
@@ -2447,7 +2447,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 6,
+      'weight' => 4,
     ),
   );
 
@@ -2491,7 +2491,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 7,
+      'weight' => 5,
     ),
   );
 
@@ -2536,6 +2536,47 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'settings' => array(),
       'type' => 'field_collection_embed',
       'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-cabinetry_cabinet_project-field_cabinetry_project_labels'.
+  $field_instances['node-cabinetry_cabinet_project-field_cabinetry_project_labels'] = array(
+    'bundle' => 'cabinetry_cabinet_project',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Project Labels',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 14,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cabinetry_project_labels',
+    'label' => 'Project Labels',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 2,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 9,
     ),
   );
 
@@ -3558,6 +3599,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Part List');
   t('Piece Type');
   t('Preserve Grain');
+  t('Project Labels');
   t('Rail Cut Depth');
   t('Rail Slot Thickness');
   t('Rail/Stile Router Bit');

@@ -148,7 +148,7 @@ function cabinetry_cabinet_project_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Components',
-    'weight' => '7',
+    'weight' => '2',
     'children' => array(
       0 => 'field_cabinetry_project_componen',
       1 => 'field_cabinetry_single_piece',
@@ -243,7 +243,7 @@ function cabinetry_cabinet_project_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Tool Settings',
-    'weight' => '4',
+    'weight' => '1',
     'children' => array(
       0 => 'field_cabinetry_blade_cut_width',
       1 => 'field_cabinetry_frame_router_bit',
