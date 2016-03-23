@@ -151,6 +151,7 @@ function cabinetry_cabinet_project_field_group_info() {
     'weight' => '7',
     'children' => array(
       0 => 'field_cabinetry_project_componen',
+      1 => 'field_cabinetry_single_piece',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -212,10 +213,10 @@ function cabinetry_cabinet_project_field_group_info() {
     'label' => 'Materials List',
     'weight' => '8',
     'children' => array(
-      0 => 'field_cabinetry_materials_hardwa',
-      1 => 'field_cabinetry_materials_sheet',
-      2 => 'field_cabinetry_materials_solid',
-      3 => 'field_cabinetry_materials_bandin',
+      0 => 'field_cabinetry_materials_bandin',
+      1 => 'field_cabinetry_materials_hardwa',
+      2 => 'field_cabinetry_materials_sheet',
+      3 => 'field_cabinetry_materials_solid',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -244,9 +245,9 @@ function cabinetry_cabinet_project_field_group_info() {
     'label' => 'Tool Settings',
     'weight' => '4',
     'children' => array(
-      0 => 'field_cabinetry_frame_router_bit',
-      1 => 'field_cabinetry_sheet_packing_al',
-      2 => 'field_cabinetry_blade_cut_width',
+      0 => 'field_cabinetry_blade_cut_width',
+      1 => 'field_cabinetry_frame_router_bit',
+      2 => 'field_cabinetry_sheet_packing_al',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

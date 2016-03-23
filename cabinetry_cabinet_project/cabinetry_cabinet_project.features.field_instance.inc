@@ -1756,6 +1756,272 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_single_piece-field_cabinetry_carcass_sheet_mt'.
+  $field_instances['field_collection_item-field_cabinetry_single_piece-field_cabinetry_carcass_sheet_mt'] = array(
+    'bundle' => 'field_cabinetry_single_piece',
+    'default_value' => array(
+      0 => array(
+        'tid' => 6,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Sheet Material',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_carcass_sheet_mt',
+    'label' => 'Sheet Material',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_single_piece-field_cabinetry_door_frame_mater'.
+  $field_instances['field_collection_item-field_cabinetry_single_piece-field_cabinetry_door_frame_mater'] = array(
+    'bundle' => 'field_cabinetry_single_piece',
+    'default_value' => array(
+      0 => array(
+        'tid' => 8,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 6,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_door_frame_mater',
+    'label' => 'Solid Material',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_single_piece-field_cabinetry_hardware_name'.
+  $field_instances['field_collection_item-field_cabinetry_single_piece-field_cabinetry_hardware_name'] = array(
+    'bundle' => 'field_cabinetry_single_piece',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Name',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_hardware_name',
+    'label' => 'Name',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_single_piece-field_cabinetry_height'.
+  $field_instances['field_collection_item-field_cabinetry_single_piece-field_cabinetry_height'] = array(
+    'bundle' => 'field_cabinetry_single_piece',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Height',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_height',
+    'label' => 'Height',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '0.0',
+      'prefix' => '',
+      'suffix' => 'mm',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_single_piece-field_cabinetry_piece_type'.
+  $field_instances['field_collection_item-field_cabinetry_single_piece-field_cabinetry_piece_type'] = array(
+    'bundle' => 'field_cabinetry_single_piece',
+    'default_value' => array(
+      0 => array(
+        'value' => 'CabinetrySheetGood',
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Piece Type',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_piece_type',
+    'label' => 'Piece Type',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_single_piece-field_cabinetry_thickness'.
+  $field_instances['field_collection_item-field_cabinetry_single_piece-field_cabinetry_thickness'] = array(
+    'bundle' => 'field_cabinetry_single_piece',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_thickness',
+    'label' => 'Thickness',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '0.0',
+      'prefix' => '',
+      'suffix' => 'mm',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_single_piece-field_cabinetry_width'.
+  $field_instances['field_collection_item-field_cabinetry_single_piece-field_cabinetry_width'] = array(
+    'bundle' => 'field_cabinetry_single_piece',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_width',
+    'label' => 'Width',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '0.0',
+      'prefix' => '',
+      'suffix' => 'mm',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance:
   // 'field_collection_item-field_cabinetry_solid_part_list-field_cabinetry_part_names'.
   $field_instances['field_collection_item-field_cabinetry_solid_part_list-field_cabinetry_part_names'] = array(
     'bundle' => 'field_cabinetry_solid_part_list',
@@ -2352,6 +2618,50 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'settings' => array(),
       'type' => 'options_select',
       'weight' => 8,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-cabinetry_cabinet_project-field_cabinetry_single_piece'.
+  $field_instances['node-cabinetry_cabinet_project-field_cabinetry_single_piece'] = array(
+    'bundle' => 'cabinetry_cabinet_project',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Single Piece',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 13,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cabinetry_single_piece',
+    'label' => 'Single Piece',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 6,
     ),
   );
 
@@ -3242,9 +3552,11 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Materials Solid');
   t('Measurement Values');
   t('Measurements');
+  t('Name');
   t('Number');
   t('Number of Shelves');
   t('Part List');
+  t('Piece Type');
   t('Preserve Grain');
   t('Rail Cut Depth');
   t('Rail Slot Thickness');
@@ -3261,17 +3573,21 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Select the veneer on the second side of the sheet. If the sides differ, side two is typically chosen to be the side of the sheet with the inferior, or hidden facing veneer.');
   t('Sheet Height');
   t('Sheet Layouts');
+  t('Sheet Material');
   t('Sheet Packing Algorithim');
   t('Sheet Thickness');
   t('Sheet Type');
   t('Sheet Veneer Side 1');
   t('Sheet Veneer Side 2');
   t('Sheet Width');
+  t('Single Piece');
   t('Slide Clearance');
   t('Slide Length');
+  t('Solid Material');
   t('Solid Name');
   t('Solid Stock Length');
   t('Thickness');
+  t('Width');
 
   return $field_instances;
 }

@@ -950,6 +950,31 @@ function cabinetry_cabinet_project_field_default_field_bases() {
     'type' => 'text',
   );
 
+  // Exported field_base: 'field_cabinetry_piece_type'.
+  $field_bases['field_cabinetry_piece_type'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_piece_type',
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        'CabinetrySolidWood' => 'CabinetrySolidWood',
+        'CabinetrySheetGood' => 'CabinetrySheetGood',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
+  );
+
   // Exported field_base: 'field_cabinetry_preserve_grain'.
   $field_bases['field_cabinetry_preserve_grain'] = array(
     'active' => 1,
@@ -1172,6 +1197,28 @@ function cabinetry_cabinet_project_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'taxonomy_term_reference',
+  );
+
+  // Exported field_base: 'field_cabinetry_single_piece'.
+  $field_bases['field_cabinetry_single_piece'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_single_piece',
+    'indexes' => array(
+      'revision_id' => array(
+        0 => 'revision_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'field_collection',
+    'settings' => array(
+      'hide_blank_items' => 1,
+      'path' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'field_collection',
   );
 
   // Exported field_base: 'field_cabinetry_slide_clearance'.
