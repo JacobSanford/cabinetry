@@ -50,7 +50,7 @@ class CabinetryShelfFFPacker extends CabinetrySheetGoodPacker {
    */
   public function __construct($width, $height, $pieces, $cut_width, $has_grain) {
     parent::__construct($width, $height, $pieces, $cut_width, $has_grain);
-    $this->sortPiecesByHeightAndWidth();
+    $this->pieces = $this->sortPiecesByHeightAndWidth($this->pieces);
   }
 
   /**
@@ -88,6 +88,7 @@ class CabinetryShelfFFPacker extends CabinetrySheetGoodPacker {
    */
   public function packSheets() {
     foreach ($this->shelves as $shelf) {
+      $shelf->pieces = $this->sortPiecesByHeightAndWidth($shelf->pieces);
       $sheet_found = FALSE;
       foreach ($this->sheets as $sheet_index => $sheet) {
         if ($sheet->shelfFits($shelf)) {
@@ -110,9 +111,9 @@ class CabinetryShelfFFPacker extends CabinetrySheetGoodPacker {
   /**
    * Sort pieces array by height DESC, then width DESC.
    */
-  protected function sortPiecesByHeightAndWidth() {
+  protected function sortPiecesByHeightAndWidth($pieces) {
     $sort = array();
-    foreach ($this->pieces as $k => $v) {
+    foreach ($pieces as $k => $v) {
       $sort['height'][$k] = $v['height'];
       $sort['width'][$k] = $v['width'];
     }
@@ -121,8 +122,9 @@ class CabinetryShelfFFPacker extends CabinetrySheetGoodPacker {
       SORT_DESC,
       $sort['width'],
       SORT_DESC,
-      $this->pieces
+      $pieces
     );
+    return $pieces;
   }
 
 }

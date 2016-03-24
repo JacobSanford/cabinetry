@@ -149,6 +149,13 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
   public $numShelves = 0;
 
   /**
+   * The number of shelves.
+   *
+   * @var bool
+   */
+  public $counterOnTop = FALSE;
+
+  /**
    * Build the cabinet and determine parts required.
    *
    * @param array $cabinet_component
@@ -163,6 +170,7 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
     $this->carcassSheetGood = _cabinetry_core_load_sheet_good_object($cabinet_component['field_cabinetry_carcass_sheet_mt'][LANGUAGE_NONE][0]['tid']);
     $this->backSheetGood = _cabinetry_core_load_sheet_good_object($cabinet_component['field_cabinetry_carcass_back_mat'][LANGUAGE_NONE][0]['tid']);
     $this->numShelves = (int) $cabinet_component['field_cabinetry_number_of_shelve'][LANGUAGE_NONE][0]['value'];
+    $this->counterOnTop = $cabinet_component['field_cabinetry_counter_on_top'][LANGUAGE_NONE][0]['value'];
 
     // Door properties.
     $this->doorFrameThickness = (float) $cabinet_component['field_cabinetry_door_frame_thick'][LANGUAGE_NONE][0]['value'];
@@ -202,7 +210,14 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
     $this->generateShelfParts();
     $this->generateSidePart('Left');
     $this->generateSidePart('Right');
-    $this->generateTopBottomPart('Top');
+
+    if ($this->counterOnTop == FALSE) {
+      $this->generateTopBottomPart('Top');
+    }
+    else {
+      $this->generateTopSpreaders();
+    }
+
     $this->generateTopBottomPart('Bottom');
     $this->generateBackPanelPart();
     $this->generateDividerPanelParts();
@@ -215,6 +230,28 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
    */
   protected function setInnerWidth() {
     $this->carcassInnerWidth = $this->width - (2 * $this->carcassSheetGood->thickness);
+  }
+
+  /**
+   * Set inner width of this cabinet.
+   */
+  protected function generateTopSpreaders() {
+    $this->parts[] = new CabinetryWoodPart(
+      "Top Spreader 0",
+      $this->carcassSheetGood->thickness,
+      $this->carcassInnerWidth,
+      CABINETRY_CABINET_PROJECT_CABINET_NAILER_HEIGHT,
+      $this->carcassSheetGood,
+      ''
+    );
+    $this->parts[] = new CabinetryWoodPart(
+      "Top Spreader 1",
+      $this->carcassSheetGood->thickness,
+      $this->carcassInnerWidth,
+      CABINETRY_CABINET_PROJECT_CABINET_NAILER_HEIGHT,
+      $this->carcassSheetGood,
+      ''
+    );
   }
 
   /**

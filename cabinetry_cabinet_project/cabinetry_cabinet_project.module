@@ -42,6 +42,7 @@ function _cabinetry_cabinet_project_generate_pdf($nid) {
   $labels_per_page = $num_label_rows * $num_label_cols;
 
   $node = node_load($nid);
+  dpm($node);
 
   $pdf = new PDF_Label(
     array(
@@ -74,14 +75,36 @@ function _cabinetry_cabinet_project_generate_pdf($nid) {
 function _cabinetry_cabinet_project_generate_plans($nid) {
   module_load_include('inc', 'cabinetry_core', 'includes/PDF_Label/PDF_Image');
 
-  $node = node_load($nid);
-  $title = '5/8" (16.8mm) Full Sheet White MOP Melamine #1';
-
   $pdf = new PDF_Image();
-  $pdf->AddPage("L");
-  $pdf->SetFont('Arial', 'B', 18);
-  $pdf->Cell(260, 10, $title, 0, 0, 'C');
-  $pdf->centreImage('/app/html/sites/default/files/cabinetry/sheets/cabinetry_sheetiaoAlB.png', 'PNG');
+  $node = node_load($nid);
+
+  $node_entity_wrapper = entity_metadata_wrapper('node', $node);
+  foreach ($node_entity_wrapper->field_cabinetry_materials_sheet->value() as $solid_index => $solid) {
+    $sheet_entity_metadata_wrapper = entity_metadata_wrapper('field_collection_item', $solid);
+    foreach ($sheet_entity_metadata_wrapper->field_image->value() as $image_index => $image) {
+      $title = 'Sheet : ' . $sheet_entity_metadata_wrapper->field_cabinetry_sheet_name->value() . " #$image_index";
+      if (!empty($image['uri'])) {
+        $pdf->AddPage("L");
+        $pdf->SetFont('Arial', 'B', 18);
+        $pdf->Cell(260, 10, $title, 0, 0, 'C');
+        $pdf->centreImage(drupal_realpath($image['uri']), 'png');
+      }
+    }
+  }
+
+  foreach ($node_entity_wrapper->field_cabinetry_materials_solid->value() as $solid_index => $solid) {
+    $solid_entity_metadata_wrapper = entity_metadata_wrapper('field_collection_item', $solid);
+    foreach ($solid_entity_metadata_wrapper->field_image->value() as $image_index => $image) {
+      $title = 'Solid : ' . $solid_entity_metadata_wrapper->field_cabinetry_solid_name->value() . " #$image_index";
+      if (!empty($image['uri'])) {
+        $pdf->AddPage("L");
+        $pdf->SetFont('Arial', 'B', 18);
+        $pdf->Cell(260, 10, $title, 0, 0, 'C');
+        $pdf->centreImage(drupal_realpath($image['uri']), 'png');
+      }
+    }
+  }
+
   $pdf->SetTitle($node->title);
   $pdf->Output();
 

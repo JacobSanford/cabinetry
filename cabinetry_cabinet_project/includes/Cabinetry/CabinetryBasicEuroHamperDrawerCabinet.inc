@@ -5,26 +5,24 @@
  * Provides a generic object to serve as a basic european style cabinet.
  */
 
-define('CABINETRY_CABINET_PROJECT_CABINET_DRAWER_SECTION_HEIGHT', 160.0);
-
 /**
  * Provides basic european style cabinet with a standard drawer on top.
  */
-class CabinetryBasicEuroDrawerCabinet extends CabinetryBasicEuroCabinet {
-
-  /**
-   * The height of the drawer section, in millimeters.
-   *
-   * @var float
-   */
-  public $drawerSectionHeight = 0.0;
+class CabinetryBasicEuroHamperDrawerCabinet extends CabinetryBasicEuroDrawerCabinet {
 
   /**
    * The height of the cabinet section, in millimeters.
    *
    * @var float
    */
-  public $cabinetSectionHeight = 0.0;
+  public $hamperSectionHeight = 0.0;
+
+  /**
+   * The height of the cabinet section, in millimeters.
+   *
+   * @var float
+   */
+  public $hamperSectionSlides = 0.0;
 
   /**
    * Build the cabinet and determine parts required.
@@ -60,12 +58,13 @@ class CabinetryBasicEuroDrawerCabinet extends CabinetryBasicEuroCabinet {
 
     // Drawers.
     $this->drawerSlides = _cabinetry_core_load_drawer_slide_object($cabinet_component['field_cabinetry_drawer_slides'][LANGUAGE_NONE][0]['tid']);
+    $this->hamperSectionSlides = _cabinetry_core_load_drawer_slide_object($cabinet_component['field_cabinetry_secondary_slides'][LANGUAGE_NONE][0]['tid']);
     $this->drawerRailHeight = (float) $cabinet_component['field_cabinetry_drawer_rail_heig'][LANGUAGE_NONE][0]['value'];
     $this->drawerBottomMaterial = _cabinetry_core_load_sheet_good_object($cabinet_component['field_cabinetry_drawer_bottom_ma'][LANGUAGE_NONE][0]['tid']);
 
     // Lay out sections.
     $this->drawerSectionHeight = CABINETRY_CABINET_PROJECT_CABINET_DRAWER_SECTION_HEIGHT;
-    $this->cabinetSectionHeight = $this->height - $this->drawerSectionHeight;
+    $this->hamperSectionHeight = $this->height - $this->drawerSectionHeight;
 
     // Generate parts for cabinet.
     $this->generateParts();
@@ -76,61 +75,28 @@ class CabinetryBasicEuroDrawerCabinet extends CabinetryBasicEuroCabinet {
    */
   protected function generateParts() {
     parent::generateParts();
-
-    // Add drawer spreader parts.
-    $this->parts[] = new CabinetryWoodPart(
-      "Drawer Spreader",
-      $this->carcassSheetGood->thickness,
-      $this->carcassInnerWidth,
-      CABINETRY_CABINET_PROJECT_CABINET_NAILER_HEIGHT,
-      $this->carcassSheetGood,
-      ''
-    );
-
-    $this->addBanding($this->carcassSheetGood->material, $this->carcassSheetGood->thickness, $this->carcassInnerWidth);
-
-    // Add drawer section.
-    $drawer = new CabinetryCabinetDrawerSection(
+    // Add hamper section.
+    $hamper = new CabinetryCabinetDrawerSection(
       $this->width,
-      $this->drawerSectionHeight,
+      $this->hamperSectionHeight,
       $this->depth,
       $this->carcassSheetGood,
       $this->doorFrameMaterial,
-      $this->drawerRailHeight,
-      $this->drawerSlides,
+      $this->doorFrameHeight,
+      $this->hamperSectionSlides,
       $this->doorFrameRouterBit,
       $this->doorPanelMaterial,
       $this->doorPanelUndersize,
       $this->doorReveal,
-      $this->drawerBottomMaterial
+      $this->carcassSheetGood
     );
-
-    $this->addParts($drawer->parts);
-    $this->addHardware($drawer->hardware);
-    $this->addBandingArray($drawer->banding);
+    $this->addParts($hamper->parts);
+    $this->addHardware($hamper->hardware);
+    $this->addBandingArray($hamper->banding);
   }
 
-  /**
-   * Generate the doors for the cabinet.
-   */
   protected function generateDoorParts() {
-    $this->doors = array();
-
-    for ($door_counter = 0; $door_counter < $this->doorsAcrossGap; $door_counter++) {
-      $door = new CabinetryCabinetDoor(
-        ($this->width / $this->doorsAcrossGap) - 2 * $this->doorReveal,
-        $this->cabinetSectionHeight - 2 * $this->doorReveal,
-        $this->doorFrameMaterial,
-        $this->doorFrameRouterBit,
-        $this->doorPanelMaterial,
-        $this->doorPanelUndersize
-      );
-      $this->addParts($door->parts);
-      $this->hardware[] = $this->doorHinge;
-      $this->hardware[] = $this->doorHinge;
-      $this->hardware[] = $this->doorHingePlate;
-      $this->hardware[] = $this->doorHingePlate;
-    }
+    // pass
   }
 
 }
