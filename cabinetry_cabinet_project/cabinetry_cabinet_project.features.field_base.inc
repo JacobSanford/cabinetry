@@ -286,6 +286,31 @@ function cabinetry_cabinet_project_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
+  // Exported field_base: 'field_cabinetry_counter_on_top'.
+  $field_bases['field_cabinetry_counter_on_top'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_counter_on_top',
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => '',
+        1 => '',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_boolean',
+  );
+
   // Exported field_base: 'field_cabinetry_depth'.
   $field_bases['field_cabinetry_depth'] = array(
     'active' => 1,
@@ -1095,6 +1120,32 @@ function cabinetry_cabinet_project_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'number_float',
+  );
+
+  // Exported field_base: 'field_cabinetry_secondary_slides'.
+  $field_bases['field_cabinetry_secondary_slides'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_cabinetry_secondary_slides',
+    'indexes' => array(
+      'tid' => array(
+        0 => 'tid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'taxonomy',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'cabinetry_drawer_slides',
+          'parent' => 0,
+        ),
+      ),
+    ),
+    'translatable' => 0,
+    'type' => 'taxonomy_term_reference',
   );
 
   // Exported field_base: 'field_cabinetry_sheet_core'.

@@ -28,6 +28,7 @@ function cabinetry_cabinet_project_field_group_info() {
       2 => 'field_cabinetry_depth',
       3 => 'field_cabinetry_height',
       4 => 'field_cabinetry_width',
+      5 => 'field_cabinetry_counter_on_top',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -120,9 +121,10 @@ function cabinetry_cabinet_project_field_group_info() {
     'label' => 'Drawer Details',
     'weight' => '14',
     'children' => array(
-      0 => 'field_cabinetry_drawer_rail_heig',
-      1 => 'field_cabinetry_drawer_slides',
-      2 => 'field_cabinetry_drawer_bottom_ma',
+      0 => 'field_cabinetry_drawer_bottom_ma',
+      1 => 'field_cabinetry_drawer_rail_heig',
+      2 => 'field_cabinetry_drawer_slides',
+      3 => 'field_cabinetry_secondary_slides',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

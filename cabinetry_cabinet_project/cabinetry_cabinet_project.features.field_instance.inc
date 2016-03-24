@@ -979,6 +979,44 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_project_componen-field_cabinetry_counter_on_top'.
+  $field_instances['field_collection_item-field_cabinetry_project_componen-field_cabinetry_counter_on_top'] = array(
+    'bundle' => 'field_cabinetry_project_componen',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 24,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_counter_on_top',
+    'label' => 'Counter on Top',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 7,
+    ),
+  );
+
+  // Exported field_instance:
   // 'field_collection_item-field_cabinetry_project_componen-field_cabinetry_depth'.
   $field_instances['field_collection_item-field_cabinetry_project_componen-field_cabinetry_depth'] = array(
     'bundle' => 'field_cabinetry_project_componen',
@@ -1634,6 +1672,42 @@ function cabinetry_cabinet_project_field_default_field_instances() {
       'settings' => array(),
       'type' => 'number',
       'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_project_componen-field_cabinetry_secondary_slides'.
+  $field_instances['field_collection_item-field_cabinetry_project_componen-field_cabinetry_secondary_slides'] = array(
+    'bundle' => 'field_cabinetry_project_componen',
+    'default_value' => array(
+      0 => array(
+        'tid' => 18,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 23,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_secondary_slides',
+    'label' => 'Drawer Secondary Slides',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 18,
     ),
   );
 
@@ -3537,6 +3611,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Cost Per Meter');
   t('Cost Per Pair');
   t('Cost Per Sheet');
+  t('Counter on Top');
   t('Cut Plan');
   t('Description');
   t('Direction');
@@ -3552,6 +3627,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
   t('Doors Across Gap');
   t('Drawer Bottom Material');
   t('Drawer Rail Height');
+  t('Drawer Secondary Slides');
   t('Drawer Slides');
   t('Enforce 32mm System');
   t('Enforce 32mm system restrictions on carcass dimensions when auditing this project.');

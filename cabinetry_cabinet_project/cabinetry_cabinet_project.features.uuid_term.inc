@@ -103,6 +103,23 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Hamper Drawer Cabinet',
+    'description' => 'Hamper Drawer Cabinet',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '35d6ef15-3aa3-48a1-95e7-c6434086f3c8',
+    'vocabulary_machine_name' => 'cabinetry_project_component_types',
+    'field_cabinetry_php_library_clas' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'CabinetryBasicEuroHamperDrawerCabinet',
+          'format' => NULL,
+          'safe_value' => 'CabinetryBasicEuroHamperDrawerCabinet',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'Laminated Wood',
     'description' => '',
     'format' => 'filtered_html',
@@ -313,6 +330,23 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     'field_cabinetry_item_cost' => array(),
   );
   $terms[] = array(
+    'name' => 'Drawer Cabinet',
+    'description' => 'Hamper Cabinet',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'b37e7ea3-6b69-4a32-99dd-c8ef487bfa2b',
+    'vocabulary_machine_name' => 'cabinetry_project_component_types',
+    'field_cabinetry_php_library_clas' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'CabinetryBasicEuroDrawerCabinet',
+          'format' => NULL,
+          'safe_value' => 'CabinetryBasicEuroDrawerCabinet',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'OSB',
     'description' => '',
     'format' => 'filtered_html',
@@ -331,6 +365,35 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
       'und' => array(
         0 => array(
           'value' => '0.90',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '350mm Blum Movento',
+    'description' => '350mm Blum Movento',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'e2c4c256-59a2-4f23-8605-2d69551cfb29',
+    'vocabulary_machine_name' => 'cabinetry_drawer_slides',
+    'field_cabinetry_item_cost' => array(
+      'und' => array(
+        0 => array(
+          'value' => '40.00',
+        ),
+      ),
+    ),
+    'field_cabinetry_slide_clearance' => array(
+      'und' => array(
+        0 => array(
+          'value' => 4.1,
+        ),
+      ),
+    ),
+    'field_cabinetry_slide_length' => array(
+      'und' => array(
+        0 => array(
+          'value' => 350,
         ),
       ),
     ),
