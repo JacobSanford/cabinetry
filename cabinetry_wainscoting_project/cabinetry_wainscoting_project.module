@@ -1,0 +1,94 @@
+<?php
+/**
+ * @file
+ * Code for the Cabinetry Wainscoting Project feature.
+ */
+
+include_once 'cabinetry_wainscoting_project.features.inc';
+include_once 'includes/utilities.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function cabinetry_wainscoting_project_menu() {
+  $items['node/%/cabinetry/labels'] = array(
+    'title' => 'Labels',
+    'page callback' => '_cabinetry_wainscoting_project_generate_pdf',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 5,
+  );
+
+  $items['node/%/cabinetry/plans'] = array(
+    'title' => 'Plan PDF',
+    'page callback' => '_cabinetry_wainscoting_project_generate_plans',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 5,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function cabinetry_wainscoting_project_form_cabinetry_wainscoting_project_node_form_alter(&$form, &$form_state, $form_id) {
+  form_load_include($form_state, 'inc', 'cabinetry_wainscoting_project', '/includes/form');
+
+  $cabinet_sheet_packing_algos = array(
+    'CabinetryShelfFFPacker' => 'ShelfFF from RectangleBinPack',
+  );
+  drupal_alter('cabinetry_sheet_packing', $cabinet_sheet_packing_algos);
+  $form['field_cabinetry_sheet_packing_al'][LANGUAGE_NONE]['#options'] = $cabinet_sheet_packing_algos;
+
+  hide($form['field_cabinetry_materials_hardwa']);
+  hide($form['field_cabinetry_materials_sheet']);
+  hide($form['field_cabinetry_materials_solid']);
+  hide($form['field_cabinetry_bill_of_goods']);
+  hide($form['field_cabinetry_project_labels']);
+
+  $form['#submit'][] = 'cabinetry_wainscoting_project_generate_materials';
+}
+
+/**
+ * Implements hook_node_presave().
+ */
+function cabinetry_wainscoting_project_node_presave($node) {
+  if ($node->type == 'cabinetry_wainscoting_project') {
+    static $hook_wainscoting_running = FALSE;
+    if ($hook_wainscoting_running) {
+      return;
+    }
+    else {
+      $hook_wainscoting_running = TRUE;
+    }
+
+    module_load_include('inc', 'cabinetry_wainscoting_project', 'includes/node');
+    ctools_include('object-cache');
+    $project = ctools_object_cache_get('cabinetry_wainscoting_project', 'presave_object');
+    ctools_object_cache_clear('cabinetry_wainscoting_project', 'presave_object');
+
+    /*
+    _cabinetry_cabinet_project_remove_sheet_materials($node);
+    _cabinetry_cabinet_project_add_sheet_materials($node, $project);
+
+    _cabinetry_cabinet_project_remove_solid_materials($node);
+    _cabinetry_cabinet_project_add_solid_materials($node, $project);
+
+    _cabinetry_cabinet_project_remove_hardware_materials($node);
+    _cabinetry_cabinet_project_add_hardware_materials($node, $project);
+
+    _cabinetry_cabinet_project_remove_banding_materials($node);
+    _cabinetry_cabinet_project_add_banding_materials($node, $project);
+
+    dpm($node);
+    _cabinetry_cabinet_project_remove_labels($node);
+    _cabinetry_cabinet_project_add_labels($node, $project);
+    */
+
+    $hook_wainscoting_running = FALSE;
+  }
+}
