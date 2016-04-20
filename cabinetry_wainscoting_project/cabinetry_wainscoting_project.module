@@ -13,7 +13,7 @@ include_once 'includes/utilities.inc';
 function cabinetry_wainscoting_project_menu() {
   $items['node/%/cabinetry/labels'] = array(
     'title' => 'Labels',
-    'page callback' => '_cabinetry_wainscoting_project_generate_pdf',
+    'page callback' => '_cabinetry_cabinet_project_generate_pdf',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
     'type' => MENU_LOCAL_TASK,
@@ -22,7 +22,7 @@ function cabinetry_wainscoting_project_menu() {
 
   $items['node/%/cabinetry/plans'] = array(
     'title' => 'Plan PDF',
-    'page callback' => '_cabinetry_wainscoting_project_generate_plans',
+    'page callback' => '_cabinetry_cabinet_project_generate_plans',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
     'type' => MENU_LOCAL_TASK,
@@ -67,28 +67,63 @@ function cabinetry_wainscoting_project_node_presave($node) {
     }
 
     module_load_include('inc', 'cabinetry_wainscoting_project', 'includes/node');
+    module_load_include('inc', 'cabinetry_cabinet_project', 'includes/node');
     ctools_include('object-cache');
     $project = ctools_object_cache_get('cabinetry_wainscoting_project', 'presave_object');
     ctools_object_cache_clear('cabinetry_wainscoting_project', 'presave_object');
 
-    /*
     _cabinetry_cabinet_project_remove_sheet_materials($node);
     _cabinetry_cabinet_project_add_sheet_materials($node, $project);
 
     _cabinetry_cabinet_project_remove_solid_materials($node);
     _cabinetry_cabinet_project_add_solid_materials($node, $project);
 
-    _cabinetry_cabinet_project_remove_hardware_materials($node);
-    _cabinetry_cabinet_project_add_hardware_materials($node, $project);
-
-    _cabinetry_cabinet_project_remove_banding_materials($node);
-    _cabinetry_cabinet_project_add_banding_materials($node, $project);
-
-    dpm($node);
     _cabinetry_cabinet_project_remove_labels($node);
     _cabinetry_cabinet_project_add_labels($node, $project);
-    */
+
+    dpm($node);
 
     $hook_wainscoting_running = FALSE;
   }
+}
+
+/**
+ * Implements hook_preprocess_hook().
+ */
+function cabinetry_wainscoting_project_preprocess_node(&$variables) {
+  if (in_array('node__cabinetry_wainscoting_project', $variables['theme_hook_suggestions'])) {
+    module_load_include('inc', 'cabinetry_cabinet_project', 'includes/theme');
+    $node_entity_wrapper = _cabinetry_cabinet_project_get_metadata_wrapper($variables);
+    $variables['title'] = $node_entity_wrapper->title->value();
+
+    $variables['solid_title'] = t('Solid Pieces');
+    $variables['solid_table'] = _cabinetry_cabinet_project_get_solid_table($node_entity_wrapper, $variables['node']);
+
+    $variables['solid_cut_title'] = t('Solid Pieces');
+    $variables['solid_cut_table'] = _cabinetry_cabinet_project_get_solid_cut_list_table($node_entity_wrapper, $variables['node']);
+
+    $variables['sheet_title'] = t('Sheet Goods');
+    $variables['sheet_table'] = _cabinetry_cabinet_project_get_sheet_table($node_entity_wrapper, $variables['node']);
+
+    $variables['bill_of_goods_title'] = t('Bill of Goods');
+    $variables['bill_of_goods_table'] = _cabinetry_cabinet_project_get_bill_goods_table($node_entity_wrapper, $variables['node']);
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function cabinetry_wainscoting_project_theme($existing, $type, $theme, $path) {
+  return array(
+    'node__cabinetry_wainscoting_project' => array(
+      'arguments' => array(
+        'view' => NULL,
+        'field' => NULL,
+        'row' => NULL,
+        'output' => NULL,
+      ),
+      'template' => 'node--cabinetry-cabinet-project',
+      'path' => drupal_get_path('module', 'cabinetry_cabinet_project') . '/templates',
+    ),
+  );
 }

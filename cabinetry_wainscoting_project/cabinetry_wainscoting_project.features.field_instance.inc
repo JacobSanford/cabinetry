@@ -44,7 +44,7 @@ function cabinetry_wainscoting_project_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -82,7 +82,7 @@ function cabinetry_wainscoting_project_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 5,
+      'weight' => 6,
     ),
   );
 
@@ -123,7 +123,7 @@ function cabinetry_wainscoting_project_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
@@ -164,7 +164,80 @@ function cabinetry_wainscoting_project_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 6,
+      'weight' => 7,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_wainscoting_sect-field_cabinetry_skip_baseboard_c'.
+  $field_instances['field_collection_item-field_cabinetry_wainscoting_sect-field_cabinetry_skip_baseboard_c'] = array(
+    'bundle' => 'field_cabinetry_wainscoting_sect',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 9,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_skip_baseboard_c',
+    'label' => 'Skip Baseboard Components',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 8,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cabinetry_wainscoting_sect-field_cabinetry_wainscot_sect_na'.
+  $field_instances['field_collection_item-field_cabinetry_wainscoting_sect-field_cabinetry_wainscot_sect_na'] = array(
+    'bundle' => 'field_cabinetry_wainscoting_sect',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 8,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_cabinetry_wainscot_sect_na',
+    'label' => 'Section Name',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 0,
     ),
   );
 
@@ -209,7 +282,7 @@ function cabinetry_wainscoting_project_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
@@ -250,7 +323,7 @@ function cabinetry_wainscoting_project_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 0,
+      'weight' => 1,
     ),
   );
 
@@ -291,7 +364,7 @@ function cabinetry_wainscoting_project_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -427,6 +500,48 @@ function cabinetry_wainscoting_project_field_default_field_instances() {
       'settings' => array(),
       'type' => 'options_select',
       'weight' => 8,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-cabinetry_wainscoting_project-field_cabinetry_extra_trim_mater'.
+  $field_instances['node-cabinetry_wainscoting_project-field_cabinetry_extra_trim_mater'] = array(
+    'bundle' => 'cabinetry_wainscoting_project',
+    'default_value' => array(
+      0 => array(
+        'tid' => 24,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 14,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cabinetry_extra_trim_mater',
+    'label' => 'Trim Material',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 11,
     ),
   );
 
@@ -777,7 +892,142 @@ function cabinetry_wainscoting_project_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
+      'weight' => 10,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-cabinetry_wainscoting_project-field_cabinetry_thickness'.
+  $field_instances['node-cabinetry_wainscoting_project-field_cabinetry_thickness'] = array(
+    'bundle' => 'cabinetry_wainscoting_project',
+    'default_value' => array(
+      0 => array(
+        'value' => 19.05,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 16,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cabinetry_thickness',
+    'label' => 'Solid Thickness',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '0.0',
+      'prefix' => '',
+      'suffix' => 'mm',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
       'weight' => 9,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-cabinetry_wainscoting_project-field_cabinetry_wainsc_cove_moul'.
+  $field_instances['node-cabinetry_wainscoting_project-field_cabinetry_wainsc_cove_moul'] = array(
+    'bundle' => 'cabinetry_wainscoting_project',
+    'default_value' => array(
+      0 => array(
+        'tid' => 26,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Cove Moulding',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 18,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cabinetry_wainsc_cove_moul',
+    'label' => 'Cove Moulding',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 13,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-cabinetry_wainscoting_project-field_cabinetry_wainsc_round_ove'.
+  $field_instances['node-cabinetry_wainscoting_project-field_cabinetry_wainsc_round_ove'] = array(
+    'bundle' => 'cabinetry_wainscoting_project',
+    'default_value' => array(
+      0 => array(
+        'tid' => 25,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 17,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cabinetry_wainsc_round_ove',
+    'label' => 'Round Over',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 12,
     ),
   );
 
@@ -906,6 +1156,7 @@ function cabinetry_wainscoting_project_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Cabinetry Left Stud Distance');
   t('Cabinetry Right Stud Distance');
+  t('Cove Moulding');
   t('Extend Left Stile Width');
   t('Extend Right Stile Width');
   t('Library Class Name');
@@ -919,13 +1170,18 @@ function cabinetry_wainscoting_project_field_default_field_instances() {
   t('Panel Sheet Material');
   t('Project Labels');
   t('Rail/Stile Material');
+  t('Round Over');
   t('Saw Blade Cut Width');
+  t('Section Name');
   t('Section Width');
   t('Sheet Packing Algorithim');
   t('Should the left stile be widened to allow for butt joint overlap from another wall?');
   t('Should the right stile be widened to allow for butt joint overlap from another wall?');
+  t('Skip Baseboard Components');
   t('Solid Stock Length');
+  t('Solid Thickness');
   t('Stud Spacing');
+  t('Trim Material');
   t('Wainscoting Height');
   t('Wainscoting Style');
   t('Wall Section(s)');

@@ -28,19 +28,26 @@ function cabinetry_wainscoting_project_generate_materials(&$form, &$form_state) 
         $form_state['values']['field_cabinetry_height'][LANGUAGE_NONE][0]['value'],
         $section_component['field_number_of_sections'][LANGUAGE_NONE][0]['value']
       );
+      $component->label = $section_component['field_cabinetry_wainscot_sect_na'][LANGUAGE_NONE][0]['value'];
       $component->frameRouterBit = $project->frameRouterBit;
       $component->panelSheetGood = _cabinetry_core_load_sheet_good_object($form_state['values']['field_cabinetry_carcass_sheet_mt'][LANGUAGE_NONE][0]['tid']);
       $component->railSolidMaterialTid = $form_state['values']['field_cabinetry_door_frame_mater'][LANGUAGE_NONE][0]['tid'];
+      $component->solidThickness = $form_state['values']['field_cabinetry_thickness'][LANGUAGE_NONE][0]['value'];
       $component->maxRailLength = $form_state['values']['field_cabinetry_solid_stock_leng'][LANGUAGE_NONE][0]['value'];
+      $component->trimMaterial = _cabinetry_core_load_sheet_good_object($form_state['values']['field_cabinetry_extra_trim_mater'][LANGUAGE_NONE][0]['tid']);
+      $component->roundOverMaterial = _cabinetry_core_load_sheet_good_object($form_state['values']['field_cabinetry_wainsc_round_ove'][LANGUAGE_NONE][0]['tid']);
+      $component->coveMouldingMaterial = _cabinetry_core_load_sheet_good_object($form_state['values']['field_cabinetry_wainsc_cove_moul'][LANGUAGE_NONE][0]['tid']);
+      $component->skipBaseboard = (bool) $section_component['field_cabinetry_skip_baseboard_c'][LANGUAGE_NONE][0]['value'];
+
       $component->build($section_component);
       $project->addComponent($component);
     }
   }
 
-  // $project->collateParts();
-  // $project->packSolids($form_state['values']['field_cabinetry_sheet_packing_al'][LANGUAGE_NONE][0]['value']);
-  // $project->packSheets($form_state['values']['field_cabinetry_sheet_packing_al'][LANGUAGE_NONE][0]['value']);
-  // $project->plotSheets();
+  $project->collateParts();
+  $project->packSolids($form_state['values']['field_cabinetry_sheet_packing_al'][LANGUAGE_NONE][0]['value']);
+  $project->packSheets($form_state['values']['field_cabinetry_sheet_packing_al'][LANGUAGE_NONE][0]['value']);
+  $project->plotSheets();
 
   ctools_include('object-cache');
   ctools_object_cache_set('cabinetry_wainscoting_project', 'presave_object', $project);

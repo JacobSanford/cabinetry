@@ -28,6 +28,10 @@ function cabinetry_wainscoting_project_field_group_info() {
       2 => 'field_cabinetry_solid_stock_leng',
       3 => 'field_cabinetry_carcass_sheet_mt',
       4 => 'field_cabinetry_door_frame_mater',
+      5 => 'field_cabinetry_extra_trim_mater',
+      6 => 'field_cabinetry_thickness',
+      7 => 'field_cabinetry_wainsc_round_ove',
+      8 => 'field_cabinetry_wainsc_cove_moul',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
