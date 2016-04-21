@@ -838,7 +838,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 15,
+        'tid' => 18,
       ),
     ),
     'deleted' => 0,
@@ -912,7 +912,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 6,
+        'tid' => 7,
       ),
     ),
     'deleted' => 0,
@@ -1112,7 +1112,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 8,
+        'tid' => 21,
       ),
     ),
     'deleted' => 0,
@@ -1193,7 +1193,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 7,
+        'tid' => 8,
       ),
     ),
     'deleted' => 0,
@@ -1229,7 +1229,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 13,
+        'tid' => 15,
       ),
     ),
     'deleted' => 0,
@@ -1265,7 +1265,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 10,
+        'tid' => 11,
       ),
     ),
     'deleted' => 0,
@@ -1437,7 +1437,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 10,
+        'tid' => 18,
       ),
     ),
     'deleted' => 0,
@@ -1681,7 +1681,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_project_componen',
     'default_value' => array(
       0 => array(
-        'tid' => 18,
+        'tid' => 16,
       ),
     ),
     'deleted' => 0,
@@ -1835,7 +1835,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_single_piece',
     'default_value' => array(
       0 => array(
-        'tid' => 6,
+        'tid' => 7,
       ),
     ),
     'deleted' => 0,
@@ -1871,7 +1871,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'field_cabinetry_single_piece',
     'default_value' => array(
       0 => array(
-        'tid' => 8,
+        'tid' => 21,
       ),
     ),
     'deleted' => 0,
@@ -2357,7 +2357,7 @@ function cabinetry_cabinet_project_field_default_field_instances() {
     'bundle' => 'cabinetry_cabinet_project',
     'default_value' => array(
       0 => array(
-        'tid' => 11,
+        'tid' => 17,
       ),
     ),
     'deleted' => 0,

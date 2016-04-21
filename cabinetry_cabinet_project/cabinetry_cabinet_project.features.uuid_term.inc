@@ -74,6 +74,28 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Freud 97-156 set with BackCutters',
+    'description' => 'Freud 97-156 set with BackCutters',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '19c9a6a8-4699-4d1b-abe3-534d5ece8635',
+    'vocabulary_machine_name' => 'cabinetry_rail_stile_router_bits',
+    'field_cabinetry_rail_cut_depth' => array(
+      'und' => array(
+        0 => array(
+          'value' => 11.1125,
+        ),
+      ),
+    ),
+    'field_cabinetry_rail_cut_thickne' => array(
+      'und' => array(
+        0 => array(
+          'value' => 6,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => '350mm Blum T230M',
     'description' => '',
     'format' => 'filtered_html',
@@ -152,6 +174,21 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Poplar D4S',
+    'description' => 'D4S Poplar',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '5fe65f92-a03d-4c34-9002-f4e7cd9099e7',
+    'vocabulary_machine_name' => 'cabinetry_solid_wood',
+    'field_cabinetry_item_cost' => array(
+      'und' => array(
+        0 => array(
+          'value' => 8.35,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => '5/8" (16.8mm) Full Sheet White MOP Melamine',
     'description' => '',
     'format' => 'filtered_html',
@@ -220,6 +257,58 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
       'und' => array(
         0 => array(
           'value' => 3.35,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '2" Ogee Trim 16\' Length',
+    'description' => '2" Ogee Trim 16\' Length',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '8f6c6818-c3ed-40a0-a193-d94e4a2a1189',
+    'vocabulary_machine_name' => 'cabinetry_sheet_goods',
+    'field_cabinetry_height' => array(
+      'und' => array(
+        0 => array(
+          'value' => 80,
+        ),
+      ),
+    ),
+    'field_cabinetry_item_cost' => array(
+      'und' => array(
+        0 => array(
+          'value' => '52.00',
+        ),
+      ),
+    ),
+    'field_cabinetry_preserve_grain' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+        ),
+      ),
+    ),
+    'field_cabinetry_sheet_core' => array(
+      'und' => array(
+        0 => array(
+          'tid' => '9f87de29-3de6-4a39-acd3-74dd52f2d06b',
+        ),
+      ),
+    ),
+    'field_cabinetry_sheet_veneer_one' => array(),
+    'field_cabinetry_sheet_veneer_two' => array(),
+    'field_cabinetry_thickness' => array(
+      'und' => array(
+        0 => array(
+          'value' => 80,
+        ),
+      ),
+    ),
+    'field_cabinetry_width' => array(
+      'und' => array(
+        0 => array(
+          'value' => 4876.8,
         ),
       ),
     ),
@@ -421,6 +510,58 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => '1/4" Round Over 16\' Length',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'e8d95912-7edf-4f85-9fbf-0bec397ea621',
+    'vocabulary_machine_name' => 'cabinetry_sheet_goods',
+    'field_cabinetry_height' => array(
+      'und' => array(
+        0 => array(
+          'value' => 80,
+        ),
+      ),
+    ),
+    'field_cabinetry_item_cost' => array(
+      'und' => array(
+        0 => array(
+          'value' => '15.00',
+        ),
+      ),
+    ),
+    'field_cabinetry_preserve_grain' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+        ),
+      ),
+    ),
+    'field_cabinetry_sheet_core' => array(
+      'und' => array(
+        0 => array(
+          'tid' => '5a93ccb2-2e2c-4d49-90d7-01eee753de92',
+        ),
+      ),
+    ),
+    'field_cabinetry_sheet_veneer_one' => array(),
+    'field_cabinetry_sheet_veneer_two' => array(),
+    'field_cabinetry_thickness' => array(
+      'und' => array(
+        0 => array(
+          'value' => 80,
+        ),
+      ),
+    ),
+    'field_cabinetry_width' => array(
+      'und' => array(
+        0 => array(
+          'value' => 4876.8,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => '1/4" (6mm) FibreLex White One Side',
     'description' => '',
     'format' => 'filtered_html',
@@ -468,6 +609,58 @@ function cabinetry_cabinet_project_uuid_features_default_terms() {
       'und' => array(
         0 => array(
           'value' => 2440,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '1/2" Cove Moulding 16\' Length',
+    'description' => '1/2" Cove Moulding 16\' Length',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'f3743c35-4a98-4aba-a036-43ec687852fe',
+    'vocabulary_machine_name' => 'cabinetry_sheet_goods',
+    'field_cabinetry_height' => array(
+      'und' => array(
+        0 => array(
+          'value' => 80,
+        ),
+      ),
+    ),
+    'field_cabinetry_item_cost' => array(
+      'und' => array(
+        0 => array(
+          'value' => '15.00',
+        ),
+      ),
+    ),
+    'field_cabinetry_preserve_grain' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+        ),
+      ),
+    ),
+    'field_cabinetry_sheet_core' => array(
+      'und' => array(
+        0 => array(
+          'tid' => '5a93ccb2-2e2c-4d49-90d7-01eee753de92',
+        ),
+      ),
+    ),
+    'field_cabinetry_sheet_veneer_one' => array(),
+    'field_cabinetry_sheet_veneer_two' => array(),
+    'field_cabinetry_thickness' => array(
+      'und' => array(
+        0 => array(
+          'value' => 80,
+        ),
+      ),
+    ),
+    'field_cabinetry_width' => array(
+      'und' => array(
+        0 => array(
+          'value' => 4876.8,
         ),
       ),
     ),
