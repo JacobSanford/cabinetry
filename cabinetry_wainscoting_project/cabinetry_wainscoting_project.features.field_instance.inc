@@ -20,7 +20,7 @@ function cabinetry_wainscoting_project_field_default_field_instances() {
       ),
     ),
     'deleted' => 0,
-    'description' => 'Should the left stile be widened to allow for butt joint overlap from another wall?',
+    'description' => 'Should the left stile be widened to allow for lap joint overlap from another wall?',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -58,7 +58,7 @@ function cabinetry_wainscoting_project_field_default_field_instances() {
       ),
     ),
     'deleted' => 0,
-    'description' => 'Should the right stile be widened to allow for butt joint overlap from another wall?',
+    'description' => 'Should the right stile be widened to allow for lap joint overlap from another wall?',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -1175,8 +1175,8 @@ function cabinetry_wainscoting_project_field_default_field_instances() {
   t('Section Name');
   t('Section Width');
   t('Sheet Packing Algorithim');
-  t('Should the left stile be widened to allow for butt joint overlap from another wall?');
-  t('Should the right stile be widened to allow for butt joint overlap from another wall?');
+  t('Should the left stile be widened to allow for lap joint overlap from another wall?');
+  t('Should the right stile be widened to allow for lap joint overlap from another wall?');
   t('Skip Baseboard Components');
   t('Solid Stock Length');
   t('Solid Thickness');

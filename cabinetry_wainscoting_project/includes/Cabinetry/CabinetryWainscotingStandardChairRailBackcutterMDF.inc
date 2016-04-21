@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Provides a generic object to serve as components within a cabinet project.
+ * Provides a generic object to serve as components within a wainscoting project.
  */
 
 /**
@@ -186,12 +186,25 @@ class CabinetryWainscotingStandardChairRailBackcutterMDF extends CabinetryWainsc
    *   cabinetry_cabinet_project_node_form drupal module form submit.
    */
   public function build($section_component) {
+    // Assign component values to object from form.
     $this->studSpacing = (float) $section_component['field_cabinetry_wainscoting_stud'][LANGUAGE_NONE][0]['value'];
     $this->leftStudDistance = (float) $section_component['field_cabinetry_left_stud_distan'][LANGUAGE_NONE][0]['value'];
     $this->rightStudDistance = (float) $section_component['field_cabinetry_right_stud_dista'][LANGUAGE_NONE][0]['value'];
     $this->padLeftSide = (bool) $section_component['field_cabinetry_extend_left_stil'][LANGUAGE_NONE][0]['value'];
     $this->padRightSide = (bool) $section_component['field_cabinetry_extend_right_sti'][LANGUAGE_NONE][0]['value'];
     $this->numPanels = (int) $section_component['field_number_of_sections'][LANGUAGE_NONE][0]['value'];
+
+    // Reduce size slightly to allow fitting.
+    $this->width = $this->width - 2.0;
+
+    // If connecting to padded/lapped side(s), reduce width.
+    if ($this->padLeftSide == FALSE) {
+      $this->width = $this->width - $this->solidThickness;
+    }
+    if ($this->padRightSide == FALSE) {
+      $this->width = $this->width - $this->solidThickness;
+    }
+
     $this->generateParts();
   }
 
@@ -203,10 +216,11 @@ class CabinetryWainscotingStandardChairRailBackcutterMDF extends CabinetryWainsc
     $this->generateChairRailParts();
     $this->generateCoveMouldingParts();
     $this->generatePanelParts();
+    $this->generateCleatParts();
+    $this->generateBaseboardParts();
+    $this->generateRoundOverParts();
     if ($this->skipBaseboard == FALSE) {
-      $this->generateBaseboardParts();
       $this->generateBaseCapTrimParts();
-      $this->generateRoundOverParts();
     }
   }
 
@@ -248,28 +262,39 @@ class CabinetryWainscotingStandardChairRailBackcutterMDF extends CabinetryWainsc
   public function generateStileParts() {
     $this->totalStileHeight = 0.0;
     $num_stiles = $this->numPanels + 1;
+
     $stile_width = $this->height
       - $this->supportStrappingHeight
       - $this->bottomRailHeight
       - $this->topRailHeight
-      - $this->panelSheetGood->thickness
+      - $this->solidThickness
       + (2 * $this->frameRouterBit->cutDepth);
+
     $this->stileWidth = $stile_width;
 
     for ($i = 0; $i <= $num_stiles - 1; $i++) {
       $stile_height = $this->stileHeight;
       $notes = 0.0;
 
+      // If stiles are padded, use topRailHeight height and make a note to rip.
       if ($i == 0 && $this->padLeftSide == TRUE) {
         $stile_height = $this->topRailHeight;
-        $notes = "Rip to " . ($stile_height + $this->panelSheetGood->thickness) . "mm";
+        $notes = "Rip to " . ($this->stileHeight + $this->solidThickness) . "mm";
       }
       elseif ($i == $num_stiles - 1 && $this->padRightSide == TRUE) {
         $stile_height = $this->topRailHeight;
-        $notes = "Rip to " . ($stile_height + $this->panelSheetGood->thickness) . "mm";
+        $notes = "Rip to " . ($this->stileHeight + $this->solidThickness) . "mm";
       }
       $this->addSolidWoodPart($stile_width, $stile_height, $this->railSolidMaterialTid, "Stile $i", $notes);
       $this->totalStileHeight += $stile_height;
+
+      // If stiles were padded, make sure we have a correct totalStileHeight.
+      if ($i == 0 && $this->padLeftSide == TRUE) {
+        $this->totalStileHeight = $this->totalStileHeight - ($this->topRailHeight - ($this->stileHeight + $this->solidThickness));
+      }
+      elseif ($i == $num_stiles - 1 && $this->padRightSide == TRUE) {
+        $this->totalStileHeight = $this->totalStileHeight - ($this->topRailHeight - ($this->stileHeight + $this->solidThickness));
+      }
     }
   }
 
@@ -293,6 +318,13 @@ class CabinetryWainscotingStandardChairRailBackcutterMDF extends CabinetryWainsc
     $this->generateSheetGoodParts($this->baseBoardHeight, $this->panelSheetGood, "BaseBoard", '', FALSE);
   }
 
+  public function generateCleatParts() {
+    $number_of_cleats = ceil($this->width / $this->panelSheetGood->width) + 2;
+    for ($i = 0; $i < $number_of_cleats - 1; $i++) {
+      $this->addSolidWoodPart($this->supportStrappingHeight, $this->chairRailHeight, $this->railSolidMaterialTid, "Cleat $i", '');
+    }
+  }
+
   public function generatePanelParts() {
     $panel_width = $this->width - $this->totalStileHeight;
     $each_panel_width = $panel_width / $this->numPanels + (2 * $this->frameRouterBit->cutDepth) - (2 * $this->panelUnderSize);
@@ -302,55 +334,69 @@ class CabinetryWainscotingStandardChairRailBackcutterMDF extends CabinetryWainsc
     }
   }
 
-  public function generateSolidParts($height, $max_length, $solid_tid, $label, $notes, $reverse = FALSE) {
+  public function generateSolidParts($height, $max_length, $solid_tid, $label, $notes, $reverse = FALSE, $offset = 0, $needs_stud = FALSE) {
     $parts = array();
-    if ($this->width <= $max_length) {
-      $parts[] = array('width' => $this->width);
+    $remainder_length = $this->width;
+
+    if ($offset > 0) {
+      $parts[] = array('width' => $offset);
+      $remainder_length = $remainder_length - $offset;
     }
-    else {
-      $remainder_length = $this->width;
-      while ($remainder_length > 0) {
-        // Cut a custom length to get final piece.
-        if ($remainder_length <= $max_length) {
-          $parts[] = array('width' => $remainder_length);
-          $remainder_length = 0;
+
+    while ($remainder_length > 0) {
+      if ($remainder_length <= $max_length) {
+        $parts[] = array('width' => $remainder_length);
+        $remainder_length = 0;
+      }
+      else {
+        $part_length = $max_length;
+        if ($needs_stud == TRUE) {
+          $part_length = $this->getMeasurementToFurthestStud($this->width - $remainder_length, $offset);
         }
-        else {
-          $parts[] = array('width' => $max_length);
-          $remainder_length = $remainder_length - $max_length;
-        }
+
+        $parts[] = array('width' => $part_length);
+        $remainder_length = $remainder_length - $part_length;
       }
     }
+
     if ($reverse == TRUE) {
       $parts = array_reverse($parts);
     }
+
     foreach ($parts as $part_index => $part) {
       $this->addSolidWoodPart($part['width'], $height, $solid_tid, "$label $part_index", $notes);
     }
   }
 
-  public function generateSheetGoodParts($height, $sheet_good, $label, $notes, $reverse = FALSE) {
+  public function generateSheetGoodParts($height, $sheet_good, $label, $notes, $reverse = FALSE, $offset = 0) {
     $parts = array();
-    if ($this->width <= $sheet_good->width) {
-      $parts[] = array('width' => $this->width);
+    $remainder_length = $this->width;
+
+    if ($offset > 0) {
+      $parts[] = array('width' => $offset);
+      $remainder_length = $remainder_length - $offset;
     }
-    else {
-      $remainder_length = $this->width;
-      while ($remainder_length > 0) {
-        // Cut a custom length to get final piece.
-        if ($remainder_length <= $sheet_good->width) {
-          $parts[] = array('width' => $remainder_length);
-          $remainder_length = 0;
+
+    while ($remainder_length > 0) {
+      if ($remainder_length <= $sheet_good->width) {
+        $parts[] = array('width' => $remainder_length);
+        $remainder_length = 0;
+      }
+      else {
+        $part_length = $sheet_good->width;
+        if ($sheet_good->width == TRUE) {
+          $part_length = $this->getMeasurementToFurthestStud($this->width - $remainder_length, $offset);
         }
-        else {
-          $parts[] = array('width' => $sheet_good->width);
-          $remainder_length = $remainder_length - $sheet_good->width;
-        }
+
+        $parts[] = array('width' => $part_length);
+        $remainder_length = $remainder_length - $part_length;
       }
     }
+
     if ($reverse == TRUE) {
       $parts = array_reverse($parts);
     }
+
     foreach ($parts as $part_index => $part) {
       $this->addSheetGoodPart($part['width'], $height, $sheet_good, "$label $part_index", $notes);
     }
