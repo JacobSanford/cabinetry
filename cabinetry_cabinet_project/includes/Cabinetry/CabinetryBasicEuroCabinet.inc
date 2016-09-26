@@ -263,8 +263,8 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
     $this->parts[] = new CabinetryWoodPart(
       'Back Panel',
       $this->backSheetGood->thickness,
-      $this->height,
-      $this->carcassInnerWidth + 2 * $dado_depth,
+      $this->height - (2 * $this->carcassSheetGood->thickness) + (2 * $dado_depth),
+      $this->carcassInnerWidth + (2 * $dado_depth),
       $this->backSheetGood,
       ''
     );
@@ -364,13 +364,15 @@ class CabinetryBasicEuroCabinet extends CabinetryComponent {
    *   A label to identify the side (Top, Bottom).
    */
   protected function generateTopBottomPart($label) {
+    $dado_depth = round($this->carcassSheetGood->thickness / 2, 1);
+
     $this->parts[] = new CabinetryWoodPart(
       "$label Carcass",
       $this->carcassSheetGood->thickness,
       $this->carcassInnerWidth,
       $this->depth,
       $this->carcassSheetGood,
-      ''
+      "Cut {$dado_depth}mm Deep Dado {$this->carcassSheetGood->thickness}mm from long side on one side."
     );
     $this->addBanding($this->carcassSheetGood->material, $this->carcassSheetGood->thickness, $this->carcassInnerWidth);
   }
