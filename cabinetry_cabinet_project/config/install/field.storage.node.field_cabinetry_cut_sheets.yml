@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - cabinetry_core
+    - node
+id: node.field_cabinetry_cut_sheets
+field_name: field_cabinetry_cut_sheets
+entity_type: node
+type: entity_reference
+settings:
+  target_type: cabinetry_cut_sheet
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

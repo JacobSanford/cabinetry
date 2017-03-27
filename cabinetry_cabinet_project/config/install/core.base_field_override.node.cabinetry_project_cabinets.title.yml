@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.cabinetry_project_cabinets
+id: node.cabinetry_project_cabinets.title
+field_name: title
+entity_type: node
+bundle: cabinetry_project_cabinets
+label: 'Project Name'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

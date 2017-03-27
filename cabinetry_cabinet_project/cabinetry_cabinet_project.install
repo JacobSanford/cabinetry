@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for cabinetry_core.
+ */
+
+use Drupal\cabinetry_cabinet_project\TaxonomyHelper;
+
+/**
+ * Implements hook_install().
+ */
+function cabinetry_cabinet_project_install() {
+  module_set_weight('cabinetry_cabinet_project', 101);
+  TaxonomyHelper::addDefaultCabinetModuleTypes();
+}

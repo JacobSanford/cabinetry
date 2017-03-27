@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cabinetry_door_frame_mater
+    - node.type.cabinetry_project_cabinets
+    - taxonomy.vocabulary.cabinetry_solid_stock
+id: node.cabinetry_project_cabinets.field_cabinetry_door_frame_mater
+field_name: field_cabinetry_door_frame_mater
+entity_type: node
+bundle: cabinetry_project_cabinets
+label: 'Cabinetry Door Frame Material'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      cabinetry_solid_stock: cabinetry_solid_stock
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

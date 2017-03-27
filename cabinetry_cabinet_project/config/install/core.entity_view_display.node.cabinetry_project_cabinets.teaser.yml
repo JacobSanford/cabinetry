@@ -1,0 +1,48 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_cabinet_door_rev
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_cabinet_modules
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_cabinet_parts
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_cut_sheets
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_door_frame_mater
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_door_panel_mater
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_door_panel_under
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_proj_carcass_bac
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_proj_carcass_mat
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_proj_door_bit
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_proj_enforce_32
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_proj_saw_blade
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_project_hinge_pl
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_project_hinges
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_railstile_height
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_railstile_thickn
+    - node.type.cabinetry_project_cabinets
+  module:
+    - user
+id: node.cabinetry_project_cabinets.teaser
+targetEntityType: node
+bundle: cabinetry_project_cabinets
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_cabinetry_cabinet_door_rev: true
+  field_cabinetry_cabinet_modules: true
+  field_cabinetry_cabinet_parts: true
+  field_cabinetry_cut_sheets: true
+  field_cabinetry_door_frame_mater: true
+  field_cabinetry_door_panel_mater: true
+  field_cabinetry_door_panel_under: true
+  field_cabinetry_proj_carcass_bac: true
+  field_cabinetry_proj_carcass_mat: true
+  field_cabinetry_proj_door_bit: true
+  field_cabinetry_proj_enforce_32: true
+  field_cabinetry_proj_saw_blade: true
+  field_cabinetry_project_hinge_pl: true
+  field_cabinetry_project_hinges: true
+  field_cabinetry_railstile_height: true
+  field_cabinetry_railstile_thickn: true

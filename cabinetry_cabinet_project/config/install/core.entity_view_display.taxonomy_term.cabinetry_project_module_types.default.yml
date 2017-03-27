@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.cabinetry_project_module_types.field_cabinetry_proj_mod_class_n
+    - taxonomy.vocabulary.cabinetry_project_module_types
+  module:
+    - text
+id: taxonomy_term.cabinetry_project_module_types.default
+targetEntityType: taxonomy_term
+bundle: cabinetry_project_module_types
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+  field_cabinetry_proj_mod_class_n:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+hidden: {  }

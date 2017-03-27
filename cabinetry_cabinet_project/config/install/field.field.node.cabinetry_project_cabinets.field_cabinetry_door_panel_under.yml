@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cabinetry_door_panel_under
+    - node.type.cabinetry_project_cabinets
+id: node.cabinetry_project_cabinets.field_cabinetry_door_panel_under
+field_name: field_cabinetry_door_panel_under
+entity_type: node
+bundle: cabinetry_project_cabinets
+label: 'Cabinet Door Panel Underdersize '
+description: 'Enter the amount (on each side) to undersize the door panels to allow for fitting and expansion, in mm.'
+required: true
+translatable: false
+default_value:
+  -
+    value: !!float 2
+default_value_callback: ''
+settings:
+  min: !!float 0
+  max: null
+  prefix: ''
+  suffix: mm
+field_type: float

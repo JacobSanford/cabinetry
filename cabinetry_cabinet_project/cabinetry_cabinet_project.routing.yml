@@ -1,0 +1,33 @@
+cabinetry_cabinet_project.manage_project_modules:
+  path: '/node/{node}/cabinet_modules'
+  defaults:
+    _form: '\Drupal\cabinetry_cabinet_project\Form\ManageProjectModulesForm'
+    _title: 'Manage Cabinet Modules'
+  requirements:
+    _permission: 'access content'
+    _custom_access: '\Drupal\cabinetry_cabinet_project\Controller\CabinetProjectCheckTypeController::checkType'
+
+cabinetry_cabinet_project.delete_project_module:
+  path: '/node/{node}/cabinet_modules/{delta}/{cabinetry_cabinet_module}/delete'
+  defaults:
+    _entity_form: cabinetry_cabinet_module.delete
+    _title: 'Delete Cabinet Module'
+  requirements:
+    _permission: 'access content'
+
+cabinetry_cabinet_project.edit_project_module:
+  path: '/node/{node}/cabinet_modules/{delta}/{cabinetry_cabinet_module}/edit'
+  defaults:
+    _entity_form: cabinetry_cabinet_module.edit
+    _title: 'Edit Cabinet Module'
+  requirements:
+    _permission: 'access content'
+
+cabinetry_cabinet_project.add_project_module:
+  path: '/node/{node}/cabinet_modules/add'
+  defaults:
+    _entity_form: cabinetry_cabinet_module.add
+    _title: 'Add Cabinet Module'
+  requirements:
+    _permission: 'access content'
+    _custom_access: '\Drupal\cabinetry_cabinet_project\Controller\CabinetProjectCheckTypeController::checkType'

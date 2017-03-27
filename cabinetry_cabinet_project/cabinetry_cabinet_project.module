@@ -1,0 +1,257 @@
+<?php
+
+/**
+ * @file
+ * Contains cabinetry_core.module.
+ */
+
+use Drupal\cabinetry_cabinet_project\CabinetProjectConstants;
+use Drupal\Core\Url;
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function cabinetry_cabinet_project_theme($existing, $type, $theme, $path) {
+  return [
+    'node__cabinetry_project_cabinets' => [
+      'arguments' => [
+        'view' => NULL,
+        'field' => NULL,
+        'row' => NULL,
+        'output' => NULL,
+      ],
+      'template' => 'node--cabinetry-project-cabinets',
+      'path' => drupal_get_path('module', 'cabinetry_cabinet_project') . '/templates',
+      'base hook' => 'node__cabinetry_project_cabinets',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_hook().
+ */
+function cabinetry_cabinet_project_preprocess_node__cabinetry_project_cabinets(&$variables) {
+  $node = $variables['elements']['#node'];
+  /* @var $node \Drupal\node\NodeInterface */
+
+  $variables['sheets_count'] = count($node->get(CabinetProjectConstants::CABINET_PROJECT_CABINET_CUT_SHEETS_FIELD));
+  $sheets_table = views_embed_view('cabinetry_cabinet_project_cut_sheets', 'block_1', $node->id());
+  $variables['sheets_output'] = \Drupal::service('renderer')->render($sheets_table);
+}
+
+/**
+ * Implements hook_preprocess_views_hook().
+ */
+function cabinetry_cabinet_project_preprocess_views_view_field__cabinetry_cabinet_project_manage_modules__delta_1(&$variables) {
+  $project_nid = $variables['view']->args[0];
+  $delta = (int) $variables['output'];
+
+  $node = Node::load($project_nid);
+  $entity_id = $node
+    ->get(CabinetProjectConstants::CABINET_PROJECT_CABINET_MODULES_FIELD)
+    ->get($delta)->entity->id();
+
+  $form['actions']['edit'] = [
+    '#type' => 'link',
+    '#title' => t('Edit'),
+    '#url' => Url::fromRoute(
+      'cabinetry_cabinet_project.edit_project_module',
+      [
+        'node' => (int) $project_nid,
+        'delta' => (int) $delta,
+        'cabinetry_cabinet_module' => (int) $entity_id,
+      ]
+    ),
+    '#attributes' => [
+      'class' => ['button', 'use-ajax'],
+      'data-dialog-type' => 'modal',
+    ],
+    '#attached' => [
+      'library' => ['core/drupal.dialog.ajax'],
+    ],
+  ];
+
+  $form['actions']['delete'] = [
+    '#type' => 'link',
+    '#title' => t('Delete'),
+    '#url' => Url::fromRoute(
+      'cabinetry_cabinet_project.delete_project_module',
+      [
+        'node' => (int) $project_nid,
+        'delta' => (int) $delta,
+        'cabinetry_cabinet_module' => (int) $entity_id,
+      ]
+    ),
+    '#attributes' => [
+      'class' => ['button', 'use-ajax'],
+      'data-dialog-type' => 'modal',
+    ],
+    '#attached' => [
+      'library' => ['core/drupal.dialog.ajax'],
+    ],
+  ];
+
+  $variables['output'] = $form;
+}
+
+/**
+ * Implements hook_node_delete().
+ */
+function cabinetry_cabinet_project_node_delete(NodeInterface $node) {
+  if ($node->bundle() === CabinetProjectConstants::CABINET_PROJECT_ENTITY_NAME) {
+    _cabinetry_cabinet_project_remove_project_entities($node);
+  }
+}
+
+/**
+ * Delete a project entity and update context.
+ *
+ * @param object $entity
+ *   The entity to delete.
+ * @param array $context
+ *   The Batch API context array.
+ */
+function _cabinetry_cabinet_project_delete_entity($entity, array &$context) {
+  $context['message'] = t(
+    "Deleted entity @entity_name",
+    [
+      '@entity_name' => $entity->value,
+    ]
+  );
+
+  $entity->delete();
+}
+
+/**
+ * Build a list of cabinet types and classes for the type selector on forms.
+ *
+ * @param int $nid
+ *   The node id of the cabinetry projects.
+ *
+ * @return array
+ *   A list of classes and labels of cabinet types.
+ */
+function _cabinetry_cabinet_project_project_cabinet_types($nid) {
+  $data = [
+    'types' => [
+      'Drupal\cabinetry_cabinet_project\Cabinetry\Modules\BasicEuroCabinetModule' => 'Basic European Cabinet',
+    ],
+    'nid' => $nid,
+  ];
+  \Drupal::moduleHandler()->alter('cabinet_project_cabinet_types', $data);
+  return $data['types'];
+}
+
+/**
+ * Build batch definition array for a cabinet project parts building.
+ *
+ * @param int $nid
+ *   The node id of the cabinetry projects.
+ *
+ * @return array
+ *   A batch API definition array to generate the cabinet parts.
+ */
+function _cabinetry_cabinet_project_project_parts_build_batch($nid) {
+  return [
+    'title' => t('Generating Cabinetry Parts'),
+    'init_message' => t('Generating cabinet parts and cut list'),
+    'operations' => _cabinetry_cabinet_project_project_parts_build_batch_operations($nid),
+  ];
+}
+
+/**
+ * Build batch operations array for a cabinet project parts building.
+ *
+ * @param int $nid
+ *   The node id of the cabinetry projects.
+ *
+ * @return array
+ *   A batch API operations array to generate the cabinet parts.
+ */
+function _cabinetry_cabinet_project_project_parts_build_batch_operations($nid) {
+  $node = Node::load($nid);
+
+  $batch_operations = [];
+
+  // Remove assets from nodes.
+  $batch_operations[] = [
+    [
+      'Drupal\cabinetry_cabinet_project\Cabinetry\CabinetFactory',
+      'clearProjectParts',
+    ],
+    [$nid],
+  ];
+
+  // Delete current cabinet_part entities.
+  foreach ($node->get(CabinetProjectConstants::CABINET_PROJECT_CABINET_MODULES_FIELD) as $cabinet_module) {
+    // Generate Each Entity.
+    $batch_operations[] = [
+      [
+        'Drupal\cabinetry_cabinet_project\Cabinetry\CabinetFactory',
+        'generateModuleParts',
+      ],
+      [$nid, $cabinet_module->entity->id()],
+    ];
+  }
+
+  // Pack Sheets.
+  $batch_operations[] = [
+    [
+      'Drupal\cabinetry_core\Cabinetry\Packer\ShelfFF\ShelfFFPacker',
+      'packParts',
+    ],
+    [$nid],
+  ];
+
+  return ($batch_operations);
+}
+
+/**
+ * Delete entities in Batch API that may be attached to a project.
+ *
+ * @param \Drupal\node\NodeInterface $node
+ *   The cabinetry project node.
+ */
+function _cabinetry_cabinet_project_remove_project_entities(NodeInterface $node) {
+  $batch = [
+    'title' => t('Removing Entities Relating To Node'),
+    'init_message' => t('Removing cabinet project entities'),
+    'operations' => [],
+  ];
+
+  // Delete current cut_sheet entities.
+  foreach ($node->get(CabinetProjectConstants::CABINET_PROJECT_CABINET_CUT_SHEETS_FIELD) as $part_entity) {
+    // Delete attached files.
+    foreach ($part_entity->get('cut_sheets') as $file_entity) {
+      $batch['operations'][] = [
+        '_cabinetry_cabinet_project_delete_entity',
+        [$file_entity],
+      ];
+    }
+    // Delete entity.
+    $batch['operations'][] = [
+      '_cabinetry_cabinet_project_delete_entity',
+      [$part_entity],
+    ];
+  }
+
+  // Delete current cabinet_part entities.
+  foreach ($node->get(CabinetProjectConstants::CABINET_PROJECT_CABINET_PARTS_FIELD) as $part_entity) {
+    $batch['operations'][] = [
+      '_cabinetry_cabinet_project_delete_entity',
+      [$part_entity],
+    ];
+  }
+
+  // Delete current cabinet_modules entities.
+  foreach ($node->get(CabinetProjectConstants::CABINET_PROJECT_CABINET_MODULES_FIELD) as $module_entity) {
+    $batch['operations'][] = [
+      '_cabinetry_cabinet_project_delete_entity',
+      [$module_entity],
+    ];
+  }
+
+  batch_set($batch);
+}

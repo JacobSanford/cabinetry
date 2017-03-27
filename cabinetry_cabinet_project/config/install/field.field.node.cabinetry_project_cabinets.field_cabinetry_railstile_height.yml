@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cabinetry_railstile_height
+    - node.type.cabinetry_project_cabinets
+id: node.cabinetry_project_cabinets.field_cabinetry_railstile_height
+field_name: field_cabinetry_railstile_height
+entity_type: node
+bundle: cabinetry_project_cabinets
+label: 'Rail / Stile Frame Width'
+description: 'Enter the width of the rail/stile frame, in mm.'
+required: true
+translatable: false
+default_value:
+  -
+    value: 57.15
+default_value_callback: ''
+settings:
+  min: 25.4
+  max: 76.2
+  prefix: ''
+  suffix: mm
+field_type: float

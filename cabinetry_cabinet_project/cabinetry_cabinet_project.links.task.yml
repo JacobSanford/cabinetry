@@ -1,0 +1,5 @@
+cabinetry_cabinet_project.manage_project_modules:
+  route_name: cabinetry_cabinet_project.manage_project_modules
+  title: 'Cabinet Modules'
+  base_route: entity.node.canonical
+  weight: 100

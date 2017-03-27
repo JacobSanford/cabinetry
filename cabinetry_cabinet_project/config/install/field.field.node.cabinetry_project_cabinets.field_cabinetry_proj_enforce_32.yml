@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cabinetry_proj_enforce_32
+    - node.type.cabinetry_project_cabinets
+id: node.cabinetry_project_cabinets.field_cabinetry_proj_enforce_32
+field_name: field_cabinetry_proj_enforce_32
+entity_type: node
+bundle: cabinetry_project_cabinets
+label: 'Enforce 32mm System'
+description: 'Enforce 32mm system restrictions on carcass dimensions when auditing this project.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

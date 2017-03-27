@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cabinetry_proj_door_bit
+    - node.type.cabinetry_project_cabinets
+    - taxonomy.vocabulary.cabinetry_rail_stile_router_bits
+id: node.cabinetry_project_cabinets.field_cabinetry_proj_door_bit
+field_name: field_cabinetry_proj_door_bit
+entity_type: node
+bundle: cabinetry_project_cabinets
+label: 'Door Rail/Stile Router Bit'
+description: 'Select the router bit that will be used to mill the rail/style grooves in the door frames.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      cabinetry_rail_stile_router_bits: cabinetry_rail_stile_router_bits
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: cabinetry_rail_stile_router_bits
+field_type: entity_reference

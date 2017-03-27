@@ -1,0 +1,7 @@
+langcode: en
+status: true
+mode: default
+items:
+  -
+    name: 'Basic European Cabinet'
+    class: Drupal\cabinetry_core\Cabinetry\Project\BasicEuroCabinet

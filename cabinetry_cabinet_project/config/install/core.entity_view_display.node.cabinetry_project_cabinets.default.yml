@@ -1,0 +1,159 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_cabinet_door_rev
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_cabinet_modules
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_cabinet_parts
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_cut_sheets
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_door_frame_mater
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_door_panel_mater
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_door_panel_under
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_proj_carcass_bac
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_proj_carcass_mat
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_proj_door_bit
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_proj_enforce_32
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_proj_saw_blade
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_project_hinge_pl
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_project_hinges
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_railstile_height
+    - field.field.node.cabinetry_project_cabinets.field_cabinetry_railstile_thickn
+    - node.type.cabinetry_project_cabinets
+  module:
+    - user
+id: node.cabinetry_project_cabinets.default
+targetEntityType: node
+bundle: cabinetry_project_cabinets
+mode: default
+content:
+  field_cabinetry_cabinet_door_rev:
+    weight: 112
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+  field_cabinetry_cabinet_modules:
+    weight: 101
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_cabinetry_cabinet_parts:
+    weight: 107
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_cabinetry_cut_sheets:
+    weight: 116
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_cabinetry_door_frame_mater:
+    weight: 111
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_cabinetry_door_panel_mater:
+    weight: 110
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_cabinetry_door_panel_under:
+    weight: 113
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+  field_cabinetry_proj_carcass_bac:
+    weight: 106
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_cabinetry_proj_carcass_mat:
+    weight: 105
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_cabinetry_proj_door_bit:
+    weight: 104
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_cabinetry_proj_enforce_32:
+    weight: 102
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+  field_cabinetry_proj_saw_blade:
+    weight: 103
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_cabinetry_project_hinge_pl:
+    weight: 115
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_cabinetry_project_hinges:
+    weight: 114
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_cabinetry_railstile_height:
+    weight: 109
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+  field_cabinetry_railstile_thickn:
+    weight: 108
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }
